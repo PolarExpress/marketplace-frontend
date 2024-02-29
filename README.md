@@ -14,6 +14,7 @@ Use with `npm run <arg>`, where `<arg>` is one of the following:
 - `test` - launch test runner
 - `storybook` - start Storybook.js.  
   Note: by adding `?path=/onboarding` to the URL (or replacing an existing path if it is already there), a short guide to Storybook.js will be started. This is only possible as long as the default stories exist.
+- `test-storybook` - run the storybook tests and produces a coverage report. Requires a local running instance of storybook.
 
 ## Inspiration
 
