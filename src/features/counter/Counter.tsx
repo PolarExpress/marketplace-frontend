@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import styles from "./Counter.module.css"
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import styles from "./Counter.module.css";
 import {
   decrement,
   increment,
@@ -9,16 +9,16 @@ import {
   incrementByAmount,
   incrementIfOdd,
   selectCount,
-  selectStatus,
-} from "./counterSlice"
+  selectStatus
+} from "./counterSlice";
 
 export const Counter = () => {
-  const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount)
-  const status = useAppSelector(selectStatus)
-  const [incrementAmount, setIncrementAmount] = useState("2")
+  const dispatch = useAppDispatch();
+  const count = useAppSelector(selectCount);
+  const status = useAppSelector(selectStatus);
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
-  const incrementValue = Number(incrementAmount) || 0
+  const incrementValue = Number(incrementAmount) || 0;
 
   return (
     <div>
@@ -26,8 +26,7 @@ export const Counter = () => {
         <button
           className={styles.button}
           aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
+          onClick={() => dispatch(decrement())}>
           -
         </button>
         <span aria-label="Count" className={styles.value}>
@@ -36,8 +35,7 @@ export const Counter = () => {
         <button
           className={styles.button}
           aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
+          onClick={() => dispatch(increment())}>
           +
         </button>
       </div>
@@ -48,31 +46,28 @@ export const Counter = () => {
           value={incrementAmount}
           type="number"
           onChange={e => {
-            setIncrementAmount(e.target.value)
+            setIncrementAmount(e.target.value);
           }}
         />
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementByAmount(incrementValue))}
-        >
+          onClick={() => dispatch(incrementByAmount(incrementValue))}>
           Add Amount
         </button>
         <button
           className={styles.asyncButton}
           disabled={status !== "idle"}
-          onClick={() => dispatch(incrementAsync(incrementValue))}
-        >
+          onClick={() => dispatch(incrementAsync(incrementValue))}>
           Add Async
         </button>
         <button
           className={styles.button}
           onClick={() => {
-            dispatch(incrementIfOdd(incrementValue))
-          }}
-        >
+            dispatch(incrementIfOdd(incrementValue));
+          }}>
           Add If Odd
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
