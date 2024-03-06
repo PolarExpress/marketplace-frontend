@@ -11,6 +11,10 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "src/setupTests",
-    mockReset: true
+    mockReset: true,
+    coverage: {
+      provider: "istanbul",
+      reportsDirectory: "./coverage/vitest"
+    }
   }
 });
