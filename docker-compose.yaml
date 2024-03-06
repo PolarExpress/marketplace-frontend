@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - 3000:3000
 
   frontend-prod:
@@ -14,11 +14,10 @@ services:
 
   frontend-test:
     extends: frontend-base
-    build: 
+    build:
       target: test
     profiles: [test]
 
   test-storybook:
     extends: frontend-test
     entrypoint: ["npm", "run", "test-storybook:ci"]
-
