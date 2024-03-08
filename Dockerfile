@@ -1,16 +1,13 @@
 # syntax=docker/dockerfile:1
 
-FROM node:21-bookworm AS base
-RUN  npm install -g vite
-RUN  npm install -g typescript
+FROM node:21-bullseye as base
 
 # --------------------------------------
 
-FROM base AS deps
-
+FROM    base AS deps
 WORKDIR /deps/dev
-COPY package.json ./
-RUN npm install
+COPY    package.json ./
+RUN     npm install
 
 # --------------------------------------
 
@@ -18,19 +15,32 @@ FROM    base AS build
 WORKDIR /app
 COPY    --from=deps /deps/dev/node_modules ./node_modules
 COPY    . .
-# ?
+
 ENV     NODE_ENV production
 RUN     npm run build
 
 # --------------------------------------
 
-FROM node:21-alpine AS prepare
+FROM    base AS prepare
 WORKDIR /app
-RUN npm install -g serve
+RUN     npm install -g serve
 
 # --------------------------------------
 
 FROM prepare AS deploy
 COPY --from=build /app/dist /app/dist
+ENV  NODE_ENV production
 
 CMD ["serve", "-s", "dist", "-l", "8000"]
+
+# --------------------------------------
+
+FROM    base AS test
+WORKDIR /app
+COPY    --from=deps /deps/dev/node_modules ./node_modules
+COPY    . .
+
+RUN  npx playwright install-deps
+RUN  npx playwright install
+
+ENTRYPOINT ["npm", "run", "test"]

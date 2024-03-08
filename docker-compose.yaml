@@ -1,0 +1,23 @@
+services:
+  frontend-base: # Base service for frontend, do not run!
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+
+  frontend-prod:
+    extends: frontend-base
+    build:
+      target: deploy
+    profiles: [dev]
+
+  frontend-test:
+    extends: frontend-base
+    build:
+      target: test
+    profiles: [test]
+
+  test-storybook:
+    extends: frontend-test
+    entrypoint: ["npm", "run", "test-storybook:ci"]

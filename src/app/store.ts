@@ -10,7 +10,7 @@ const rootReducer = combineSlices({
   addons: AddOnSlice.reducer
 });
 // Infer the `RootState` type from the root reducer
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
 
 // The store setup is wrapped in `makeStore` to allow reuse
 // when setting up tests that need the same store config
@@ -24,19 +24,19 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   });
   // configure listeners using the provided defaults
   // optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
-  setupListeners(store.dispatch)
-  return store
-}
+  setupListeners(store.dispatch);
+  return store;
+};
 
-export const store = makeStore()
+export const store = makeStore();
 
 // Infer the type of `store`
-export type AppStore = typeof store
+export type AppStore = typeof store;
 // Infer the `AppDispatch` type from the store itself
-export type AppDispatch = AppStore["dispatch"]
+export type AppDispatch = AppStore["dispatch"];
 export type AppThunk<ThunkReturnType = void> = ThunkAction<
   ThunkReturnType,
   RootState,
   unknown,
   Action
->
+>;

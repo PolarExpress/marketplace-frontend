@@ -1,0 +1,58 @@
+name: Frontend Tests
+on:
+  pull_request:
+    branches: ["main"]
+    types: ["opened", "synchronize", "reopened", "ready_for_review"]
+    paths-ignore:
+      - "*.md"
+      - ".gitignore"
+      - ".dockerignore"
+
+jobs:
+  storybook:
+    if: github.event.pull_request.draft == false
+    name: Run Storybook tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Run Storybook
+        run: DOCKER_BUILDKIT=1 docker compose up test-storybook
+
+  vitest:
+    if: github.event.pull_request.draft == false
+    name: Run React unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Run React unit tests
+        run: DOCKER_BUILDKIT=1 docker compose up frontend-test
+
+  lint:
+    if: github.event.pull_request.draft == false
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 21
+
+      # ESLint and Prettier must be in `package.json`
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run eslint
+        run: npx eslint .
+
+      - name: Run Prettier
+        run: npx prettier --check .
