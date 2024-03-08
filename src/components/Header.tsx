@@ -1,13 +1,12 @@
 // Header component (logo + search bar)
-import React from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from "./SearchBar";
 
 const Header = () => {
-    return (
-        <h1>
-            Header
-        </h1>
-    );
+  return (
+    <div>
+      <SearchBar />
+    </div>
+  );
 };
 
 export default Header;
