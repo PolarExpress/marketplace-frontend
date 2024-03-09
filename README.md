@@ -15,6 +15,10 @@ Use with `npm run <arg>`, where `<arg>` is one of the following:
 - `storybook` - start Storybook.js.  
   Note: by adding `?path=/onboarding` to the URL (or replacing an existing path if it is already there), a short guide to Storybook.js will be started. This is only possible as long as the default stories exist.
 - `test-storybook` - run the storybook tests and produces a coverage report. Requires a local running instance of storybook.
+- `test-storybook:ci` - builds storybook and run the storybook tests. Must not have an instance of storybook running.
+- `build-tailwind` - rebuild the Tailwind CSS stylesheet.
+- `format` - run Prettier on the code.
+- `lint` - run eslint on the code. Append ` -- --fix` to also attempt to automatically fix problems it encounters.
 
 ## Inspiration
 
