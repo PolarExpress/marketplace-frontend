@@ -1,3 +1,4 @@
+// Defines temporary add-ons. Will be removed when backend is connected
 import type { Addon } from "../../types/AddOnTypes";
 import { AddonCategory } from "../../types/AddOnTypes";
 

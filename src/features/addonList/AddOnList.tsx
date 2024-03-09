@@ -16,8 +16,10 @@ const AddOnList = () => {
   return (
     <div className="addons-list" data-testid="addons-list">
       {searchTerm
-        ? filteredAddOns.map(addOn => <AddOnCard addOn={addOn} />)
-        : allAddOns.map(addOn => <AddOnCard addOn={addOn} />)}
+        ? filteredAddOns.map(addOn => (
+            <AddOnCard key={addOn.id} addOn={addOn} />
+          ))
+        : allAddOns.map(addOn => <AddOnCard key={addOn.id} addOn={addOn} />)}
     </div>
   );
 };

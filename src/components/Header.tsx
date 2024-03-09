@@ -1,4 +1,3 @@
-// Header component (logo + search bar)
 import SearchBar from "./SearchBar";
 
 const Header = () => {

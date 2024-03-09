@@ -1,6 +1,5 @@
 // Centralizes reusable custom Redux hooks
-// Explanation below is from the example project.
-// I don't think we need to touch this for now.
+// Explanation below is from the example project
 
 // This file serves as a central hub for re-exporting pre-typed Redux hooks.
 // These imports are restricted elsewhere to ensure consistent

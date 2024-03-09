@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "../utils/test-utils";
 import SearchBar from "../components/SearchBar";
 import type { RootState } from "../app/store";
+import { addOnActions } from "../features/addonList/AddOnSlice";
 
 describe("SearchBar Component", () => {
   it("renders correctly", async () => {
@@ -39,6 +40,9 @@ describe("SearchBar Component", () => {
     const { user, getByPlaceholderText, getByRole, store } =
       renderWithProviders(<SearchBar />, { preloadedState });
 
+    // Mocking the dispatch for assertions
+    const spyDispatch = vi.spyOn(store, "dispatch");
+
     // Getting the input and form elements
     const input = getByPlaceholderText("Search add-ons...");
     const button = getByRole("button", { name: "Search" });
@@ -47,8 +51,12 @@ describe("SearchBar Component", () => {
     await user.type(input, "test");
     await user.click(button);
 
-    // Asserting that the state is correctly updated
+    // Asserting that the action is correctly dispatched and store is correctly updated
     const state = store.getState();
+    expect(spyDispatch).toHaveBeenCalledOnce();
+    expect(spyDispatch).toHaveBeenCalledWith(
+      addOnActions.updateSearchTerm("test")
+    );
     expect(state.addons.searchTerm).toBe("test");
   });
 });

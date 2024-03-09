@@ -1,10 +1,10 @@
-// SearchBar component
 import type React from "react";
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { addOnActions } from "../features/addonList/AddOnSlice";
 
 const SearchBar = () => {
+  // Tracks unsubmitted search term
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useAppDispatch();
 

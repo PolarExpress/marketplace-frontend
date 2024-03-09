@@ -1,5 +1,5 @@
-// Configures Redux store, including middleware and combining reducers.
-// Most of it is still the same as the example project, idk if all of it is necessary for us.
+// Configures Redux store, including middleware and combining reducers
+// Most of it is still the same as the example project
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
