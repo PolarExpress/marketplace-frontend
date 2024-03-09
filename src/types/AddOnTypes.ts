@@ -10,7 +10,6 @@ export interface Addon {
   id: string;
   name: string;
   summary: string;
-  icon: string;
   category: AddonCategory;
 
   installedBy?: User[];

@@ -14,7 +14,10 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-bar">
+    <form
+      onSubmit={handleSubmit}
+      className="search-bar"
+      data-testid="search-form">
       <input
         type="text"
         value={searchTerm}

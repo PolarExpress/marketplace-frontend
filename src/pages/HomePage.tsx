@@ -2,7 +2,11 @@
 import AddOnList from "../features/addonList/AddOnList";
 
 const HomePage = () => {
-  return <AddOnList />;
+  return (
+    <div data-testid="homepage">
+      <AddOnList />;
+    </div>
+  );
 };
 
 export default HomePage;

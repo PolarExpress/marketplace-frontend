@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
-    <div>
+    <div data-testid="header">
       <SearchBar />
     </div>
   );

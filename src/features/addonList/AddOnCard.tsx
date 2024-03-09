@@ -9,7 +9,7 @@ interface AddOnCardProps {
 
 const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
   return (
-    <div className="addon-card">
+    <div className="addon-card" data-testid="addon-card">
       <h1>{addOn.name}</h1>
       <p>{addOn.summary}</p>
     </div>
