@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 // Centralizes reusable custom Redux hooks
 // Explanation below is from the example project
+=======
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
+>>>>>>> c68b3a0 (Changed eslint config to flat config and added copyright plugin)
 
 // This file serves as a central hub for re-exporting pre-typed Redux hooks.
 // These imports are restricted elsewhere to ensure consistent

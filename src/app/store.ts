@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 // Configures Redux store, including middleware and combining reducers
+=======
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
+
+>>>>>>> c68b3a0 (Changed eslint config to flat config and added copyright plugin)
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
