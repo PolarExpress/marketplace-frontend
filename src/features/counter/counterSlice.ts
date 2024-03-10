@@ -1,3 +1,11 @@
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
+
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../app/createAppSlice";
 import type { AppThunk } from "../../app/store";
