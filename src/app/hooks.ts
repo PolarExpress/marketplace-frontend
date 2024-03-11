@@ -5,6 +5,9 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
+//
+// Centralizes reusable custom Redux hooks
+// Explanation below is from the example project
 
 // This file serves as a central hub for re-exporting pre-typed Redux hooks.
 // These imports are restricted elsewhere to ensure consistent

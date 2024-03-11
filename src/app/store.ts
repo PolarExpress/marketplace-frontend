@@ -6,33 +6,38 @@
  * (Department of Information and Computing Sciences)
  */
 
+// Configures Redux store, including middleware and combining reducers
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { counterSlice } from "../features/counter/counterSlice";
-import { quotesApiSlice } from "../features/quotes/quotesApiSlice";
+import AddOnSlice from "../features/addonList/AddOnSlice";
 
-// `combineSlices` automatically combines the reducers using
-// their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(counterSlice, quotesApiSlice);
+const rootReducer = combineSlices({
+  addons: AddOnSlice.reducer
+});
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
 
-// The store setup is wrapped in `makeStore` to allow reuse
-// when setting up tests that need the same store config
+/**
+ * Creates a Redux store with a preloaded state and default middleware.
+ * Also sets up RTK Query listeners for refetching on focus/reconnect.
+ *
+ * @param preloadedState - Optional initial state for the Redux store.
+ * @returns {Store} The newly created Redux store.
+ */
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
-    // Adding the api middleware enables caching, invalidation, polling,
-    // and other useful features of `rtk-query`.
     middleware: getDefaultMiddleware => {
-      return getDefaultMiddleware().concat(quotesApiSlice.middleware);
+      return getDefaultMiddleware(); // Likely no extra middleware for add-ons initially
     },
     preloadedState
   });
+
   // configure listeners using the provided defaults
   // optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
   setupListeners(store.dispatch);
+
   return store;
 };
 
