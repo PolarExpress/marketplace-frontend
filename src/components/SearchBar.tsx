@@ -3,11 +3,19 @@ import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { addOnActions } from "../features/addonList/AddOnSlice";
 
+/**
+ * Provides a user interface for searching add-ons.
+ */
 const SearchBar = () => {
   // Tracks unsubmitted search term
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useAppDispatch();
 
+  /**
+   * Handles submission of the search form. Dispatches an action to update the search term in the Redux store.
+   *
+   * @param event - The React form submission event.
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(addOnActions.updateSearchTerm(searchTerm));

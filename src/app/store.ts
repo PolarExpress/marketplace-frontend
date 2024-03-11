@@ -1,5 +1,4 @@
 // Configures Redux store, including middleware and combining reducers
-// Most of it is still the same as the example project
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -11,8 +10,13 @@ const rootReducer = combineSlices({
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
 
-// The store setup is wrapped in `makeStore` to allow reuse
-// when setting up tests that need the same store config
+/**
+ * Creates a Redux store with a preloaded state and default middleware.
+ * Also sets up RTK Query listeners for refetching on focus/reconnect.
+ *
+ * @param preloadedState - Optional initial state for the Redux store.
+ * @returns {Store} The newly created Redux store.
+ */
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
@@ -21,9 +25,11 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
     },
     preloadedState
   });
+
   // configure listeners using the provided defaults
   // optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
   setupListeners(store.dispatch);
+
   return store;
 };
 

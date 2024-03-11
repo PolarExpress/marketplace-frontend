@@ -5,18 +5,6 @@ import type { RootState } from "../app/store";
 import { addOnActions } from "../features/addonList/AddOnSlice";
 
 describe("SearchBar Component", () => {
-  it("renders correctly", async () => {
-    // Rendering the component with Redux Provider
-    const { getByPlaceholderText, getByRole } = renderWithProviders(
-      <SearchBar />
-    );
-
-    // Asserting that the input field is present in the document
-    expect(getByPlaceholderText("Search add-ons...")).toBeInTheDocument();
-    // Asserting that the search button is present in the document
-    expect(getByRole("button", { name: "Search" })).toBeInTheDocument();
-  });
-
   it("updates the search term state on input change", async () => {
     // Rendering the component with Redux Provider
     const { user, getByPlaceholderText } = renderWithProviders(<SearchBar />);

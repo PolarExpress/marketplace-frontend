@@ -6,6 +6,9 @@ import { Provider } from "react-redux";
 import { store } from "../app/store";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
+/**
+ * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ */
 const meta = {
   title: "frontend/AddOnCard",
   component: AddOnCard,
@@ -13,7 +16,9 @@ const meta = {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered"
   },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
+  // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     addOn: {
       control: "object",
@@ -25,6 +30,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Sample add-ons representing different categories */
 const sampleVisualisationAddOn: Addon = {
   id: "1",
   name: "ExampleVis",
@@ -44,23 +50,35 @@ const sampleDataAPIAddOn: Addon = {
   category: AddonCategory.DATA_SOURCE
 };
 
+/**
+ * Renders the AddOnCard with a sample add-on for the 'Visualization' category
+ */
 export const Visualisation: Story = {
   args: {
     addOn: sampleVisualisationAddOn
   },
+  // Provides the Redux store for SearchBar to interact with
   decorators: [Story => <Provider store={store}> {Story()} </Provider>]
 };
 
+/**
+ * Renders the AddOnCard with a sample add-on for the 'Machine Learning' category
+ */
 export const MachineLearning: Story = {
   args: {
     addOn: sampleMLAddOn
   },
+  // Provides the Redux store for SearchBar to interact with
   decorators: [Story => <Provider store={store}> {Story()} </Provider>]
 };
 
+/**
+ * Renders the AddOnCard with a sample add-on for the 'Data API' category
+ */
 export const DataAPI: Story = {
   args: {
     addOn: sampleDataAPIAddOn
   },
+  // Provides the Redux store for SearchBar to interact with
   decorators: [Story => <Provider store={store}> {Story()} </Provider>]
 };
