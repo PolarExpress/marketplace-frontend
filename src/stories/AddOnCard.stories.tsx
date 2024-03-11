@@ -1,3 +1,11 @@
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
+
 import type { Meta, StoryObj } from "@storybook/react";
 import AddOnCard from "../features/addonList/AddOnCard";
 import type { Addon } from "../types/AddOnTypes";

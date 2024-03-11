@@ -1,3 +1,11 @@
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
+
 // Redux slice to manage add-on-related state (fetched items, loading status, search filters, etc.).
 import { createSlice } from "@reduxjs/toolkit";
 import type { Addon } from "../../types/AddOnTypes";
