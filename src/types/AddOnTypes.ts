@@ -7,11 +7,11 @@ export enum AddonCategory {
 }
 
 export interface Addon {
-  id: string;
+  id: number;
   name: string;
   summary: string;
-  icon: string;
-  category: AddonCategory;
-
+  
+  icon?: string;
+  category?: AddonCategory;
   installedBy?: User[];
 }

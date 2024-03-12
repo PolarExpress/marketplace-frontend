@@ -2,7 +2,7 @@
 import type React from "react";
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
-import { addOnActions } from "../features/addonList/AddOnSlice";
+import { updateSearchTerm } from "../features/addonList/AddOnSlice";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -10,7 +10,7 @@ const SearchBar = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(addOnActions.updateSearchTerm(searchTerm));
+    dispatch(updateSearchTerm(searchTerm));
   };
 
   return (

@@ -1,18 +1,26 @@
-// Redux slice to manage add-on-related state (fetched items, loading status, search filters, etc.).
-import { createSlice } from "@reduxjs/toolkit";
-import type { Addon } from "../../types/AddOnTypes";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { addonList } from "./tempAddons";
+import { AddonCategory, type Addon } from "../../types/AddOnTypes";
+import { fetchAddons as fetchAddonsApi } from "./AddOnApi"; // Correctly import fetchAddons
 
 interface AddOnListState {
   allAddOns: Addon[];
   searchTerm: string;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
 }
 
 const initialState: AddOnListState = {
-  allAddOns: addonList,
-  searchTerm: ""
+  allAddOns: [],
+  searchTerm: "",
+  status: 'idle',
+  error: null,
 };
+
+// Async thunk
+export const fetchAddons = createAsyncThunk('addOnList/fetchAddons', async () => {
+  return await fetchAddonsApi(1, AddonCategory.VISUALISATION); // give a page number and api category to fetch them
+});
 
 const AddOnSlice = createSlice({
   name: "addOnList",
@@ -20,9 +28,23 @@ const AddOnSlice = createSlice({
   reducers: {
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
-    }
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAddons.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAddons.fulfilled, (state, action) => {
+        state.allAddOns = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(fetchAddons.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || 'Failed to fetch addons';
+      });
   }
 });
 
-export default AddOnSlice;
-export const addOnActions = AddOnSlice.actions;
+export const { updateSearchTerm } = AddOnSlice.actions;
+export default AddOnSlice.reducer;
