@@ -9,6 +9,8 @@
 // Should handle global routing and overall page layout
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
+import { Routes, Route } from "react-router-dom";
+import AddOnPage from "./pages/AddOnPage";
 
 /**
  * The central application component, responsible for high-level page layout and routing.
@@ -17,7 +19,10 @@ const App = () => {
   return (
     <>
       <Header />
-      <HomePage />
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/addons/:id" element={<AddOnPage/>}/>
+      </Routes>
     </>
   );
 };

@@ -10,6 +10,8 @@ import type React from "react";
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { addOnActions } from "../features/addonList/AddOnSlice";
+import "../styles/tempStyles.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /**
  * Provides a user interface for searching add-ons.
@@ -17,16 +19,25 @@ import { addOnActions } from "../features/addonList/AddOnSlice";
 const SearchBar = () => {
   // Tracks unsubmitted search term
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  // Hooks
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   /**
-   * Handles submission of the search form. Dispatches an action to update the search term in the Redux store.
-   *
+   * Handles submission of the search form. 
+   * Dispatches an action to update the search term in the Redux store. 
+   * Navigates back to the homepage.
    * @param event - The React form submission event.
    */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(addOnActions.updateSearchTerm(searchTerm));
+
+    if (location.pathname !== '/') {
+      navigate('/'); 
+    }
   };
 
   return (
