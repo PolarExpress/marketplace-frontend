@@ -6,7 +6,6 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Should handle global routing and overall page layout
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
@@ -20,8 +19,8 @@ const App = () => {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/addons/:id" element={<AddOnPage/>}/>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/addons/:id" element={<AddOnPage />} />
       </Routes>
     </>
   );

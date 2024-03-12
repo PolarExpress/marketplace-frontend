@@ -9,6 +9,7 @@
 import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "../utils/test-utils";
 import HomePage from "./HomePage";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("HomePage component", () => {
   it("renders the AddOnList component", () => {

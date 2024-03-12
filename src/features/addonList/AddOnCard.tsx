@@ -21,13 +21,14 @@ interface AddOnCardProps {
 }
 
 /**
- * Displays the name and summary of a single add-on. Links to addon page when clicked.
+ * Displays the name and summary of a single add-on.
+ * Links to addon page when clicked.
  */
 const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
   return (
     <Link to={`/addons/${addOn.id}`} className="addon-card no-underline-link">
-        <h1>{addOn.name}</h1>
-        <p>{addOn.summary}</p>
+      <h1>{addOn.name}</h1>
+      <p>{addOn.summary}</p>
     </Link>
   );
 };

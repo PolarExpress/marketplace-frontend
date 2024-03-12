@@ -26,8 +26,8 @@ const SearchBar = () => {
   const location = useLocation();
 
   /**
-   * Handles submission of the search form. 
-   * Dispatches an action to update the search term in the Redux store. 
+   * Handles submission of the search form.
+   * Dispatches an action to update the search term in the Redux store.
    * Navigates back to the homepage.
    * @param event - The React form submission event.
    */
@@ -35,8 +35,8 @@ const SearchBar = () => {
     event.preventDefault();
     dispatch(addOnActions.updateSearchTerm(searchTerm));
 
-    if (location.pathname !== '/') {
-      navigate('/'); 
+    if (location.pathname !== "/") {
+      navigate("/");
     }
   };
 
