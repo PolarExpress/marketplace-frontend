@@ -10,6 +10,7 @@
 import type React from "react";
 import type { Addon } from "../../types/AddOnTypes";
 import "../../styles/tempStyles.css";
+import { Link } from "react-router-dom";
 
 /**
  * Defines the properties for the AddOnCard component.
@@ -21,13 +22,14 @@ interface AddOnCardProps {
 
 /**
  * Displays the name and summary of a single add-on.
+ * Links to addon page when clicked.
  */
 const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
   return (
-    <div className="addon-card" data-testid="addon-card">
+    <Link to={`/addons/${addOn.id}`} className="addon-card no-underline-link">
       <h1>{addOn.name}</h1>
       <p>{addOn.summary}</p>
-    </div>
+    </Link>
   );
 };
 
