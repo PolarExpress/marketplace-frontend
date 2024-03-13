@@ -14,6 +14,8 @@ import type { Addon } from "./AddOnTypes";
 export interface User {
   /** Unique identifier for the user */
   id: string;
+  /** The name of the user */
+  name: string;
   /** The user's email address */
   email: string;
 
