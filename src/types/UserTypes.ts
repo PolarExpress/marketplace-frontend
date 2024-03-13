@@ -7,6 +7,7 @@
  */
 
 import type { Addon } from "./AddOnTypes";
+import type { Author } from "./AuthorTypes";
 
 /**
  * Defines the structure of a user.
@@ -18,7 +19,6 @@ export interface User {
   name: string;
   /** The user's email address */
   email: string;
-
   /** (Optional)  A list of add-ons that the user has installed. */
   installedAddons?: Addon[];
 }
