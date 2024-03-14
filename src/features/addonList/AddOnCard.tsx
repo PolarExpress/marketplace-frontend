@@ -10,6 +10,7 @@
 import type React from "react";
 import type { Addon } from "../../types/AddOnTypes";
 import "../../styles/tempStyles.css";
+import InstallButton from "../currentUser/InstallButton";
 
 /**
  * Defines the properties for the AddOnCard component.
@@ -27,6 +28,7 @@ const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
     <div className="addon-card" data-testid="addon-card">
       <h1>{addOn.name}</h1>
       <p>{addOn.summary}</p>
+      <InstallButton addon={addOn} />
     </div>
   );
 };
