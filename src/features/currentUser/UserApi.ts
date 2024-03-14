@@ -16,7 +16,7 @@ import { delay } from "../../utils/asyncUtils";
  * @param userId: The ID of the user.
  * @returns A list of addons installed by the specified user.
  */
-export async function GetInstalledAddons(userId: string): Promise<Addon[]> {
+async function getInstalledAddons(userId: string): Promise<Addon[]> {
   return delay(20).then(() => {
     return [
       {
@@ -29,13 +29,26 @@ export async function GetInstalledAddons(userId: string): Promise<Addon[]> {
   });
 }
 
-export async function PostInstalledAddon(userId: string, addonId: string) {
+/**
+ * Send a request to install a specified add-on for the specified user.
+ * @param userId The ID of the user.
+ * @param addonId The ID of the add-on to install.
+ * @returns The modified data about the user.
+ */
+async function postInstalledAddon(userId: string, addonId: string) {
   return sendRequest<User>("http://localhost:3000/install", "POST", {
     userId: userId,
     addonId: addonId
   });
 }
 
+/** The user API. */
+export default {
+  getInstalledAddons: getInstalledAddons,
+  postInstalledAddon: postInstalledAddon
+};
+
+// Remove from this file if HTTPutils PR is merged.
 type HTTPMethod =
   | "GET"
   | "HEAD"
@@ -47,7 +60,12 @@ type HTTPMethod =
   | "TRACE"
   | "PATCH";
 
-async function sendRequest<T>(url: string, method: HTTPMethod, body = {}): Promise<T> {
+// Remove from this file if HTTPutils PR is merged.
+async function sendRequest<T>(
+  url: string,
+  method: HTTPMethod,
+  body = {}
+): Promise<T> {
   const headers = new Headers();
   headers.set("Content-Type", "application/json");
   const requestOptions = {
@@ -55,7 +73,7 @@ async function sendRequest<T>(url: string, method: HTTPMethod, body = {}): Promi
     headers: headers,
     body: JSON.stringify(body)
   };
-  
+
   const response = await fetch(url, requestOptions);
 
   if (!response.ok) {

@@ -8,27 +8,30 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { Addon } from "../../types/AddOnTypes";
-import * as userApi from "./UserApi";
+import userApi from "./UserApi";
 
+/** An action to get all add-ons installed by the specified user. */
 const fetchInstalledAddons = createAsyncThunk(
   "user/fetchInstalledAddons",
   async (userId: string, thunkAPI) => {
-    return userApi.GetInstalledAddons(userId);
+    return userApi.getInstalledAddons(userId);
   }
 );
 
 /** An action to post the data of installing an addon. */
 const postInstalledAddon = createAsyncThunk(
   "user/postInstalledAddon",
-  async ({ userId, addon }: { userId: string, addon: Addon } , thunkAPI) => {
-     const addonId = addon.id;
-     await userApi.PostInstalledAddon(userId, addonId);
-     return addon;
+  async ({ userId, addon }: { userId: string; addon: Addon }, thunkAPI) => {
+    const addonId = addon.id;
+    await userApi.postInstalledAddon(userId, addonId);
+    return addon;
   }
 );
 
 interface UserState {
+  /** The ID of the current user. */
   id: string;
+  /** All currently installed add-ons. */
   installedAddons: Addon[];
 }
 
@@ -37,7 +40,6 @@ const initialState: UserState = {
   installedAddons: []
 };
 
-// Then, handle actions in your reducers:
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -46,7 +48,7 @@ const userSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(fetchInstalledAddons.fulfilled, (state, action) => {
-      state.installedAddons = (action.payload);
+      state.installedAddons = action.payload;
     });
     builder.addCase(postInstalledAddon.fulfilled, (state, action) => {
       state.installedAddons.push(action.payload);

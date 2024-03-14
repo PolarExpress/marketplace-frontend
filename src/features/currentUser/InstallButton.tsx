@@ -11,18 +11,22 @@ import Button from "../../components/Button";
 import type { Addon } from "../../types/AddOnTypes";
 import { useAppDispatch } from "../../app/hooks";
 import { postInstalledAddon } from "./UserSlice";
+import { store } from "../../app/store";
 
-export interface InstallProperties {
+/** Contains properties for an install button. */
+interface InstallProperties {
+  /** The addon this button belongs to. */
   addon: Addon;
-  userId: string;
-  defaultInstalled?: boolean;
 }
 
-export const InstallButton = ({
-  defaultInstalled = false,
-  ...props
-}: InstallProperties) => {
-  const [isInstalled, setInstalled] = useState(defaultInstalled);
+/** A button for installing an addon. */
+const InstallButton = (props: InstallProperties) => {
+  const getUserInfo = () => store.getState().user;
+  const findInstalled = () =>
+    getUserInfo().installedAddons.find(addon => addon.id === props.addon.id) ==
+    null;
+
+  const [isInstalled, setInstalled] = useState(findInstalled());
   const dispatch = useAppDispatch();
 
   return (
@@ -30,11 +34,16 @@ export const InstallButton = ({
       text="Install"
       disabled={isInstalled}
       onClick={() => {
-        dispatch(postInstalledAddon({
-          userId: props.userId,
-          addon: props.addon
-        }));
-        setInstalled(true);
+        dispatch(
+          postInstalledAddon({
+            userId: getUserInfo().id,
+            addon: props.addon
+          })
+        );
+        // Recheck in order not to incorrectly disable the button if an error occurred.
+        setInstalled(findInstalled());
+
+        // TODO: should this same button be used for uninstall?
       }}
     />
   );

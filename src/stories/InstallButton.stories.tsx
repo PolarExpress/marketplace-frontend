@@ -37,14 +37,6 @@ const meta = {
     addon: {
       control: "object",
       description: "The add-on for which the install button should work."
-    },
-    userId: {
-      control: "string",
-      description: "The ID of the user."
-    },
-    defaultInstalled: {
-      control: "boolean",
-      description: "Whether or not the add-on is already installed by the current user."
     }
   }
 } satisfies Meta<typeof InstallButton>;
@@ -57,22 +49,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   args: {
-    addon: sampleAddon,
-    userId: "user",
-    defaultInstalled: false    
-  },
-  // Provides the Redux store to interact with.
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
-};
-
-/**
- * Renders the InstallButton component when the specified addon is already installed.
- */
-export const AlreadyInstalled: Story = {
-  args: {
-    addon: sampleAddon,
-    userId: "user",
-    defaultInstalled: true    
+    addon: sampleAddon
   },
   // Provides the Redux store to interact with.
   decorators: [Story => <Provider store={store}> {Story()} </Provider>]
