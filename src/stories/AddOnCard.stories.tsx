@@ -12,6 +12,7 @@ import type { Addon } from "../types/AddOnTypes";
 import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
+import { MemoryRouter } from "react-router-dom";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -26,67 +27,33 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  argTypes: {
-    addOn: {
-      control: "object",
-      description: "The add-on data to display"
-    }
-  }
+  // Provides the redux store and browser router for the stories
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <MemoryRouter> {Story()} </MemoryRouter>
+      </Provider>
+    )
+  ]
 } satisfies Meta<typeof AddOnCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Sample add-ons representing different categories */
-const sampleVisualisationAddOn: Addon = {
+const sampleAddOn: Addon = {
   id: "1",
   name: "ExampleVis",
-  summary: "...",
+  summary:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
   category: AddonCategory.VISUALISATION
-};
-const sampleMLAddOn: Addon = {
-  id: "2",
-  name: "ExampleML",
-  summary: "...",
-  category: AddonCategory.MACHINE_LEARNING
-};
-const sampleDataAPIAddOn: Addon = {
-  id: "3",
-  name: "ExampleData",
-  summary: "...",
-  category: AddonCategory.DATA_SOURCE
 };
 
 /**
  * Renders the AddOnCard with a sample add-on for the 'Visualization' category
  */
-export const Visualisation: Story = {
+export const Basic: Story = {
   args: {
-    addOn: sampleVisualisationAddOn
-  },
-  // Provides the Redux store for SearchBar to interact with
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
-};
-
-/**
- * Renders the AddOnCard with a sample add-on for the 'Machine Learning' category
- */
-export const MachineLearning: Story = {
-  args: {
-    addOn: sampleMLAddOn
-  },
-  // Provides the Redux store for SearchBar to interact with
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
-};
-
-/**
- * Renders the AddOnCard with a sample add-on for the 'Data API' category
- */
-export const DataAPI: Story = {
-  args: {
-    addOn: sampleDataAPIAddOn
-  },
-  // Provides the Redux store for SearchBar to interact with
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
+    addOn: sampleAddOn
+  }
 };

@@ -26,7 +26,10 @@ interface AddOnCardProps {
  */
 const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
   return (
-    <Link to={`/addons/${addOn.id}`} className="addon-card no-underline-link">
+    <Link
+      to={`/addons/${addOn.id}`}
+      className="addon-card no-underline-link"
+      data-testid="addon-card">
       <h1>{addOn.name}</h1>
       <p>{addOn.summary}</p>
     </Link>

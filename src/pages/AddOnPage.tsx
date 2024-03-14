@@ -27,11 +27,11 @@ const AddOnPage = () => {
 
   // Render simple error page when URL param not found in state
   if (!thisAddOn) {
-    return <div>Add-on not found</div>;
+    return <div data-testid="addon-not-found">Add-on not found</div>;
   }
 
   return (
-    <div className="addon-page-container">
+    <div className="addon-page-container" data-testid="addon-page">
       <h1 className="addon-name">{thisAddOn.name}</h1>
       {/* TODO: Add-on Author */}
       <p className="addon-summary">{thisAddOn.summary}</p>{" "}
