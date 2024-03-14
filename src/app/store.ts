@@ -11,9 +11,11 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import AddOnSlice from "../features/addonList/AddOnSlice";
+import UserSlice from "../features/currentUser/UserSlice";
 
 const rootReducer = combineSlices({
-  addons: AddOnSlice.reducer
+  addons: AddOnSlice.reducer,
+  user: UserSlice.reducer
 });
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
