@@ -26,7 +26,7 @@ const AddOnPage = () => {
   );
 
   // Render simple error page when URL param not found in state
-  if (thisAddOn === undefined) {
+  if (thisAddOn == null) {
     return <div data-testid="addon-not-found">Add-on not found</div>;
   }
 
