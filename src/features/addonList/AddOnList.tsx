@@ -34,7 +34,11 @@ const AddOnList = () => {
 
   // Check if searchTerm is present but no add-ons match the search
   if (searchTerm && filteredAddOns.length === 0) {
-    return <div className="no-addons-found">No Add-ons found with the given search term</div>;
+    return (
+      <div className="no-addons-found">
+        No Add-ons found with the given search term
+      </div>
+    );
   }
 
   return (
