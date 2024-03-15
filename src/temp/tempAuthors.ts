@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { Author } from "../../types/AuthorTypes";
+import type { Author } from "../types/AuthorTypes";
 import { userList } from "./tempUsers";
 
 const authorOne: Author = {

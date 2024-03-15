@@ -8,14 +8,11 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import AddOnCard from "../features/addonList/AddOnCard";
-import type { Addon } from "../types/AddOnTypes";
-import type { User } from "../types/UserTypes";
-import type { Author } from "../types/AuthorTypes";
-import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
+import { addonList } from "../temp/tempAddons";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -43,32 +40,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockUser: User = {
-  id: "user-1",
-  name: "user one",
-  email: "userone@gmail.com"
-};
-
-const mockAuthor: Author = {
-  id: "author-1",
-  user: mockUser
-};
-
-/** Sample add-ons representing different categories */
-const sampleAddOn: Addon = {
-  id: "1",
-  name: "ExampleVis",
-  summary: "...",
-  category: AddonCategory.VISUALISATION,
-  author: mockAuthor
-};
-
 /**
  * Renders the AddOnCard with a sample add-on for the 'Visualization' category
  */
 export const Basic: Story = {
   args: {
-    addOn: sampleAddOn
+    addOn: addonList[1]
   }
 };
 
@@ -77,7 +54,7 @@ export const Basic: Story = {
  */
 export const Hover: Story = {
   args: {
-    addOn: sampleAddOn
+    addOn: addonList[1]
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

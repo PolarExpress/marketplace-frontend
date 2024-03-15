@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import type { AppStore, RootState } from "../app/store";
 import { makeStore } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
-import { Addon, AddonCategory } from "../types/AddOnTypes";
+import { addonList } from "../temp/tempAddons";
 
 /**
  * This type extends the default options for
@@ -85,7 +85,7 @@ export const storeWithMockAddons = () => {
   // Create partial mock state
   const mockState: Partial<RootState> = {
     addons: {
-      allAddOns: mockAddOns,
+      allAddOns: addonList,
       searchTerm: "",
       status: "succeeded",
       error: null
@@ -94,19 +94,3 @@ export const storeWithMockAddons = () => {
 
   return makeStore(mockState);
 };
-
-// Sample add-on data
-const mockAddOns: Addon[] = [
-  {
-    id: "1",
-    name: "Mock Addon 1",
-    summary: "Mock Summary 1",
-    category: AddonCategory.VISUALISATION
-  },
-  {
-    id: "2",
-    name: "Mock Addon 2",
-    summary: "Mock Summary 2",
-    category: AddonCategory.VISUALISATION
-  }
-];

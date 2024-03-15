@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { User } from "../../types/UserTypes";
+import type { User } from "../types/UserTypes";
 
 const userOne: User = {
   id: "user-one",
