@@ -25,11 +25,14 @@ const initialState: AddOnListState = {
   error: null
 };
 
-// Async thunk
+/**
+ * Creates async thunk for fetching from backend.
+ * Currently chooses page 0 and visualisation category
+ */
 export const fetchAddons = createAsyncThunk(
   "addOnList/fetchAddons",
   async () => {
-    return await fetchAddonsApi(0, AddonCategory.VISUALISATION); // give a page number and api category to fetch them
+    return await fetchAddonsApi(0, AddonCategory.VISUALISATION);
   }
 );
 
@@ -57,5 +60,6 @@ const AddOnSlice = createSlice({
   }
 });
 
+export { initialState, type AddOnListState };
 export const { updateSearchTerm } = AddOnSlice.actions;
 export default AddOnSlice.reducer;

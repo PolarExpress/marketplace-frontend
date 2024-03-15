@@ -8,11 +8,11 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import AddOnCard from "../features/addonList/AddOnCard";
-import type { Addon } from "../types/AddOnTypes";
-import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
+import { userEvent, within } from "@storybook/test";
+import { addonList } from "../temp/tempAddons";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -40,20 +40,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Sample add-ons representing different categories */
-const sampleAddOn: Addon = {
-  id: "1",
-  name: "ExampleVis",
-  summary:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-  category: AddonCategory.VISUALISATION
-};
-
 /**
  * Renders the AddOnCard with a sample add-on for the 'Visualization' category
  */
 export const Basic: Story = {
   args: {
-    addOn: sampleAddOn
+    addOn: addonList[1]
+  }
+};
+
+/**
+ * Renders the AddOnCard with the mouse hovered over it
+ */
+export const Hover: Story = {
+  args: {
+    addOn: addonList[1]
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByTestId("addon-card");
+    await userEvent.hover(card, {
+      delay: 100
+    });
   }
 };

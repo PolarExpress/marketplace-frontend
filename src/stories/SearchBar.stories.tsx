@@ -11,6 +11,7 @@ import SearchBar from "../components/SearchBar";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
+import { userEvent, within } from "@storybook/test";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -42,3 +43,42 @@ type Story = StoryObj<typeof meta>;
  * Renders the SearchBar component in its basic state
  */
 export const Basic: Story = {};
+
+/**
+ * Renders the SearchBar with a search term
+ */
+export const WithSearchTerm: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const searchInput = canvas.getByPlaceholderText("Search add-ons...");
+    await userEvent.type(searchInput, "test", {
+      delay: 200
+    });
+  }
+};
+
+/**
+ * Renders the SearchBar with the mouse hovered over the search input
+ */
+export const HoverInput: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const searchInput = canvas.getByPlaceholderText("Search add-ons...");
+    await userEvent.hover(searchInput, {
+      delay: 100
+    });
+  }
+};
+
+/**
+ * Renders the SearchBar with the mouse hovered over the search button
+ */
+export const HoverSearch: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const searchButton = canvas.getByRole("button", { name: "Search" });
+    await userEvent.hover(searchButton, {
+      delay: 100
+    });
+  }
+};
