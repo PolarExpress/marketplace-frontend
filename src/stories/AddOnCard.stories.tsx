@@ -70,7 +70,7 @@ export const Hover: Story = {
     const canvas = within(canvasElement);
     const card = canvas.getByTestId("addon-card");
     await userEvent.hover(card, {
-      delay: 100,
+      delay: 100
     });
   }
-}
+};
