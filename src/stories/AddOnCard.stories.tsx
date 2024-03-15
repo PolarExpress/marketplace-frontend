@@ -13,6 +13,7 @@ import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
+import { userEvent, within } from "@storybook/test";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -55,5 +56,21 @@ const sampleAddOn: Addon = {
 export const Basic: Story = {
   args: {
     addOn: sampleAddOn
+  }
+};
+
+/**
+ * Renders the AddOnCard with the mouse hovered over it
+ */
+export const Hover: Story = {
+  args: {
+    addOn: sampleAddOn
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByTestId("addon-card");
+    await userEvent.hover(card, {
+      delay: 100
+    });
   }
 };
