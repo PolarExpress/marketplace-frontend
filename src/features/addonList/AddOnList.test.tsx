@@ -12,23 +12,23 @@ import AddOnList from "./AddOnList";
 import type { Addon } from "../../types/AddOnTypes";
 import { AddonCategory } from "../../types/AddOnTypes";
 
-describe("AddOnList component", () => {
-  // Sample add-on data
-  const mockAddOns: Addon[] = [
-    {
-      id: "1",
-      name: "Mock Addon 1",
-      summary: "Mock Summary 1",
-      category: AddonCategory.VISUALISATION
-    },
-    {
-      id: "2",
-      name: "Mock Addon 2",
-      summary: "Mock Summary 2",
-      category: AddonCategory.VISUALISATION
-    }
-  ];
+// Sample add-on data
+const mockAddOns: Addon[] = [
+  {
+    id: "1",
+    name: "Mock Addon 1",
+    summary: "Mock Summary 1",
+    category: AddonCategory.VISUALISATION
+  },
+  {
+    id: "2",
+    name: "Mock Addon 2",
+    summary: "Mock Summary 2",
+    category: AddonCategory.VISUALISATION
+  }
+];
 
+describe("AddOnList component", () => {
   it("renders AddOnCard components for all add-ons", () => {
     const mockState = { addons: { allAddOns: mockAddOns, searchTerm: "" } };
 

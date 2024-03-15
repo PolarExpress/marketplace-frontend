@@ -4,17 +4,17 @@
   gap: 25px;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .addon-card {
   border: 1px solid lightgrey;
   padding: 20px;
   border-radius: 5px;
-  width: 50%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -22,14 +22,12 @@
   display: flex;
   justify-content: center;
   margin: 50px auto;
-  width: 30%;
 }
 
 .search-bar input[type="text"] {
   padding: 10px;
   border: 1px solid lightgray;
   border-radius: 5px;
-  width: calc(100% - 100px); /* Account for button width */
 }
 
 .search-bar button {
@@ -39,4 +37,33 @@
   border: none;
   border-radius: 5px;
   margin-left: 5px;
+}
+
+.no-underline-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.addon-page-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.addon-name {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.addon-summary {
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+  max-width: 75%;
 }
