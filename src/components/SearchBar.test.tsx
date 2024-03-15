@@ -10,7 +10,7 @@ import { describe, it, expect } from "vitest";
 import { renderWithProviders, storeWithMockAddons } from "../utils/test-utils";
 import SearchBar from "../components/SearchBar";
 import { type RootState } from "../app/store";
-import { addOnActions } from "../features/addonList/AddOnSlice";
+import { updateSearchTerm } from "../features/addonList/AddOnSlice";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
@@ -39,7 +39,9 @@ describe("SearchBar Component", () => {
     const preloadedState: Partial<RootState> = {
       addons: {
         allAddOns: [],
-        searchTerm: ""
+        searchTerm: "",
+        status: "idle",
+        error: null
       }
     };
     // Rendering the component with Redux Provider
@@ -60,9 +62,7 @@ describe("SearchBar Component", () => {
     // Asserting that the action is correctly dispatched and state is updated
     const state = store.getState();
     expect(spyDispatch).toHaveBeenCalledOnce();
-    expect(spyDispatch).toHaveBeenCalledWith(
-      addOnActions.updateSearchTerm("test")
-    );
+    expect(spyDispatch).toHaveBeenCalledWith(updateSearchTerm("test"));
     expect(state.addons.searchTerm).toBe("test");
   });
 

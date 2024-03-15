@@ -84,7 +84,12 @@ export const renderWithProviders = (
 export const storeWithMockAddons = () => {
   // Create partial mock state
   const mockState: Partial<RootState> = {
-    addons: { allAddOns: mockAddOns, searchTerm: "" }
+    addons: {
+      allAddOns: mockAddOns,
+      searchTerm: "",
+      status: "succeeded",
+      error: null
+    }
   };
 
   return makeStore(mockState);
