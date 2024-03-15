@@ -30,7 +30,6 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
     reducer: rootReducer,
     middleware: getDefaultMiddleware => {
       return getDefaultMiddleware(); // Likely no extra middleware for add-ons initially
-      return getDefaultMiddleware(); // Likely no extra middleware for add-ons initially
     },
     preloadedState
   });

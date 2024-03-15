@@ -1,3 +1,11 @@
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { AddonCategory, type Addon } from "../../types/AddOnTypes";
@@ -6,21 +14,24 @@ import { fetchAddons as fetchAddonsApi } from "./AddOnApi"; // Correctly import 
 interface AddOnListState {
   allAddOns: Addon[];
   searchTerm: string;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
 
 const initialState: AddOnListState = {
   allAddOns: [],
   searchTerm: "",
-  status: 'idle',
-  error: null,
+  status: "idle",
+  error: null
 };
 
 // Async thunk
-export const fetchAddons = createAsyncThunk('addOnList/fetchAddons', async () => {
-  return await fetchAddonsApi(1, AddonCategory.VISUALISATION); // give a page number and api category to fetch them
-});
+export const fetchAddons = createAsyncThunk(
+  "addOnList/fetchAddons",
+  async () => {
+    return await fetchAddonsApi(0, AddonCategory.VISUALISATION); // give a page number and api category to fetch them
+  }
+);
 
 const AddOnSlice = createSlice({
   name: "addOnList",
@@ -28,20 +39,20 @@ const AddOnSlice = createSlice({
   reducers: {
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
-    },
+    }
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchAddons.pending, (state) => {
-        state.status = 'loading';
+      .addCase(fetchAddons.pending, state => {
+        state.status = "loading";
       })
       .addCase(fetchAddons.fulfilled, (state, action) => {
         state.allAddOns = action.payload;
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(fetchAddons.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message || 'Failed to fetch addons';
+        state.status = "failed";
+        state.error = action.error.message || "Failed to fetch addons";
       });
   }
 });
