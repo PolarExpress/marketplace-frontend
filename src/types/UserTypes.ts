@@ -7,7 +7,6 @@
  */
 
 import type { Addon } from "./AddOnTypes";
-import type { Author } from "./AuthorTypes";
 
 /**
  * Defines the structure of a user.

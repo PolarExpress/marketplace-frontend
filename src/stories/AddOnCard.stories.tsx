@@ -9,6 +9,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import AddOnCard from "../features/addonList/AddOnCard";
 import type { Addon } from "../types/AddOnTypes";
+import type { User } from "../types/UserTypes";
+import type { Author } from "../types/AuthorTypes";
 import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
@@ -38,24 +40,38 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const mockUser: User = {
+  id: "user-1",
+  name: "user one",
+  email: "userone@gmail.com"
+};
+
+const mockAuthor: Author = {
+  id: "author-1",
+  user: mockUser,
+}
+
 /** Sample add-ons representing different categories */
 const sampleVisualisationAddOn: Addon = {
   id: "1",
   name: "ExampleVis",
   summary: "...",
-  category: AddonCategory.VISUALISATION
+  category: AddonCategory.VISUALISATION,
+  author: mockAuthor
 };
 const sampleMLAddOn: Addon = {
   id: "2",
   name: "ExampleML",
   summary: "...",
-  category: AddonCategory.MACHINE_LEARNING
+  category: AddonCategory.MACHINE_LEARNING,
+  author: mockAuthor
 };
 const sampleDataAPIAddOn: Addon = {
   id: "3",
   name: "ExampleData",
   summary: "...",
-  category: AddonCategory.DATA_SOURCE
+  category: AddonCategory.DATA_SOURCE,
+  author: mockAuthor
 };
 
 /**
