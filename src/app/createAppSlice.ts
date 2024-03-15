@@ -7,7 +7,6 @@
  */
 
 // Defines Redux slice for managing global application state
-// Might not be necessary for now
 // Current code is from the example project and not used in our project
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
 

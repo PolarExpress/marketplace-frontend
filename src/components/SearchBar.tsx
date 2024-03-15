@@ -9,7 +9,7 @@
 import type React from "react";
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
-import { addOnActions } from "../features/addonList/AddOnSlice";
+import { updateSearchTerm } from "../features/addonList/AddOnSlice";
 import "../styles/tempStyles.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -33,7 +33,7 @@ const SearchBar = () => {
    */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(addOnActions.updateSearchTerm(searchTerm));
+    dispatch(updateSearchTerm(searchTerm));
 
     if (location.pathname !== "/") {
       navigate("/");

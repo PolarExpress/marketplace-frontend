@@ -67,3 +67,7 @@
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
   max-width: 75%;
 }
+.no-addons-found {
+  text-align: center;
+  font-size: 30px;
+}
