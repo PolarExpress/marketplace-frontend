@@ -51,8 +51,8 @@ const mockUser: User = {
 
 const mockAuthor: Author = {
   id: "author-1",
-  user: mockUser,
-}
+  user: mockUser
+};
 
 /** Sample add-ons representing different categories */
 const sampleAddOn: Addon = {
@@ -60,20 +60,6 @@ const sampleAddOn: Addon = {
   name: "ExampleVis",
   summary: "...",
   category: AddonCategory.VISUALISATION,
-  author: mockAuthor
-};
-const sampleMLAddOn: Addon = {
-  id: "2",
-  name: "ExampleML",
-  summary: "...",
-  category: AddonCategory.MACHINE_LEARNING,
-  author: mockAuthor
-};
-const sampleDataAPIAddOn: Addon = {
-  id: "3",
-  name: "ExampleData",
-  summary: "...",
-  category: AddonCategory.DATA_SOURCE,
   author: mockAuthor
 };
 
