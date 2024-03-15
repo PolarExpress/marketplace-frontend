@@ -13,7 +13,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import AddOnSlice from "../features/addonList/AddOnSlice";
 
 const rootReducer = combineSlices({
-  addons: AddOnSlice.reducer
+  addons: AddOnSlice
 });
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;

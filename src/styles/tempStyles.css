@@ -11,11 +11,10 @@
   border: 1px solid lightgrey;
   padding: 20px;
   border-radius: 5px;
-  width: 50%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -23,14 +22,12 @@
   display: flex;
   justify-content: center;
   margin: 50px auto;
-  width: 30%;
 }
 
 .search-bar input[type="text"] {
   padding: 10px;
   border: 1px solid lightgray;
   border-radius: 5px;
-  width: calc(100% - 100px); /* Account for button width */
 }
 
 .search-bar button {
@@ -69,4 +66,8 @@
   margin-bottom: 20px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
   max-width: 75%;
+}
+.no-addons-found {
+  text-align: center;
+  font-size: 30px;
 }

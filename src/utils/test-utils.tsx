@@ -13,6 +13,8 @@ import type { PropsWithChildren, ReactElement } from "react";
 import { Provider } from "react-redux";
 import type { AppStore, RootState } from "../app/store";
 import { makeStore } from "../app/store";
+import { MemoryRouter } from "react-router-dom";
+import { Addon, AddonCategory } from "../types/AddOnTypes";
 
 /**
  * This type extends the default options for
@@ -51,7 +53,8 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
  */
 export const renderWithProviders = (
   ui: ReactElement,
-  extendedRenderOptions: ExtendedRenderOptions = {}
+  extendedRenderOptions: ExtendedRenderOptions = {},
+  initialEntries: string[] = ["/"]
 ) => {
   const {
     preloadedState = {},
@@ -61,7 +64,9 @@ export const renderWithProviders = (
   } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>{children}</Provider>
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries}> {children} </MemoryRouter>
+    </Provider>
   );
 
   // Return an object with the store and all of RTL's query functions
@@ -71,3 +76,37 @@ export const renderWithProviders = (
     ...render(ui, { wrapper: Wrapper, ...renderOptions })
   };
 };
+
+/**
+ *
+ * @returns A store with 2 mocked visualisation addons and an empty search term
+ */
+export const storeWithMockAddons = () => {
+  // Create partial mock state
+  const mockState: Partial<RootState> = {
+    addons: {
+      allAddOns: mockAddOns,
+      searchTerm: "",
+      status: "succeeded",
+      error: null
+    }
+  };
+
+  return makeStore(mockState);
+};
+
+// Sample add-on data
+const mockAddOns: Addon[] = [
+  {
+    id: "1",
+    name: "Mock Addon 1",
+    summary: "Mock Summary 1",
+    category: AddonCategory.VISUALISATION
+  },
+  {
+    id: "2",
+    name: "Mock Addon 2",
+    summary: "Mock Summary 2",
+    category: AddonCategory.VISUALISATION
+  }
+];

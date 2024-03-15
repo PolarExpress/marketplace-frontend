@@ -6,47 +6,60 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Redux slice to manage add-on-related state (fetched items, loading status, search filters, etc.).
-import { createSlice } from "@reduxjs/toolkit";
-import type { Addon } from "../../types/AddOnTypes";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { addonList } from "./tempAddons";
+import { AddonCategory, type Addon } from "../../types/AddOnTypes";
+import { fetchAddons as fetchAddonsApi } from "./AddOnApi"; // Correctly import fetchAddons
 
-/**
- * Defines the shape of the state managed by this Redux slice.
- * @property {Addon[]} allAddOns - The complete list of add-ons.
- * @property {string} searchTerm - The current search term used for filtering add-ons.
- */
 interface AddOnListState {
   allAddOns: Addon[];
   searchTerm: string;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
 }
 
-/**
- * The initial state of the add-on management slice.
- */
 const initialState: AddOnListState = {
-  allAddOns: addonList,
-  searchTerm: ""
+  allAddOns: [],
+  searchTerm: "",
+  status: "idle",
+  error: null
 };
 
 /**
- * Creates the Redux slice for managing add-on state, including reducers for updating state.
+ * Creates async thunk for fetching from backend.
+ * Currently chooses page 0 and visualisation category
  */
+export const fetchAddons = createAsyncThunk(
+  "addOnList/fetchAddons",
+  async () => {
+    return await fetchAddonsApi(0, AddonCategory.VISUALISATION);
+  }
+);
+
 const AddOnSlice = createSlice({
   name: "addOnList",
   initialState,
   reducers: {
-    /**
-     * Updates the searchTerm within the Redux state.
-     * @param state - The current Redux state of the add-on slice.
-     * @param action - The action containing the new search term as its payload.
-     */
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
     }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchAddons.pending, state => {
+        state.status = "loading";
+      })
+      .addCase(fetchAddons.fulfilled, (state, action) => {
+        state.allAddOns = action.payload;
+        state.status = "succeeded";
+      })
+      .addCase(fetchAddons.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to fetch addons";
+      });
   }
 });
 
-export default AddOnSlice;
-export const addOnActions = AddOnSlice.actions;
+export { initialState, type AddOnListState };
+export const { updateSearchTerm } = AddOnSlice.actions;
+export default AddOnSlice.reducer;

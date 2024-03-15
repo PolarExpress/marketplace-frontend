@@ -7,35 +7,49 @@
  */
 
 // Should display all add-ons in a grid/list
+import React, { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import type { RootState } from "../../app/store";
+import type { Addon } from "../../types/AddOnTypes";
 import AddOnCard from "./AddOnCard";
 import "../../styles/tempStyles.css";
-import { useAppSelector } from "../../app/hooks";
-import type { RootState } from "../../app/store";
+import { fetchAddons } from "./AddOnSlice";
 
-/**
- * Renders a list of AddOnCard components,
- * displaying information for each add-on in the application's state. It
- * supports search-based filtering of add-ons.
- */
 const AddOnList = () => {
-  const { allAddOns, searchTerm } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { allAddOns, searchTerm, status, error } = useAppSelector(
     (state: RootState) => state.addons
   );
 
-  /**
-   * Filters the list of add-ons based on the current search term.
-   */
-  const filteredAddOns = allAddOns.filter(addOn =>
+  useEffect(() => {
+    dispatch(fetchAddons());
+  }, [dispatch]);
+
+  const filteredAddOns = allAddOns.filter((addOn: Addon) =>
     addOn.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  if (status === "loading") return <div>Loading...</div>;
+  if (status === "failed") return <div>Error fetching add-ons: {error}</div>;
+
+  // Check if searchTerm is present but no add-ons match the search
+  if (searchTerm && filteredAddOns.length === 0) {
+    return (
+      <div className="no-addons-found">
+        No Add-ons found with the given search term
+      </div>
+    );
+  }
+
   return (
-    <div className="addons-list" data-testid="addons-list">
+    <div className="addons-list">
       {searchTerm
-        ? filteredAddOns.map(addOn => (
+        ? filteredAddOns.map((addOn: Addon) => (
             <AddOnCard key={addOn.id} addOn={addOn} />
           ))
-        : allAddOns.map(addOn => <AddOnCard key={addOn.id} addOn={addOn} />)}
+        : allAddOns.map((addOn: Addon) => (
+            <AddOnCard key={addOn.id} addOn={addOn} />
+          ))}
     </div>
   );
 };

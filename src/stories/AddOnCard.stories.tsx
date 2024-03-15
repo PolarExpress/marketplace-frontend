@@ -14,6 +14,8 @@ import type { Author } from "../types/AuthorTypes";
 import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
+import { MemoryRouter } from "react-router-dom";
+import { userEvent, within } from "@storybook/test";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -28,13 +30,14 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  argTypes: {
-    addOn: {
-      control: "object",
-      description: "The add-on data to display"
-    }
-  }
+  // Provides the redux store and browser router for the stories
+  decorators: [
+    Story => (
+      <Provider store={store}>
+        <MemoryRouter> {Story()} </MemoryRouter>
+      </Provider>
+    )
+  ]
 } satisfies Meta<typeof AddOnCard>;
 
 export default meta;
@@ -52,7 +55,7 @@ const mockAuthor: Author = {
 }
 
 /** Sample add-ons representing different categories */
-const sampleVisualisationAddOn: Addon = {
+const sampleAddOn: Addon = {
   id: "1",
   name: "ExampleVis",
   summary: "...",
@@ -77,32 +80,24 @@ const sampleDataAPIAddOn: Addon = {
 /**
  * Renders the AddOnCard with a sample add-on for the 'Visualization' category
  */
-export const Visualisation: Story = {
+export const Basic: Story = {
   args: {
-    addOn: sampleVisualisationAddOn
-  },
-  // Provides the Redux store for SearchBar to interact with
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
+    addOn: sampleAddOn
+  }
 };
 
 /**
- * Renders the AddOnCard with a sample add-on for the 'Machine Learning' category
+ * Renders the AddOnCard with the mouse hovered over it
  */
-export const MachineLearning: Story = {
+export const Hover: Story = {
   args: {
-    addOn: sampleMLAddOn
+    addOn: sampleAddOn
   },
-  // Provides the Redux store for SearchBar to interact with
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
-};
-
-/**
- * Renders the AddOnCard with a sample add-on for the 'Data API' category
- */
-export const DataAPI: Story = {
-  args: {
-    addOn: sampleDataAPIAddOn
-  },
-  // Provides the Redux store for SearchBar to interact with
-  decorators: [Story => <Provider store={store}> {Story()} </Provider>]
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByTestId("addon-card");
+    await userEvent.hover(card, {
+      delay: 100
+    });
+  }
 };
