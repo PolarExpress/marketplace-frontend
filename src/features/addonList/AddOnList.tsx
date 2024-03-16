@@ -6,53 +6,62 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Should display all add-ons in a grid/list
-import React, { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 import type { RootState } from "../../app/store";
-import type { Addon } from "../../types/AddOnTypes";
+import { AddonCategory, type Addon } from "../../types/AddOnTypes";
 import AddOnCard from "./AddOnCard";
 import "../../styles/tempStyles.css";
-import { fetchAddons } from "./AddOnSlice";
+import { useGetAddonsQuery } from "./AddOnApi";
+import Error from "../../components/Error";
 
 const AddOnList = () => {
-  const dispatch = useAppDispatch();
-  const { allAddOns, searchTerm, status, error } = useAppSelector(
-    (state: RootState) => state.addons
-  );
+  // Get the current search term from the state
+  const { searchTerm } = useAppSelector((state: RootState) => state.addons);
 
-  useEffect(() => {
-    dispatch(fetchAddons());
-  }, [dispatch]);
+  // Use the RTK Query hook to retrieve addons from the backend
+  const {
+    data: allAddOns,
+    isLoading,
+    error
+  } = useGetAddonsQuery({
+    // Temporary values
+    page: 0,
+    category: AddonCategory.VISUALISATION
+  });
 
-  if (status === "loading") return <div>Loading...</div>;
-  else if (status === "failed")
-    return <div>Error fetching add-ons: {error}</div>;
+  if (isLoading) return <div>Loading...</div>;
 
-  const filteredAddOns = allAddOns.filter((addOn: Addon) =>
-    addOn.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  if (error) return <Error error={error} />;
 
-  // Check if searchTerm is present and no add-ons match the search
-  if (searchTerm && filteredAddOns.length === 0) {
+  // Data might still be null or undefined
+  if (allAddOns) {
+    // Filter addons according to current searchTerm
+    const filteredAddOns = allAddOns.filter((addOn: Addon) =>
+      addOn.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Check if searchTerm is present and no add-ons match the search
+    if (searchTerm && filteredAddOns.length === 0) {
+      return (
+        <div className="no-addons-found">
+          No Add-ons found with the given search term
+        </div>
+      );
+    }
+
     return (
-      <div className="no-addons-found">
-        No Add-ons found with the given search term
+      <div className="addons-list">
+        {searchTerm
+          ? filteredAddOns.map((addOn: Addon) => (
+              <AddOnCard key={addOn.id} addOn={addOn} />
+            ))
+          : allAddOns.map((addOn: Addon) => (
+              <AddOnCard key={addOn.id} addOn={addOn} />
+            ))}
       </div>
     );
   }
-
-  return (
-    <div className="addons-list">
-      {searchTerm
-        ? filteredAddOns.map((addOn: Addon) => (
-            <AddOnCard key={addOn.id} addOn={addOn} />
-          ))
-        : allAddOns.map((addOn: Addon) => (
-            <AddOnCard key={addOn.id} addOn={addOn} />
-          ))}
-    </div>
-  );
+  return null;
 };
 
 export default AddOnList;
