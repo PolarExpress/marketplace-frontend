@@ -33,7 +33,7 @@ const AddOnList = () => {
 
   if (error) return <Error error={error} />;
 
-  // Data might still be null or undefined
+  // Data might still be empty or undefined
   if (allAddOns) {
     // Filter addons according to current searchTerm
     const filteredAddOns = allAddOns.filter((addOn: Addon) =>

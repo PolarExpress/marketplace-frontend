@@ -25,10 +25,14 @@ const addOnApi = emptySplitApi.injectEndpoints({
         if (category) queryParams.append("category", category);
         return `/addons?${queryParams.toString()}`;
       }
+    }),
+    // Gets the addon corresponding to the given id from the server
+    getAddonById: build.query<Addon, string>({
+      query: id => `/addons/${id}`
     })
   }),
   overrideExisting: false
 });
 
 // Exports automatically generated hooks.
-export const { useGetAddonsQuery } = addOnApi;
+export const { useGetAddonsQuery, useGetAddonByIdQuery } = addOnApi;
