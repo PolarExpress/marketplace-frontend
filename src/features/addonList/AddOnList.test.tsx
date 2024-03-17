@@ -9,8 +9,6 @@
 import { describe, it, expect } from "vitest";
 /*import type { Addon } from "../../types/AddOnTypes";
 import { AddonCategory } from "../../types/AddOnTypes";
-import { Author } from "../../types/AuthorTypes";
-import { User } from "../../types/UserTypes";
 import { renderWithProviders } from "../../utils/test-utils";
 import AddOnList from "./AddOnList";*/
 

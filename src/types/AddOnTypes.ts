@@ -7,7 +7,6 @@
  */
 
 import type { User } from "./UserTypes";
-import type { Author } from "./AuthorTypes";
 
 export enum AddonCategory {
   VISUALISATION = "VISUALISATION",
@@ -30,7 +29,4 @@ export interface Addon {
 
   /** (Optional)  A list of users who have installed the add-on */
   installedBy?: User[];
-
-  /** Author of the add-on */
-  author: Author;
 }
