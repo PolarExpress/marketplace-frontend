@@ -29,10 +29,21 @@ const addOnApi = emptySplitApi.injectEndpoints({
     // Gets the addon corresponding to the given id from the server
     getAddonById: build.query<Addon, string>({
       query: id => `/addons/${id}`
+    }),
+    // Gets the readMe of the given addon id
+    getAddonReadmeById: build.query<string, string>({
+      query: id => ({
+        url: `/addons/${id}/readme`,
+        responseHandler: "text"
+      })
     })
   }),
   overrideExisting: false
 });
 
 // Exports automatically generated hooks.
-export const { useGetAddonsQuery, useGetAddonByIdQuery } = addOnApi;
+export const {
+  useGetAddonsQuery,
+  useGetAddonByIdQuery,
+  useGetAddonReadmeByIdQuery
+} = addOnApi;

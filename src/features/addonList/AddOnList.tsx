@@ -12,7 +12,7 @@ import { AddonCategory, type Addon } from "../../types/AddOnTypes";
 import AddOnCard from "./AddOnCard";
 import "../../styles/tempStyles.css";
 import { useGetAddonsQuery } from "./AddOnApi";
-import Error from "../../components/Error";
+import RTKError from "../../components/RTKError";
 
 const AddOnList = () => {
   // Get the current search term from the state
@@ -31,7 +31,7 @@ const AddOnList = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  if (error) return <Error error={error} />;
+  if (error) return <RTKError error={error} />;
 
   // Data might still be empty or undefined
   if (allAddOns) {

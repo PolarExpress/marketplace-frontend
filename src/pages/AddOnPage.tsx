@@ -8,8 +8,12 @@
 
 import { useParams } from "react-router-dom";
 import "../styles/tempStyles.css";
-import { useGetAddonByIdQuery } from "../features/addonList/AddOnApi";
-import Error from "../components/Error";
+import {
+  useGetAddonByIdQuery,
+  useGetAddonReadmeByIdQuery
+} from "../features/addonList/AddOnApi";
+import RTKError from "../components/RTKError";
+import Markdown from "react-markdown";
 
 /**
  * Represents the individual page of an add-on.
@@ -19,13 +23,25 @@ const AddOnPage = () => {
   // Retrieve URL param
   const { id: thisId } = useParams();
 
-  // Use the RTK Query hook to retrieve addon from the backend
+  // Use the RTK Query hooks to retrieve addon and readme from the backend
   // If retrieved id param is undefined or empty, use the empty string in the query
-  const { data: addon, isLoading, error } = useGetAddonByIdQuery(thisId ?? "");
+  const {
+    data: addon,
+    isLoading: addonLoading,
+    error: addonError
+  } = useGetAddonByIdQuery(thisId ?? "");
+  // Fetching of the readme is skipped if the addon is not yet retrieved
+  const {
+    data: readMe,
+    isLoading: readmeLoading,
+    error: readmeError
+  } = useGetAddonReadmeByIdQuery(thisId ?? "", {
+    skip: !addon
+  });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (addonLoading) return <div>Loading...</div>;
 
-  if (error) return <Error error={error} />;
+  if (addonError) return <RTKError error={addonError} />;
 
   // Data might still be empty or undefined
   if (addon) {
@@ -36,6 +52,15 @@ const AddOnPage = () => {
         <p className="addon-summary">{addon.summary}</p>{" "}
         {/* TODO: Install Button */}
         {/* TODO: ReadMe */}
+        {readmeLoading && <div>Loading...</div>}
+        {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div. */}
+        {readmeError &&
+          ("status" in readmeError && readmeError.status === 400 ? (
+            <div></div>
+          ) : (
+            <RTKError error={readmeError} />
+          ))}
+        {readMe && <Markdown>{readMe}</Markdown>}
       </div>
     );
   }

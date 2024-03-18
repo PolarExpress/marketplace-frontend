@@ -21,7 +21,7 @@ interface ErrorProps {
  * @param {FetchBaseQueryError | SerializedError} props.error - The error object to display.
  * @returns {JSX.Element} - A JSX element rendering the appropriate error message.
  */
-const Error = ({ error }: ErrorProps) => {
+const RTKError = ({ error }: ErrorProps) => {
   if ("status" in error) {
     // You can access all properties of `FetchBaseQueryError` here
     const errMsg = "error" in error ? error.error : JSON.stringify(error.data);
@@ -33,4 +33,4 @@ const Error = ({ error }: ErrorProps) => {
   }
 };
 
-export default Error;
+export default RTKError;
