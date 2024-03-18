@@ -31,9 +31,9 @@ const AddOnPage = () => {
   }
 
   return (
-    <div className="addon-page-container" data-testid="addon-page">
+    <div className="addon-page-container">
       <h1 className="addon-name">{thisAddOn.name}</h1>
-      {/* TODO: Add-on Author */}
+      <p className="addon-author">{thisAddOn.author.user.name}</p>
       <p className="addon-summary">{thisAddOn.summary}</p>{" "}
       {/* TODO: Install Button */}
       {/* TODO: ReadMe */}

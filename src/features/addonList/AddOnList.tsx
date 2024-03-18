@@ -25,14 +25,15 @@ const AddOnList = () => {
     dispatch(fetchAddons());
   }, [dispatch]);
 
+  if (status === "loading") return <div>Loading...</div>;
+  else if (status === "failed")
+    return <div>Error fetching add-ons: {error}</div>;
+
   const filteredAddOns = allAddOns.filter((addOn: Addon) =>
     addOn.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (status === "loading") return <div>Loading...</div>;
-  if (status === "failed") return <div>Error fetching add-ons: {error}</div>;
-
-  // Check if searchTerm is present but no add-ons match the search
+  // Check if searchTerm is present and no add-ons match the search
   if (searchTerm && filteredAddOns.length === 0) {
     return (
       <div className="no-addons-found">

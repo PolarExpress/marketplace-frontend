@@ -31,6 +31,7 @@ const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
       className="addon-card no-underline-link"
       data-testid="addon-card">
       <h1>{addOn.name}</h1>
+      <p>Author: {addOn.author.user.name}</p>
       <p>{addOn.summary}</p>
     </Link>
   );
