@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
-import { addonList } from "../features/addonList/tempAddons";
+import { addonList } from "../temp/tempAddons";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**

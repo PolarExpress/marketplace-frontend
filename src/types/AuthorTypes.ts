@@ -6,18 +6,14 @@
  * (Department of Information and Computing Sciences)
  */
 
+import type { User } from "./UserTypes";
 import type { Addon } from "./AddOnTypes";
 
-/**
- * Defines the structure of a user.
- */
-export interface User {
-  /** Unique identifier for the user */
+export interface Author {
+  /** Unique identifier for the author */
   id: string;
-  /** The name of the user */
-  name: string;
-  /** The user's email address */
-  email: string;
-  /** (Optional)  A list of add-ons that the user has installed. */
-  installedAddons?: Addon[];
+  /** User corresponding to the author */
+  user: User;
+  /** (Optional) The add-ons created by this author */
+  createdAddons?: Addon[];
 }

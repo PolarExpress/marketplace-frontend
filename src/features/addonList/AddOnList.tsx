@@ -48,7 +48,7 @@ const AddOnList = () => {
         </div>
       );
     }
-
+    
     return (
       <div className="addons-list">
         {searchTerm
