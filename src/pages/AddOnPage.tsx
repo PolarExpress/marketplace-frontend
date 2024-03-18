@@ -39,7 +39,7 @@ const AddOnPage = () => {
     skip: !addon
   });
 
-  if (isAddonLoading) return <div>Loading...</div>;
+  if (isAddonLoading) return <div className="loading">Loading...</div>;
 
   if (addonError) return <RTKError error={addonError} />;
 
@@ -51,7 +51,7 @@ const AddOnPage = () => {
         <p className="addon-author">{addon.author.user.name}</p>
         <p className="addon-summary">{addon.summary}</p>{" "}
         {/* TODO: Install Button */}
-        {isReadmeLoading && <div>Loading...</div>}
+        {isReadmeLoading && <div className="loading">Loading...</div>}
         {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
             TODO: Update if structured errors are implemented.
         */}

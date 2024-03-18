@@ -29,7 +29,7 @@ const AddOnList = () => {
     category: AddonCategory.VISUALISATION
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="loading">Loading...</div>;
 
   if (error) return <RTKError error={error} />;
 

@@ -78,3 +78,13 @@
   text-align: center;
   font-size: 30px;
 }
+
+.loading {
+  position: fixed; /* Position it in the center of the screen */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Precise centering */
+  font-family: sans-serif;
+  font-size: 18px;
+  padding: 20px;
+}
