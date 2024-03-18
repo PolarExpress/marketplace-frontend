@@ -33,15 +33,15 @@ const AddOnList = () => {
 
   if (error) return <RTKError error={error} />;
 
-  // Data might still be empty or undefined
-  if (allAddOns) {
+  // Data might still be undefined
+  if (allAddOns != null) {
     // Filter addons according to current searchTerm
     const filteredAddOns = allAddOns.filter((addOn: Addon) =>
       addOn.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Check if searchTerm is present and no add-ons match the search
-    if (searchTerm && filteredAddOns.length === 0) {
+    if (searchTerm.length > 0 && filteredAddOns.length === 0) {
       return (
         <div className="no-addons-found">
           No Add-ons found with the given search term
@@ -61,7 +61,6 @@ const AddOnList = () => {
       </div>
     );
   }
-  return null;
 };
 
 export default AddOnList;

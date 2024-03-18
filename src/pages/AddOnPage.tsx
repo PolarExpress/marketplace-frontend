@@ -27,40 +27,41 @@ const AddOnPage = () => {
   // If retrieved id param is undefined or empty, use the empty string in the query
   const {
     data: addon,
-    isLoading: addonLoading,
+    isLoading: isAddonLoading,
     error: addonError
   } = useGetAddonByIdQuery(thisId ?? "");
   // Fetching of the readme is skipped if the addon is not yet retrieved
   const {
     data: readMe,
-    isLoading: readmeLoading,
+    isLoading: isReadmeLoading,
     error: readmeError
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
     skip: !addon
   });
 
-  if (addonLoading) return <div>Loading...</div>;
+  if (isAddonLoading) return <div>Loading...</div>;
 
   if (addonError) return <RTKError error={addonError} />;
 
   // Data might still be empty or undefined
-  if (addon) {
+  if (addon != null) {
     return (
       <div className="addon-page-container" data-testid="addon-page">
         <h1 className="addon-name">{addon.name}</h1>
         {/* TODO: Add-on Author */}
         <p className="addon-summary">{addon.summary}</p>{" "}
         {/* TODO: Install Button */}
-        {/* TODO: ReadMe */}
-        {readmeLoading && <div>Loading...</div>}
-        {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div. */}
+        {isReadmeLoading && <div>Loading...</div>}
+        {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
+            TODO: Update if structured errors are implemented.
+        */}
         {readmeError &&
           ("status" in readmeError && readmeError.status === 400 ? (
             <div></div>
           ) : (
             <RTKError error={readmeError} />
           ))}
-        {readMe && <Markdown>{readMe}</Markdown>}
+        {readMe != null && <Markdown>{readMe}</Markdown>}
       </div>
     );
   }

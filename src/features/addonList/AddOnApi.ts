@@ -21,8 +21,8 @@ const addOnApi = emptySplitApi.injectEndpoints({
     >({
       query: ({ page, category }) => {
         const queryParams = new URLSearchParams();
-        if (page) queryParams.append("page", page.toString());
-        if (category) queryParams.append("category", category);
+        if (page != null) queryParams.append("page", page.toString());
+        if (category != null) queryParams.append("category", category);
         return `/addons?${queryParams.toString()}`;
       }
     }),
