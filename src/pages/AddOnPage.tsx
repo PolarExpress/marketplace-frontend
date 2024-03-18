@@ -7,10 +7,13 @@
  */
 
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../app/hooks";
-import { RootState } from "../app/store";
 import "../styles/tempStyles.css";
-import { Addon } from "../types/AddOnTypes";
+import {
+  useGetAddonByIdQuery,
+  useGetAddonReadmeByIdQuery
+} from "../features/addonList/AddOnApi";
+import RTKError from "../components/RTKError";
+import Markdown from "react-markdown";
 
 /**
  * Represents the individual page of an add-on.
@@ -20,25 +23,48 @@ const AddOnPage = () => {
   // Retrieve URL param
   const { id: thisId } = useParams();
 
-  // Find add-on in state using URL param
-  const thisAddOn: Addon | undefined = useAppSelector((state: RootState) =>
-    state.addons.allAddOns.find(addon => addon.id === thisId)
-  );
+  // Use the RTK Query hooks to retrieve addon and readme from the backend
+  // If retrieved id param is undefined or empty, use the empty string in the query
+  const {
+    data: addon,
+    isLoading: isAddonLoading,
+    error: addonError
+  } = useGetAddonByIdQuery(thisId ?? "");
+  // Fetching of the readme is skipped if the addon is not yet retrieved
+  const {
+    data: readMe,
+    isLoading: isReadmeLoading,
+    error: readmeError
+  } = useGetAddonReadmeByIdQuery(thisId ?? "", {
+    skip: !addon
+  });
 
-  // Render simple error page when URL param not found in state
-  if (thisAddOn == null) {
-    return <div data-testid="addon-not-found">Add-on not found</div>;
+  if (isAddonLoading) return <div>Loading...</div>;
+
+  if (addonError) return <RTKError error={addonError} />;
+
+  // Data might still be empty or undefined
+  if (addon != null) {
+    return (
+      <div className="addon-page-container" data-testid="addon-page">
+        <h1 className="addon-name">{addon.name}</h1>
+        <p className="addon-author">{addon.author.user.name}</p>
+        <p className="addon-summary">{addon.summary}</p>{" "}
+        {/* TODO: Install Button */}
+        {isReadmeLoading && <div>Loading...</div>}
+        {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
+            TODO: Update if structured errors are implemented.
+        */}
+        {readmeError &&
+          ("status" in readmeError && readmeError.status === 400 ? (
+            <div></div>
+          ) : (
+            <RTKError error={readmeError} />
+          ))}
+        {readMe != null && <Markdown>{readMe}</Markdown>}
+      </div>
+    );
   }
-
-  return (
-    <div className="addon-page-container">
-      <h1 className="addon-name">{thisAddOn.name}</h1>
-      <p className="addon-author">{thisAddOn.author.user.name}</p>
-      <p className="addon-summary">{thisAddOn.summary}</p>{" "}
-      {/* TODO: Install Button */}
-      {/* TODO: ReadMe */}
-    </div>
-  );
 };
 
 export default AddOnPage;

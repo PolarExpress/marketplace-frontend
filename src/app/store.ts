@@ -11,9 +11,12 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import AddOnSlice from "../features/addonList/AddOnSlice";
+import { emptySplitApi } from "../services/api";
 
 const rootReducer = combineSlices({
-  addons: AddOnSlice
+  addons: AddOnSlice,
+  // Allows the store to process the internal actions that the generated api hooks use
+  [emptySplitApi.reducerPath]: emptySplitApi.reducer
 });
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
@@ -29,7 +32,8 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => {
-      return getDefaultMiddleware(); // Likely no extra middleware for add-ons initially
+      //API middleware adds logic for managing caching, invalidation, subscriptions, polling, and more.
+      return getDefaultMiddleware().concat(emptySplitApi.middleware);
     },
     preloadedState
   });
