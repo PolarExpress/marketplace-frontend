@@ -38,10 +38,7 @@ describe("SearchBar Component", () => {
   it("dispatches the updateSearchTerm action on button click", async () => {
     const preloadedState: Partial<RootState> = {
       addons: {
-        allAddOns: [],
-        searchTerm: "",
-        status: "idle",
-        error: null
+        searchTerm: ""
       }
     };
     // Rendering the component with Redux Provider
