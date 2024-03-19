@@ -16,7 +16,7 @@ import searchSlice from "../components/searchBar/searchSlice";
 
 const reducer = combineSlices({
   [api.reducerPath]: api.reducer,
-  search: searchSlice 
+  search: searchSlice
 });
 
 export type RootState = ReturnType<typeof reducer>;
@@ -29,7 +29,8 @@ export type RootState = ReturnType<typeof reducer>;
  */
 export function makeStore(preloadedState?: Partial<RootState>) {
   return configureStore({
-    reducer, preloadedState,
+    reducer,
+    preloadedState,
     middleware: getDefaultMiddleware => {
       return getDefaultMiddleware().concat(api.middleware);
     }

@@ -20,8 +20,10 @@ function setupPageWithId(id: string) {
   renderWithProviders(
     <Routes>
       <Route path="/addons/:id" element={<AddOnPage />} />
-    </Routes>
-  , { store }, [`/addons/${id}`]);
+    </Routes>,
+    { store },
+    [`/addons/${id}`]
+  );
 }
 
 describe("AddOnPage", () => {
@@ -37,7 +39,7 @@ describe("AddOnPage", () => {
 
   it('renders "Add-on not found" if the add-on is not in the store', async () => {
     // Render the Add-on Page starting at route "/addons/3" (does not exist) using the mocked state
-    setupPageWithId("3")
+    setupPageWithId("3");
 
     await screen.findByTestId("addon-not-found");
 

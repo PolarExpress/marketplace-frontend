@@ -32,10 +32,14 @@ export default function AddOnPage() {
   }
 
   return (
-    <div className="mx-auto py-16 max-w-2xl text-center" data-testid="addon-page">
+    <div
+      className="mx-auto py-16 max-w-2xl text-center"
+      data-testid="addon-page">
       <h1 className="text-xl">{addon.name}</h1>
       {/* TODO: Add-on Author */}
-      <p className="my-4 text-gray-500 text-sm border-b-2 border-neutral-200">{addon.summary}</p>
+      <p className="my-4 text-gray-500 text-sm border-b-2 border-neutral-200">
+        {addon.summary}
+      </p>
       <InstallButton addon={addon} />
       <Markdown>{addon.readme}</Markdown>
     </div>
