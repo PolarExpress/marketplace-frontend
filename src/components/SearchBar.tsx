@@ -12,6 +12,7 @@ import { useAppDispatch } from "../app/hooks";
 import { updateSearchTerm } from "../features/addonList/AddOnSlice";
 import "../styles/tempStyles.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import LoginButton from "./LoginButton";
 
 /**
  * Provides a user interface for searching add-ons.
@@ -52,6 +53,7 @@ const SearchBar = () => {
         placeholder="Search add-ons..."
       />
       <button type="submit">Search</button>
+      <LoginButton />
     </form>
   );
 };

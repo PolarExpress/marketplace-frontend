@@ -7,6 +7,7 @@
  */
 
 import SearchBar from "./SearchBar";
+//import LoginButton from "./LoginButton";
 
 /**
  * The Header component renders the main header area of the application,
