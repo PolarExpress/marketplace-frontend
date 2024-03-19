@@ -5,52 +5,65 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-
-/*import { render, screen } from "@testing-library/react";
-import AddOnPage from "./AddOnPage";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { Provider } from "react-redux";
-import { storeWithMockAddons } from "../utils/test-utils";
-import { addonList } from "../temp/tempAddons";*/
+// Testing imports
 import { describe, it, expect } from "vitest";
+import { renderWithProviders } from "../utils/test-utils";
+import { Route, Routes } from "react-router-dom";
+import "@testing-library/jest-dom";
 
-// TODO: Doesn't succeed because of loading screen when fetching from backend
+// Page import
+import AddOnPage from "./AddOnPage";
+import { addonList } from "../temp/tempAddons";
+import { server } from "../setupTests";
+import { HttpResponse, http } from "msw";
+
+const baseUrl = import.meta.env.VITE_API_BASE;
+
+function setupPageWithId(id: string) {
+  return renderWithProviders(
+    <Routes>
+      <Route path="/addons/:id" element={<AddOnPage />} />
+    </Routes>,
+    {},
+    [`/addons/${id}`]
+  );
+}
+
 describe("AddOnPage", () => {
-  /*it("renders the add-on information when found", () => {
-    const store = storeWithMockAddons();
-
-    // Render the Add-on Page starting at the route corresponding to an existing mock addon
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[`/addons/${addonList[1].id}`]}>
-          <Routes>
-            <Route path="/addons/:id" element={<AddOnPage />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>
+  it("renders the add-on information when found", async () => {
+    const { findByTestId, findByText, getByText } = setupPageWithId(
+      addonList[0].id
     );
 
-    // Assert wether the add-on page correctly retrieves the information from its parameters
-    expect(screen.getByText(addonList[1].name)).toBeDefined();
-    expect(screen.getByText(addonList[1].summary)).toBeDefined();
+    await expect(findByTestId("addon-loading")).toBeDefined();
+    await expect(findByTestId("readme-loading")).toBeDefined();
+
+    // Waits until the addon page is rendered
+    await findByTestId("addon-page");
+
+    expect(getByText(addonList[0].name)).toBeDefined();
+    expect(getByText(addonList[0].author.user.name)).toBeDefined();
+    expect(getByText(addonList[0].summary)).toBeDefined();
+    await expect(findByTestId("addon-loading")).rejects.toThrow();
+    await expect(findByTestId("readme-loading")).rejects.toThrow();
+
+    await expect(findByText("readme")).toBeDefined();
   });
-  it('renders "Add-on not found" if the add-on is not in the store', () => {
-    const store = storeWithMockAddons();
-
-    // Render the Add-on Page starting at route "/addons/3" (does not exist) using the mocked state
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={["/addons/3"]}>
-          <Routes>
-            <Route path="/addons/:id" element={<AddOnPage />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>
+  it("displays the returned error", async () => {
+    // Setup specific msw handlers for returning errors
+    server.use(
+      http.get(`${baseUrl}/addons/:id`, () => {
+        return HttpResponse.error();
+      }),
+      http.get(`${baseUrl}/addons/:id/readme`, () => {
+        return HttpResponse.error();
+      })
     );
+    const { findByTestId } = setupPageWithId(addonList[0].id);
 
-    expect(screen.getByText("Add-on not found")).toBeDefined();
-  });*/
-  it("temp", () => {
-    expect(true).toEqual(true);
+    // Checks if fetching of readme is skipped when addon doesn't load
+    await expect(findByTestId("readme-loading")).rejects.toThrow();
+
+    expect(findByTestId("fetch-error")).toBeDefined();
   });
 });

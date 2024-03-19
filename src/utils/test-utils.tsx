@@ -75,18 +75,3 @@ export const renderWithProviders = (
     ...render(ui, { wrapper: Wrapper, ...renderOptions })
   };
 };
-
-/**
- *
- * @returns A store with 2 mocked visualisation addons and an empty search term
- */
-export const storeWithMockAddons = () => {
-  // Create partial mock state
-  const mockState: Partial<RootState> = {
-    addons: {
-      searchTerm: ""
-    }
-  };
-
-  return makeStore(mockState);
-};

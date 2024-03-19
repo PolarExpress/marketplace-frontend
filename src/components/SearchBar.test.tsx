@@ -7,9 +7,9 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { renderWithProviders, storeWithMockAddons } from "../utils/test-utils";
+import { renderWithProviders } from "../utils/test-utils";
 import SearchBar from "../components/SearchBar";
-import { type RootState } from "../app/store";
+import { store, type RootState } from "../app/store";
 import { updateSearchTerm } from "../features/addonList/AddOnSlice";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
@@ -64,9 +64,6 @@ describe("SearchBar Component", () => {
   });
 
   it("navigates to Home Page when submitted", async () => {
-    // Create store with a mocked state
-    const store = storeWithMockAddons();
-
     // Render the Header starting at route "/addons/2" using the mocked state
     render(
       <Provider store={store}>

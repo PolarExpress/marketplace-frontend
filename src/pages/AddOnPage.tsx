@@ -36,10 +36,10 @@ const AddOnPage = () => {
     isLoading: isReadmeLoading,
     error: readmeError
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
-    skip: !addon
+    skip: addon == null
   });
 
-  if (isAddonLoading) return <div>Loading...</div>;
+  if (isAddonLoading) return <div data-testid="addon-loading">Loading...</div>;
 
   if (addonError) return <RTKError error={addonError} />;
 
@@ -51,17 +51,17 @@ const AddOnPage = () => {
         <p className="addon-author">{addon.author.user.name}</p>
         <p className="addon-summary">{addon.summary}</p>{" "}
         {/* TODO: Install Button */}
-        {isReadmeLoading && <div>Loading...</div>}
-        {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
+        {isReadmeLoading && <div data-testid="readme-loading">Loading...</div>}
+        {/* Do not display error if the status is 400 (readme not found in backend).e
             TODO: Update if structured errors are implemented.
         */}
-        {readmeError &&
-          ("status" in readmeError && readmeError.status === 400 ? (
-            <div></div>
-          ) : (
+        {readmeError ? (
+          "status" in readmeError && readmeError.status === 400 ? null : (
             <RTKError error={readmeError} />
-          ))}
-        {readMe != null && <Markdown>{readMe}</Markdown>}
+          )
+        ) : (
+          readMe != null && <Markdown>{readMe}</Markdown>
+        )}
       </div>
     );
   }

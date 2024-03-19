@@ -23,5 +23,8 @@ export const handlers = [
   }),
   http.get(`${baseUrl}/addons/:id`, ({ params }) =>
     HttpResponse.json(addonList.find(addon => addon.id === params.id))
+  ),
+  http.get(`${baseUrl}/addons/:id/readme`, ({ params }) =>
+    HttpResponse.text("readme")
   )
 ];
