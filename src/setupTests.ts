@@ -7,3 +7,10 @@
  */
 
 import "@testing-library/jest-dom/vitest";
+
+import { setupServer } from "msw/node";
+import { handlers } from "./test/mocks";
+
+const server = setupServer(...handlers); 
+beforeAll(() => server.listen());
+afterAll(() => server.close());

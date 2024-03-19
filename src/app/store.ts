@@ -9,37 +9,32 @@
 // Configures Redux store, including middleware and combining reducers
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import AddOnSlice from "../features/addonList/AddOnSlice";
 
-const rootReducer = combineSlices({
-  addons: AddOnSlice
+// Slices and services
+import { api } from "./services/addonService";
+import searchSlice from "../components/searchBar/searchSlice";
+
+const reducer = combineSlices({
+  [api.reducerPath]: api.reducer,
+  search: searchSlice 
 });
-// Infer the `RootState` type from the root reducer
-export type RootState = ReturnType<typeof rootReducer>;
+
+export type RootState = ReturnType<typeof reducer>;
 
 /**
  * Creates a Redux store with a preloaded state and default middleware.
  * Also sets up RTK Query listeners for refetching on focus/reconnect.
  *
- * @param preloadedState - Optional initial state for the Redux store.
- * @returns {Store} The newly created Redux store.
+ * @returns The newly created Redux store.
  */
-export const makeStore = (preloadedState?: Partial<RootState>) => {
-  const store = configureStore({
-    reducer: rootReducer,
+export function makeStore(preloadedState?: Partial<RootState>) {
+  return configureStore({
+    reducer, preloadedState,
     middleware: getDefaultMiddleware => {
-      return getDefaultMiddleware(); // Likely no extra middleware for add-ons initially
-    },
-    preloadedState
+      return getDefaultMiddleware().concat(api.middleware);
+    }
   });
-
-  // configure listeners using the provided defaults
-  // optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
-  setupListeners(store.dispatch);
-
-  return store;
-};
+}
 
 export const store = makeStore();
 

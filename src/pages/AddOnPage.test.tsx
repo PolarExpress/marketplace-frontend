@@ -6,44 +6,40 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { render, screen } from "@testing-library/react";
+// Testing imports
+import { screen } from "@testing-library/react";
+import { Route, Routes } from "react-router-dom";
+import { renderWithProviders, storeWithMockAddons } from "../test/utils";
+
+// Page import
 import AddOnPage from "./AddOnPage";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { Provider } from "react-redux";
-import { storeWithMockAddons } from "../utils/test-utils";
+
+function setupPageWithId(id: string) {
+  const store = storeWithMockAddons();
+
+  renderWithProviders(
+    <Routes>
+      <Route path="/addons/:id" element={<AddOnPage />} />
+    </Routes>
+  , { store }, [`/addons/${id}`]);
+}
 
 describe("AddOnPage", () => {
-  it("renders the add-on information when found", () => {
-    const store = storeWithMockAddons();
-
+  it("renders the add-on information when found", async () => {
     // Render the Add-on Page starting at route "/addons/1" using the mocked state
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={["/addons/1"]}>
-          <Routes>
-            <Route path="/addons/:id" element={<AddOnPage />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>
-    );
+    setupPageWithId("1");
 
-    // Assert wether the add-on page correctly retrieves the information from its parameters
+    await screen.findByTestId("addon-page");
+
     expect(screen.getByText("Mock Addon 1")).toBeDefined();
     expect(screen.getByText("Mock Summary 1")).toBeDefined();
   });
-  it('renders "Add-on not found" if the add-on is not in the store', () => {
-    const store = storeWithMockAddons();
 
+  it('renders "Add-on not found" if the add-on is not in the store', async () => {
     // Render the Add-on Page starting at route "/addons/3" (does not exist) using the mocked state
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={["/addons/3"]}>
-          <Routes>
-            <Route path="/addons/:id" element={<AddOnPage />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>
-    );
+    setupPageWithId("3")
+
+    await screen.findByTestId("addon-not-found");
 
     expect(screen.getByText("Add-on not found")).toBeDefined();
   });

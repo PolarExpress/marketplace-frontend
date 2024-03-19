@@ -7,7 +7,7 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import AddOnCard from "../features/addonList/AddOnCard";
+import AddOnCard from "../components/addonCard/AddOnCard";
 import type { Addon } from "../types/AddOnTypes";
 import { AddonCategory } from "../types/AddOnTypes";
 import { Provider } from "react-redux";

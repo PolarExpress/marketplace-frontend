@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { User } from "./UserTypes";
+import { type User } from "./UserTypes";
 
 export enum AddonCategory {
   VISUALISATION = "VISUALISATION",
@@ -26,7 +26,8 @@ export interface Addon {
   summary: string;
   /** The category it belongs to (e.g., visualization) */
   category: AddonCategory;
-
-  /** (Optional)  A list of users who have installed the add-on */
-  installedBy?: User[];
+  /** The readme of the addon */
+  readme?: string;
+  /** Whether the user has installed the addon */
+  installedBy: User[];
 }

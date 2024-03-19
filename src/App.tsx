@@ -7,9 +7,9 @@
  */
 
 import HomePage from "./pages/HomePage";
-import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
 import AddOnPage from "./pages/AddOnPage";
+import Header from "./components/header/Header";
 
 /**
  * The central application component, responsible for high-level page layout and routing.

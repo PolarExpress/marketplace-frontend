@@ -7,7 +7,7 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/searchBar/SearchBar";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import { MemoryRouter } from "react-router-dom";
@@ -65,19 +65,6 @@ export const HoverInput: Story = {
     const canvas = within(canvasElement);
     const searchInput = canvas.getByPlaceholderText("Search add-ons...");
     await userEvent.hover(searchInput, {
-      delay: 100
-    });
-  }
-};
-
-/**
- * Renders the SearchBar with the mouse hovered over the search button
- */
-export const HoverSearch: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const searchButton = canvas.getByRole("button", { name: "Search" });
-    await userEvent.hover(searchButton, {
       delay: 100
     });
   }
