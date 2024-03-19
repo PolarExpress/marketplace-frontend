@@ -22,7 +22,8 @@ export default defineConfig(({ command }) => ({
         "src/stories/**/*",
         "public",
         "tailwind.config.js",
-        "src/colors.js"
+        "src/colors.js",
+        "storybook-static"
       ]
     }
   }
