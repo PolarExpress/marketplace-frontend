@@ -5,17 +5,14 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-// Testing imports
 import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "../utils/test-utils";
 import { Route, Routes } from "react-router-dom";
-import "@testing-library/jest-dom";
-
-// Page import
-import AddOnPage from "./AddOnPage";
-import { addonList } from "../temp/tempAddons";
 import { server } from "../setupTests";
 import { HttpResponse, http } from "msw";
+
+import AddOnPage from "./AddOnPage";
+import { addonList } from "../temp/tempAddons";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 
@@ -31,11 +28,11 @@ function setupPageWithId(id: string) {
 
 describe("AddOnPage", () => {
   it("renders the add-on information when found", async () => {
-    const { findByTestId, findByText, getByText } = setupPageWithId(
-      addonList[0].id
-    );
+    const { findByTestId, getByTestId, findByText, getByText } =
+      setupPageWithId(addonList[0].id);
 
-    await expect(findByTestId("addon-loading")).toBeDefined();
+    //Addon loading starts instantly, readme later
+    expect(getByTestId("addon-loading")).toBeDefined();
     await expect(findByTestId("readme-loading")).toBeDefined();
 
     // Waits until the addon page is rendered
@@ -44,6 +41,7 @@ describe("AddOnPage", () => {
     expect(getByText(addonList[0].name)).toBeDefined();
     expect(getByText(addonList[0].author.user.name)).toBeDefined();
     expect(getByText(addonList[0].summary)).toBeDefined();
+
     await expect(findByTestId("addon-loading")).rejects.toThrow();
     await expect(findByTestId("readme-loading")).rejects.toThrow();
 
@@ -64,6 +62,6 @@ describe("AddOnPage", () => {
     // Checks if fetching of readme is skipped when addon doesn't load
     await expect(findByTestId("readme-loading")).rejects.toThrow();
 
-    expect(findByTestId("fetch-error")).toBeDefined();
+    await expect(findByTestId("fetch-error")).toBeDefined();
   });
 });
