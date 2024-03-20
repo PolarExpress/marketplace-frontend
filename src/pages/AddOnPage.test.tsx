@@ -64,4 +64,15 @@ describe("AddOnPage", () => {
 
     await expect(findByTestId("fetch-error")).toBeDefined();
   });
+  it("does not attempt to render the addon when it has no data", async () => {
+    // Setup specific msw handlers for returning errors
+    server.use(
+      http.get(`${baseUrl}/addons/:id`, () => {
+        return HttpResponse.json(null);
+      })
+    );
+    const { findByTestId } = setupPageWithId(addonList[0].id);
+
+    await expect(findByTestId("addon-page")).rejects.toThrow();
+  });
 });
