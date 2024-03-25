@@ -7,3 +7,11 @@
  */
 
 import "@testing-library/jest-dom/vitest";
+
+import { setupServer } from "msw/node";
+import { handlers } from "./test/mocks";
+
+// Set up http handlers during testing (npm test)
+const server = setupServer(...handlers);
+beforeAll(() => server.listen());
+afterAll(() => server.close());
