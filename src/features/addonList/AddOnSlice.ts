@@ -8,13 +8,20 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { Addon } from "../../types/AddOnTypes";
 
 interface AddOnListState {
   searchTerm: string;
+  allAddons: Addon[];
+  selectedAddon: Addon|undefined;
+  selectedReadMe: string|undefined;
 }
 
 const initialState: AddOnListState = {
-  searchTerm: ""
+  searchTerm: "",
+  allAddons: [],
+  selectedAddon: undefined,
+  selectedReadMe: undefined
 };
 
 const AddOnSlice = createSlice({
@@ -23,10 +30,19 @@ const AddOnSlice = createSlice({
   reducers: {
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
+    },
+    setAllAddons(state, action: PayloadAction<Addon[]>) {
+      state.allAddons = action.payload;
+    },
+    setSelectedAddon(state, action: PayloadAction<Addon>) {
+      state.selectedAddon = action.payload;
+    },
+    setSelectedReadMe(state, action: PayloadAction<string>) {
+      state.selectedReadMe = action.payload;
     }
   }
 });
 
 export { initialState, type AddOnListState };
-export const { updateSearchTerm } = AddOnSlice.actions;
+export const { updateSearchTerm, setAllAddons, setSelectedAddon, setSelectedReadMe } = AddOnSlice.actions;
 export default AddOnSlice.reducer;
