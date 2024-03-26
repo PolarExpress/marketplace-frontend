@@ -230,6 +230,14 @@ export class Broker {
       });
   }
 
+  public sendMessageAsync(message: SendMessageI): Promise<Record<string, any>> {
+    return new Promise((resolve, _) => {
+      this.sendMessage(message, (data: Record<string, any>) => {
+        resolve(data);
+      });
+    });
+  }
+
   /**
    * Websocket connection message event handler. Called if a new message is received through the socket.
    * @param {any} event Contains the event data.
