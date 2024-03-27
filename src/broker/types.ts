@@ -18,8 +18,7 @@ export type keyTypeI =
   | "dbConnection"
   | "schema"
   | "query"
-  | "state"
-  | "addons";
+  | "state";
 export type subKeyTypeI =
   // Crud
   | "create"
@@ -37,10 +36,7 @@ export type subKeyTypeI =
   | "testConnection"
   | "getSchema"
   | "getSchemaStats"
-  | "runQuery"
-  | "getAllAddons"
-  | "getAddonById"
-  | "getAddonReadmeById";
+  | "runQuery";
 
 export type SendMessageI = {
   key: keyTypeI;
