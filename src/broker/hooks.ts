@@ -6,24 +6,30 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Broker } from "./broker";
 import type { SendMessageI } from "./types";
 
+/**
+ * Interface for parameters used in addon management hooks.
+ */
 interface UseAddonParams {
   userId: string;
   addonId: string;
   action: "installAddon" | "uninstallAddon";
 }
 
-const useAddon = ({ userId, addonId, action }: UseAddonParams) => {
-  // Backend response type does not matter
-  const [data, setData] = useState<any>(null);
+/**
+ * A hook to manage (install or uninstall) an addon by sending a message to the backend.
+ *
+ * @returns An object containing the `isPending` state, the `error` state, and the `manageAddon` function.
+ */
+const useAddon = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const manageAddon = async () => {
+  const manageAddon = useCallback(
+    async ({ userId, addonId, action }: UseAddonParams) => {
       setIsPending(true);
 
       const message: SendMessageI = {
@@ -39,25 +45,52 @@ const useAddon = ({ userId, addonId, action }: UseAddonParams) => {
       };
 
       try {
-        const response = await Broker.instance().sendMessageAsync(message);
-        setData(response);
-        setError(null);
+        // Unsure how backend error handling will be implemented
+        await Broker.instance().sendMessageAsync(message);
       } catch (error) {
-        setError(`Failed to ${action}`);
+        setError(`Failed to ${action}. ${error}`);
       }
 
       setIsPending(false);
-    };
+    },
+    []
+  );
 
-    manageAddon();
-  }, [userId, addonId, action]);
-
-  return { data, isPending, error };
+  return { isPending, error, manageAddon };
 };
 
-// Use the hooks for install and uninstall
-export const useInstallAddon = ({ userId, addonId }: UseAddonParams) =>
-  useAddon({ userId, addonId, action: "installAddon" });
+/**
+ * A hook to install an addon using the generic addon management hook.
+ *
+ * @returns An object containing the `isPending` state, the `error` state, and the `installAddon` function.
+ */
+export const useInstallAddon = () => {
+  const { isPending, error, manageAddon } = useAddon();
 
-export const useUninstallAddon = ({ userId, addonId }: UseAddonParams) =>
-  useAddon({ userId, addonId, action: "uninstallAddon" });
+  const installAddon = useCallback(
+    ({ userId, addonId }: Omit<UseAddonParams, "action">) => {
+      manageAddon({ userId, addonId, action: "installAddon" });
+    },
+    [manageAddon]
+  );
+
+  return { isPending, error, installAddon };
+};
+
+/**
+ * A hook to uninstall an addon using the generic addon management hook.
+ *
+ * @returns An object containing the `isPending` state, the `error` state, and the `uninstallAddon` function.
+ */
+export const useUninstallAddon = () => {
+  const { isPending, error, manageAddon } = useAddon();
+
+  const uninstallAddon = useCallback(
+    ({ userId, addonId }: Omit<UseAddonParams, "action">) => {
+      manageAddon({ userId, addonId, action: "uninstallAddon" });
+    },
+    [manageAddon]
+  );
+
+  return { isPending, error, uninstallAddon };
+};
