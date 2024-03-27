@@ -18,7 +18,8 @@ export type keyTypeI =
   | "dbConnection"
   | "schema"
   | "query"
-  | "state";
+  | "state"
+  | "mp-backend";
 export type subKeyTypeI =
   // Crud
   | "create"
