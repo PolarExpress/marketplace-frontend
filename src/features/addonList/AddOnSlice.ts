@@ -13,8 +13,8 @@ import { Addon } from "../../types/AddOnTypes";
 interface AddOnListState {
   searchTerm: string;
   allAddons: Addon[];
-  selectedAddon: Addon | undefined;
-  selectedReadMe: string | undefined;
+  selectedAddon: Addon|undefined;
+  selectedReadMe: string|undefined;
 }
 
 const initialState: AddOnListState = {
@@ -44,10 +44,5 @@ const AddOnSlice = createSlice({
 });
 
 export { initialState, type AddOnListState };
-export const {
-  updateSearchTerm,
-  setAllAddons,
-  setSelectedAddon,
-  setSelectedReadMe
-} = AddOnSlice.actions;
+export const { updateSearchTerm, setAllAddons, setSelectedAddon, setSelectedReadMe } = AddOnSlice.actions;
 export default AddOnSlice.reducer;
