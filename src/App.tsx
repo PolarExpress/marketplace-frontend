@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
 import AddOnPage from "./pages/AddOnPage";
+import { EventBus } from "./components/EventBus";
 
 /**
  * The central application component, responsible for high-level page layout and routing.
@@ -17,6 +18,7 @@ import AddOnPage from "./pages/AddOnPage";
 const App = () => {
   return (
     <>
+      <EventBus />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

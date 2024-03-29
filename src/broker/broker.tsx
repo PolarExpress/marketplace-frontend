@@ -12,7 +12,7 @@
  * © Copyright Utrecht University (Department of Information and Computing Sciences)
  */
 
-import { UseIsAuthorizedState } from "./types";
+import { UseIsAuthorizedState } from "../features/authentication/AuthSlice";
 import {
   ReceiveMessageI,
   SendMessageI,
@@ -50,10 +50,13 @@ export class Broker {
   /** mostRecentMessages is a dictionary with <routingkey, messageObject>. It stores the most recent message for that routingkey. */
   private mostRecentMessages: Record<string, unknown> = {};
 
+  //TODO: Create env variable
+  private static BACKEND_WSS_URL = "ws://localhost:3001/";
+
   /** Get the singleton instance of the Broker. */
   public static instance(): Broker {
     if (!this.singletonInstance)
-      this.singletonInstance = new Broker(import.meta.env.BACKEND_WSS_URL);
+      this.singletonInstance = new Broker(this.BACKEND_WSS_URL);
     return this.singletonInstance;
   }
 

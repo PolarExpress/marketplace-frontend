@@ -50,18 +50,3 @@ export type SendMessageWithSessionI = SendMessageI & {
   sessionID: string;
   body?: string;
 };
-
-//////////////////////////////////////////////////////////////////////////////
-// Copied from GraphPolaris authSlice
-//////////////////////////////////////////////////////////////////////////////
-type SingleIsAuthorizedState = {
-  authorized: boolean | undefined;
-  jwt: string | undefined;
-  sessionID: string | undefined;
-  userID: string | undefined;
-  username: string | undefined;
-};
-
-export type UseIsAuthorizedState = SingleIsAuthorizedState & {
-  roomID: string | undefined;
-};
