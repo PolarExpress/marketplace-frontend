@@ -7,12 +7,11 @@
  */
 
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { updateSearchTerm } from "../features/addonList/AddOnSlice";
 import "../styles/tempStyles.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Broker } from "../broker/broker";
 
 /**
  * Provides a user interface for searching add-ons.
@@ -25,20 +24,6 @@ const SearchBar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Trying to send a test message to check for successful connection to backend services
-  useEffect(() => {
-    const wait = async () => {
-      console.log("Sending message");
-      const data = await Broker.instance().sendMessageAsync({
-        key: "state",
-        subKey: "getAll"
-      });
-      console.log(data);
-      console.log("Success");
-    };
-    wait();
-  }, []);
 
   /**
    * Handles submission of the search form.

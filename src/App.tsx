@@ -25,6 +25,7 @@ const App = () => {
 
   useEffect(() => {
     login();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Connects the WebSocket and sets authorisation header for the broker
