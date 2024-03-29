@@ -16,7 +16,8 @@ import { UseIsAuthorizedState } from "../features/authentication/AuthSlice";
 import {
   ReceiveMessageI,
   SendMessageI,
-  SendMessageWithSessionI
+  SendMessageWithSessionI,
+  QueuedMessage
 } from "./types";
 
 /**
@@ -49,6 +50,9 @@ export class Broker {
 
   /** mostRecentMessages is a dictionary with <routingkey, messageObject>. It stores the most recent message for that routingkey. */
   private mostRecentMessages: Record<string, unknown> = {};
+
+  /** Contains messages to be sent when the connection to the WebSocket has been opened */
+  private messageQueue: QueuedMessage[] = [];
 
   //TODO: Create env variable
   private static BACKEND_WSS_URL = "ws://localhost:3001/";
@@ -161,6 +165,12 @@ export class Broker {
     this.webSocket = new WebSocket(this.url + "?" + params.toString());
     this.webSocket.onopen = () => {
       this.connected = true;
+      // Send queued messages
+      while (this.messageQueue.length > 0) {
+        const { message, callback } =
+          this.messageQueue.shift() as QueuedMessage;
+        this.sendMessage(message, callback);
+      }
       onOpen();
     };
     this.webSocket.onmessage = this.receiveMessage;
@@ -226,11 +236,10 @@ export class Broker {
 
     if (this.webSocket && this.connected && this.webSocket.readyState === 1)
       this.webSocket.send(JSON.stringify(fullMessage));
-    else
-      this.connect(() => {
-        if (this.webSocket && this.connected && this.webSocket.readyState === 1)
-          this.webSocket.send(JSON.stringify(fullMessage));
-      });
+    else {
+      console.warn("WebSocket is not open. Queueing message.");
+      this.messageQueue.push({ message, callback });
+    }
   }
 
   public sendMessageAsync(message: SendMessageI): Promise<Record<string, any>> {

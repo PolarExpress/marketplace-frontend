@@ -50,3 +50,8 @@ export type SendMessageWithSessionI = SendMessageI & {
   sessionID: string;
   body?: string;
 };
+
+export type QueuedMessage = {
+  message: SendMessageI;
+  callback?: Function;
+};
