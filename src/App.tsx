@@ -19,6 +19,7 @@ import { Broker } from "./broker/broker";
  * The central application component, responsible for high-level page layout and routing.
  */
 const App = () => {
+  // TODO: find a better place for logging in and connecting to the WebSocket
   const auth = useAuthorizationCache();
   const { login } = useAuth();
 
