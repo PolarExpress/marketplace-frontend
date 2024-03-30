@@ -10,8 +10,7 @@ import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
 import AddOnPage from "./pages/AddOnPage";
-import { useAppSelector } from "./app/hooks";
-import { RootState } from "./app/store";
+import { useAuthorizationCache } from "./app/hooks";
 import { useAuth } from "./features/authentication/useAuth";
 import { useEffect } from "react";
 import { Broker } from "./broker/broker";
@@ -20,7 +19,7 @@ import { Broker } from "./broker/broker";
  * The central application component, responsible for high-level page layout and routing.
  */
 const App = () => {
-  const auth = useAppSelector((state: RootState) => state.auth);
+  const auth = useAuthorizationCache();
   const { login } = useAuth();
 
   useEffect(() => {

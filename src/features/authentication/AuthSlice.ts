@@ -7,6 +7,7 @@
  */
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 
 export type UseIsAuthorizedState = SingleIsAuthorizedState & {
   roomID: string | undefined;
@@ -78,5 +79,7 @@ export const AuthSlice = createSlice({
 
 export const { authorized, unauthorized, logout, changeRoom } =
   AuthSlice.actions;
+
+export const authState = (state: RootState) => state.auth;
 
 export default AuthSlice.reducer;
