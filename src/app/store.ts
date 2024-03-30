@@ -10,13 +10,16 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import AddOnSlice from "../features/addonList/AddOnSlice";
 import { emptySplitApi } from "../services/api";
+import AddOnSlice from "../features/addonList/AddOnSlice";
 import AuthSlice from "../features/authentication/AuthSlice";
+import UserSlice from "../features/currentUser/UserSlice";
 
 const rootReducer = combineSlices({
   addons: AddOnSlice,
   auth: AuthSlice,
+  user: UserSlice,
+
   // Allows the store to process the internal actions that the generated api hooks use
   [emptySplitApi.reducerPath]: emptySplitApi.reducer
 });
