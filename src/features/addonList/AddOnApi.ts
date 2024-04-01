@@ -40,7 +40,7 @@ const addOnApi = emptySplitApi.injectEndpoints({
     getAddonReadmeById: build.query<string, string>({
       query: id => `/addons/${id}/readme`,
       transformResponse(response: { readme: string }) {
-          return response.readme;
+        return response.readme;
       }
     })
   }),
