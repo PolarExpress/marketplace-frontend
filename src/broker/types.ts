@@ -19,7 +19,7 @@ export type keyTypeI =
   | "schema"
   | "query"
   | "state"
-  | "mp-backend";
+  | "mpBackend";
 export type subKeyTypeI =
   // Crud
   | "create"
@@ -54,4 +54,21 @@ export type SendMessageWithSessionI = SendMessageI & {
 export type QueuedMessage = {
   message: SendMessageI;
   callback?: Function;
+};
+
+export type MpBackendAction =
+  | "install"
+  | "uninstall"
+  | "addons/get"
+  | "addons/get-by-id"
+  | "addons/get-readme"
+  | "addons/get-installed";
+
+export type MpBackendMessage = SendMessageI & {
+  key: "mpBackend";
+  subKey: "get";
+  body: {
+    action: MpBackendAction;
+    [key: string]: any;
+  };
 };

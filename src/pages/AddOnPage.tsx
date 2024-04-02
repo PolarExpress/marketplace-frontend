@@ -14,6 +14,7 @@ import {
 } from "../features/addonList/AddOnApi";
 import RTKError from "../components/RTKError";
 import Markdown from "react-markdown";
+import { useUninstallAddon } from "../broker/hooks";
 
 /**
  * Represents the individual page of an add-on.
@@ -38,6 +39,11 @@ const AddOnPage = () => {
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
     skip: !addon
   });
+
+  const { isPending, error, uninstallAddon } = useUninstallAddon();
+  console.log(`Pending: ${isPending}`);
+  console.log(`Error: ${error}`);
+  uninstallAddon("cluidftdl000ng1et8mxick25");
 
   if (isAddonLoading) return <div>Loading...</div>;
 
