@@ -6,55 +6,38 @@
  * (Department of Information and Computing Sciences)
  */
 
-import React from "react";
-import { useInstallAddon } from "../broker/hooks";
-import { useUninstallAddon } from "../broker/hooks";
-import { useAuthorizationCache } from "../app/hooks";
-
-interface AddonButtonProps {
-  addonId: string;
+/**
+ * Properties for the InstallButton component.
+ * @property {boolean} isAddonInstalled - Indicates if the addon is currently installed.
+ * @property {boolean} installPending - Indicates if an addon installation is in progress.
+ * @property {boolean} uninstallPending - Indicates if an addon uninstallation is in progress.
+ * @property {boolean} userAddonsLoading - Indicates if the overall list of user addons is currently being loaded.
+ * @property {boolean} authorized - Indicates if the user has the necessary authorization to interact with addons.
+ * @property {() => void} handleClick - Function to be executed when the addon button is clicked.
+ */
+interface InstallButtonProps {
+  isAddonInstalled: boolean;
+  installPending: boolean;
+  uninstallPending: boolean;
+  userAddonsLoading: boolean;
+  authorized: boolean;
+  handleClick: () => void;
 }
 
-const AddonButton: React.FC<AddonButtonProps> = ({ addonId }) => {
-  const {
-    isPending: installPending,
-    error: installError,
-    installAddon
-  } = useInstallAddon();
-
-  const {
-    isPending: uninstallPending,
-    error: uninstallError,
-    uninstallAddon
-  } = useUninstallAddon();
-
-  const auth = useAuthorizationCache();
-
-  const installed = false; // Simulate get-addons-by-user-id query
-
-  const handleClick = () => {
-    if (auth.authorized) {
-      if (installed) {
-        uninstallAddon(addonId);
-      } else {
-        installAddon(addonId);
-      }
-    } else {
-      // Redirect to login page or show login prompt
-      console.log("User is not logged in. Redirecting to login page.");
-    }
-  };
-
-  if (installError || uninstallError) {
-    // Handle errors
-    console.error("Error:", installError || uninstallError);
-    return null;
-  }
-
+const InstallButton: React.FC<InstallButtonProps> = ({
+  isAddonInstalled,
+  installPending,
+  uninstallPending,
+  userAddonsLoading,
+  authorized,
+  handleClick
+}) => {
   return (
-    <button onClick={handleClick} disabled={installPending || uninstallPending}>
-      {auth.authorized
-        ? installed
+    <button
+      onClick={handleClick}
+      disabled={installPending || uninstallPending || userAddonsLoading}>
+      {authorized
+        ? isAddonInstalled
           ? uninstallPending
             ? "Uninstalling..."
             : "Uninstall"
@@ -66,4 +49,4 @@ const AddonButton: React.FC<AddonButtonProps> = ({ addonId }) => {
   );
 };
 
-export default AddonButton;
+export default InstallButton;

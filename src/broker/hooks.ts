@@ -6,9 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Broker } from "./broker";
-import type { MpBackendMessage } from "./types";
+import type { MpBackendAction, MpBackendMessage } from "./types";
+import { Addon } from "../types/AddOnTypes";
 
 /**
  * Interface for parameters used in addon management hooks.
@@ -92,33 +93,22 @@ export const useUninstallAddon = () => {
 };
 
 /**
- * Interface for parameters used in getting addons by user ID.
- */
-/*interface UseGetAddonsByUserIdParams {
-  page?: number;
-}*/
-
-/**
  * A hook to get addons by user ID by sending a message to the backend.
  *
- * @returns An object containing the `data` state, the `isLoading` state, the `error` state, and the `getAddonsByUserId` function.
+ * @returns An object containing the `data` state, the `isLoading` state, and the `error` state.
  */
-/*export const useGetAddonsByUserId = () => {
+export const useGetAddonsByUserId = () => {
   const [data, setData] = useState<Addon[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const getAddonsByUserId = useCallback(
-    async ({ page }: UseGetAddonsByUserIdParams) => {
-      setIsLoading(true);
-      setError(null);
-
+  useEffect(() => {
+    const fetchAddons = async () => {
       const message: MpBackendMessage = {
         key: "mpBackend",
         subKey: "get",
         body: {
-          action: "addons/get-installed",
-          page
+          action: "addons/get-installed" as MpBackendAction
         }
       };
 
@@ -130,9 +120,10 @@ export const useUninstallAddon = () => {
       }
 
       setIsLoading(false);
-    },
-    []
-  );
+    };
 
-  return { data, isLoading, error, getAddonsByUserId };
-};*/
+    fetchAddons();
+  }, []);
+
+  return { data, isLoading, error };
+};

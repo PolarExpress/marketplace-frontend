@@ -15,6 +15,13 @@ import {
 import RTKError from "../components/RTKError";
 import Markdown from "react-markdown";
 import InstallButton from "../components/InstallButton";
+import { useAuthorizationCache } from "../app/hooks";
+import {
+  useGetAddonsByUserId,
+  useInstallAddon,
+  useUninstallAddon
+} from "../broker/hooks";
+import { useEffect, useState } from "react";
 
 /**
  * Represents the individual page of an add-on.
@@ -24,8 +31,9 @@ const AddOnPage = () => {
   // Retrieve URL param
   const { id: thisId } = useParams();
 
+  const auth = useAuthorizationCache();
+
   // Use the RTK Query hooks to retrieve addon and readme from the backend
-  // If retrieved id param is undefined or empty, use the empty string in the query
   const {
     data: addon,
     isLoading: isAddonLoading,
@@ -40,25 +48,84 @@ const AddOnPage = () => {
     skip: !addon
   });
 
+  // Use the custom hooks for interacting with the backend over AMQP
+  const {
+    isPending: installPending,
+    error: installError,
+    installAddon
+  } = useInstallAddon();
+
+  const {
+    isPending: uninstallPending,
+    error: uninstallError,
+    uninstallAddon
+  } = useUninstallAddon();
+
+  const {
+    data: userAddons,
+    isLoading: userAddonsLoading,
+    error: userAddonsError
+  } = useGetAddonsByUserId();
+
+  const isCurrentAddonInstalled = userAddons?.some(
+    addon => addon.id === thisId
+  );
+
+  const [installed, setInstalled] = useState<boolean>(
+    isCurrentAddonInstalled ?? false
+  );
+
+  useEffect(() => {
+    setInstalled(isCurrentAddonInstalled ?? false);
+  }, [isCurrentAddonInstalled]);
+
+  /**
+   * Handles the installation or uninstallation of the add-on.
+   * Changes the internal installed state as well.
+   */
+  const handleInstall = () => {
+    if (auth.authorized) {
+      if (installed) {
+        uninstallAddon(thisId ?? "");
+        setInstalled(false);
+      } else {
+        installAddon(thisId ?? "");
+        setInstalled(true);
+      }
+    } else {
+      // Should redirect to the login page when it exists
+      console.warn("User is not logged in. Redirecting to login page.");
+    }
+  };
+
   if (isAddonLoading) return <div>Loading...</div>;
 
   if (addonError) return <RTKError error={addonError} />;
 
-  // Data might still be empty or undefined
+  if (installError || uninstallError || userAddonsError)
+    return <div>{installError || uninstallError || userAddonsError}</div>;
+
   if (addon != null) {
     return (
       <div className="addon-page-container" data-testid="addon-page">
         <h1 className="addon-name">{addon.name}</h1>
         <p className="addon-author">{addon.author.user.name}</p>
         <p className="addon-summary">{addon.summary}</p>{" "}
-        <InstallButton addonId={thisId ?? ""} />
+        <InstallButton
+          isAddonInstalled={installed}
+          installPending={installPending}
+          uninstallPending={uninstallPending}
+          userAddonsLoading={userAddonsLoading}
+          authorized={auth.authorized ?? false}
+          handleClick={handleInstall}
+        />
         {isReadmeLoading && <div>Loading...</div>}
         {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
             TODO: Update if structured errors are implemented.
         */}
         {readmeError &&
           ("status" in readmeError && readmeError.status === 400 ? (
-            <div></div>
+            <div>No readme found</div>
           ) : (
             <RTKError error={readmeError} />
           ))}
