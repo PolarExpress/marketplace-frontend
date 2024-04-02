@@ -24,18 +24,24 @@ const addOnApi = emptySplitApi.injectEndpoints({
         if (page != null) queryParams.append("page", page.toString());
         if (category != null) queryParams.append("category", category);
         return `/addons?${queryParams.toString()}`;
+      },
+      transformResponse(response: { addons: Addon[] }) {
+        return response.addons;
       }
     }),
     // Gets the addon corresponding to the given id from the server
     getAddonById: build.query<Addon, string>({
-      query: id => `/addons/${id}`
+      query: id => `/addons/${id}`,
+      transformResponse(response: { addon: Addon }) {
+        return response.addon;
+      }
     }),
     // Gets the readMe of the given addon id
     getAddonReadmeById: build.query<string, string>({
-      query: id => ({
-        url: `/addons/${id}/readme`,
-        responseHandler: "text"
-      })
+      query: id => `/addons/${id}/readme`,
+      transformResponse(response: { readme: string }) {
+        return response.readme;
+      }
     })
   }),
   overrideExisting: false
