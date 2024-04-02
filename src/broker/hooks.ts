@@ -36,7 +36,7 @@ const useAddon = () => {
         subKey: "get",
         body: {
           action: action,
-          addonId
+          addonID: addonId
         }
       };
 

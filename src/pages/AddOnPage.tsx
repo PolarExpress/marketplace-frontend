@@ -14,7 +14,7 @@ import {
 } from "../features/addonList/AddOnApi";
 import RTKError from "../components/RTKError";
 import Markdown from "react-markdown";
-import { useUninstallAddon } from "../broker/hooks";
+import InstallButton from "../components/InstallButton";
 
 /**
  * Represents the individual page of an add-on.
@@ -40,11 +40,6 @@ const AddOnPage = () => {
     skip: !addon
   });
 
-  const { isPending, error, uninstallAddon } = useUninstallAddon();
-  console.log(`Pending: ${isPending}`);
-  console.log(`Error: ${error}`);
-  uninstallAddon("cluidftdl000ng1et8mxick25");
-
   if (isAddonLoading) return <div>Loading...</div>;
 
   if (addonError) return <RTKError error={addonError} />;
@@ -56,7 +51,7 @@ const AddOnPage = () => {
         <h1 className="addon-name">{addon.name}</h1>
         <p className="addon-author">{addon.author.user.name}</p>
         <p className="addon-summary">{addon.summary}</p>{" "}
-        {/* TODO: Install Button */}
+        <InstallButton addonId={thisId ?? ""} />
         {isReadmeLoading && <div>Loading...</div>}
         {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
             TODO: Update if structured errors are implemented.
