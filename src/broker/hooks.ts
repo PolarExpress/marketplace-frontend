@@ -9,7 +9,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { Broker } from "./broker";
 import type { MpBackendAction, MpBackendMessage } from "./types";
-import { Addon } from "../types/AddOnTypes";
+import { Addon, AddonCategory } from "../types/AddOnTypes";
 
 /**
  * Interface for parameters used in addon management hooks.
@@ -93,11 +93,22 @@ export const useUninstallAddon = () => {
 };
 
 /**
+ * Interface for parameters used in get GetAddonsByUserId hook
+ */
+interface UseGetAddonsByUserIdParams {
+  page?: number;
+  category?: AddonCategory;
+}
+
+/**
  * A hook to get addons by user ID by sending a message to the backend.
  *
  * @returns An object containing the `data` state, the `isLoading` state, and the `error` state.
  */
-export const useGetAddonsByUserId = () => {
+export const useGetAddonsByUserId = ({
+  page,
+  category
+}: UseGetAddonsByUserIdParams = {}) => {
   const [data, setData] = useState<Addon[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -108,7 +119,9 @@ export const useGetAddonsByUserId = () => {
         key: "mpBackend",
         subKey: "get",
         body: {
-          action: "addons/get-by-user" as MpBackendAction
+          action: "addons/get-by-user" as MpBackendAction,
+          page: page,
+          category: category
         }
       };
 
@@ -123,7 +136,7 @@ export const useGetAddonsByUserId = () => {
     };
 
     fetchAddons();
-  }, []);
+  }, [category, page]);
 
   return { data, isLoading, error };
 };

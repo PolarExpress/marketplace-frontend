@@ -120,7 +120,7 @@ const AddOnPage = () => {
           handleClick={handleInstall}
         />
         {isReadmeLoading && <div>Loading...</div>}
-        {/* Do not display error if the status is 400 (readme not found in backend). In that case, render an empty div.
+        {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
             TODO: Update if structured errors are implemented.
         */}
         {readmeError &&
