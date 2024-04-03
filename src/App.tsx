@@ -10,11 +10,38 @@ import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
 import AddOnPage from "./pages/AddOnPage";
+import { useAuthorizationCache } from "./app/hooks";
+import { useAuth } from "./features/authentication/useAuth";
+import { useEffect } from "react";
+import { Broker } from "./broker/broker";
 
 /**
  * The central application component, responsible for high-level page layout and routing.
  */
 const App = () => {
+  // TODO: find a better place for logging in and connecting to the WebSocket
+  const auth = useAuthorizationCache();
+  const { login } = useAuth();
+
+  useEffect(() => {
+    login();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Connects the WebSocket and sets authorisation header for the broker
+  useEffect(() => {
+    if (auth.authorized && auth.jwt) {
+      console.log("Connecting broker");
+      Broker.instance()
+        .useAuth(auth)
+        .connect(() => {
+          console.log("WS connected", window.location.search);
+        });
+    } else {
+      // dispatch(logout());
+    }
+  }, [auth]);
+
   return (
     <>
       <Header />

@@ -31,7 +31,7 @@ FROM prepare AS deploy
 COPY --from=build /app/dist /app/dist
 ENV  NODE_ENV production
 
-CMD ["serve", "-s", "dist", "-l", "8000"]
+CMD ["serve", "-s", "dist", "-l", "4201"]
 
 # --------------------------------------
 
