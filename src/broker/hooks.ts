@@ -108,7 +108,7 @@ export const useGetAddonsByUserId = () => {
         key: "mpBackend",
         subKey: "get",
         body: {
-          action: "addons/get-installed" as MpBackendAction
+          action: "addons/get-by-user" as MpBackendAction
         }
       };
 

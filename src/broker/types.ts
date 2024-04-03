@@ -62,7 +62,7 @@ export type MpBackendAction =
   | "addons/get"
   | "addons/get-by-id"
   | "addons/get-readme"
-  | "addons/get-installed";
+  | "addons/get-by-user";
 
 export type MpBackendMessage = SendMessageI & {
   key: "mpBackend";
