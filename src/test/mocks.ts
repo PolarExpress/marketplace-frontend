@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse, passthrough } from "msw";
 import { addonList } from "../temp/tempAddons";
 import { AddonCategory } from "../types/AddOnTypes";
 
@@ -55,5 +55,8 @@ export const handlers = [
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
       : HttpResponse.json(null);
+  }),
+  http.all("*", () => {
+    return passthrough();
   })
 ];
