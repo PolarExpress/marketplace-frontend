@@ -6,25 +6,57 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse, passthrough } from "msw";
 import { addonList } from "../temp/tempAddons";
+import { AddonCategory } from "../types/AddOnTypes";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 
 /**
- * Define mocking routes
+ * Define mocking routes.
+ * Roughly corresponds to backend handlers.
  */
 export const handlers = [
-  http.get(`${baseUrl}/addons`, ({ request }) => {
-    const params = new URL(request.url).searchParams;
-    const page = params.get("page");
+  http.post(`${baseUrl}/addons/get`, async ({ request }) => {
+    const body = (await request.json()) as {
+      page?: number;
+      category?: AddonCategory;
+    };
+    const category = body.category;
 
-    return page === "0" ? HttpResponse.json(addonList) : HttpResponse.json([]);
+    let filteredAddons = category
+      ? addonList.filter(addon => addon.category === category)
+      : addonList;
+
+    return HttpResponse.json({ addons: filteredAddons });
   }),
-  http.get(`${baseUrl}/addons/:id`, ({ params }) =>
-    HttpResponse.json(addonList.find(addon => addon.id === params.id))
-  ),
-  http.get(`${baseUrl}/addons/:id/readme`, ({ params }) =>
-    HttpResponse.text("readme")
-  )
+
+  http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
+    const body = (await request.json()) as {
+      id: string;
+    };
+    const addonId = body.id;
+
+    const addon = addonList.find(addon => addon.id === addonId);
+
+    return addon
+      ? HttpResponse.json({ addon: addon })
+      : HttpResponse.json(null);
+  }),
+
+  http.post(`${baseUrl}/addons/get-readme`, async ({ request }) => {
+    const body = (await request.json()) as {
+      id: string;
+    };
+    const addonId = body.id;
+
+    const addon = addonList.find(addon => addon.id === addonId);
+
+    return addon
+      ? HttpResponse.json({ readme: `# README for ${addon.name}` })
+      : HttpResponse.json(null);
+  }),
+  http.all("*", () => {
+    return passthrough();
+  })
 ];
