@@ -56,6 +56,7 @@ export const handlers = [
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
       : HttpResponse.json(null);
   }),
+
   http.all("*", () => {
     return passthrough();
   })

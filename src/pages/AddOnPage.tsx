@@ -43,7 +43,6 @@ const AddOnPage = () => {
 
   if (addonError) return <RTKError error={addonError} />;
 
-  // Data might still be empty or undefined
   if (addon != null) {
     return (
       <div className="addon-page-container" data-testid="addon-page">

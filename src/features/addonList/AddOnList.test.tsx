@@ -22,6 +22,7 @@ describe("AddOnList component", () => {
     const addOnCards = await findAllByTestId("addon-card");
     expect(addOnCards.length).toBe(addonList.length);
   });
+
   it("filters add-ons based on searchTerm", async () => {
     const { findAllByTestId, getByText } = renderWithProviders(<AddOnList />, {
       preloadedState: { addons: { searchTerm: addonList[0].name } }
@@ -33,6 +34,7 @@ describe("AddOnList component", () => {
     expect(addOnCards.length).toBe(1);
     expect(getByText(addonList[0].summary)).toBeDefined();
   });
+
   it("displays message when no addons are found with search term", async () => {
     const { findByText } = renderWithProviders(<AddOnList />, {
       preloadedState: { addons: { searchTerm: "qwerty" } }
@@ -43,11 +45,12 @@ describe("AddOnList component", () => {
     );
     expect(message).toBeDefined();
   });
+
   it("displays the returned error", async () => {
     const baseUrl = import.meta.env.VITE_API_BASE;
     // Setup specific msw handlers for returning errors
     server.use(
-      http.get(`${baseUrl}/addons`, () => {
+      http.post(`${baseUrl}/addons/get`, () => {
         return HttpResponse.error();
       })
     );

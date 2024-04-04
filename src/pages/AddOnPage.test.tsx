@@ -16,7 +16,12 @@ import { addonList } from "../temp/tempAddons";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 
-function setupPageWithId(id: string) {
+/**
+ * Renders the individual page of an addon
+ * @param id Id of addon to be rendered
+ * @returns An object containing functions to query the rendered page
+ */
+const setupPageWithId = (id: string) => {
   return renderWithProviders(
     <Routes>
       <Route path="/addons/:id" element={<AddOnPage />} />
@@ -24,36 +29,41 @@ function setupPageWithId(id: string) {
     {},
     [`/addons/${id}`]
   );
-}
+};
 
 describe("AddOnPage", () => {
   it("renders the add-on information when found", async () => {
-    const { findByTestId, getByTestId, findByText, getByText } =
-      setupPageWithId(addonList[0].id);
+    const testAddon = addonList[0];
 
-    //Addon loading starts instantly, readme later
+    const { findByTestId, getByTestId, getByText } = setupPageWithId(
+      testAddon.id
+    );
+
+    //Addon loading is instantly visible, readme later
     expect(getByTestId("addon-loading")).toBeDefined();
     await expect(findByTestId("readme-loading")).toBeDefined();
 
     // Waits until the addon page is rendered
     await findByTestId("addon-page");
 
-    expect(getByText(addonList[0].name)).toBeDefined();
-    expect(getByText(addonList[0].author.user.name)).toBeDefined();
-    expect(getByText(addonList[0].summary)).toBeDefined();
+    expect(getByText(testAddon.name)).toBeDefined();
+    expect(getByText(testAddon.author.user.name)).toBeDefined();
+    expect(getByText(testAddon.summary)).toBeDefined();
 
+    // Waits until loading has finished
     await expect(findByTestId("addon-loading")).rejects.toThrow();
     await expect(findByTestId("readme-loading")).rejects.toThrow();
 
-    await expect(findByText("readme")).toBeDefined();
+    expect(getByText(`README for ${testAddon.name}`)).toBeDefined();
   });
+
   it("displays the returned error", async () => {
     // Setup specific msw handlers for returning errors
     server.use(
-      http.get(`${baseUrl}/addons/:id`, () => {
+      http.post(`${baseUrl}/addons/get-by-id`, () => {
         return HttpResponse.error();
       }),
-      http.get(`${baseUrl}/addons/:id/readme`, () => {
+      http.post(`${baseUrl}/addons/get-readme`, () => {
         return HttpResponse.error();
       })
     );
@@ -64,11 +74,12 @@ describe("AddOnPage", () => {
 
     await expect(findByTestId("fetch-error")).toBeDefined();
   });
+
   it("does not attempt to render the addon when it has no data", async () => {
     // Setup specific msw handlers for returning errors
     server.use(
-      http.get(`${baseUrl}/addons/:id`, () => {
-        return HttpResponse.json(null);
+      http.post(`${baseUrl}/addons/get-by-id`, () => {
+        return HttpResponse.json({ addons: null });
       })
     );
     const { findByTestId } = setupPageWithId(addonList[0].id);
