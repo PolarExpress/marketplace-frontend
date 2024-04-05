@@ -15,18 +15,19 @@ import type { Addon, AddonCategory } from "../../types/AddOnTypes";
 const addOnApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
     // Fetches a list of addons from the server, optionally filtered by page and category.
-    getAddons: build.query<Addon[], { page: number; category?: AddonCategory }>(
-      {
-        query: ({ page, category }) => ({
-          url: "/addons/get",
-          method: "POST",
-          body: { page, category }
-        }),
-        transformResponse(response: { addons: Addon[] }) {
-          return response.addons;
-        }
+    getAddons: build.query<
+      Addon[],
+      { page?: number; category?: AddonCategory }
+    >({
+      query: ({ page, category }) => ({
+        url: "/addons/get",
+        method: "POST",
+        body: { page, category }
+      }),
+      transformResponse(response: { addons: Addon[] }) {
+        return response.addons;
       }
-    ),
+    }),
     // Gets the addon corresponding to the given id from the server
     getAddonById: build.query<Addon, string>({
       query: id => ({
