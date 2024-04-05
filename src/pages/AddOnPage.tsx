@@ -68,7 +68,7 @@ const AddOnPage = () => {
   } = useGetAddonsByUserId();
 
   const isCurrentAddonInstalled = userAddons?.some(
-    addon => addon.id === thisId
+    addon => addon._id === thisId
   );
 
   const [installed, setInstalled] = useState<boolean>(
@@ -109,7 +109,7 @@ const AddOnPage = () => {
     return (
       <div className="addon-page-container" data-testid="addon-page">
         <h1 className="addon-name">{addon.name}</h1>
-        <p className="addon-author">{addon.author.user.name}</p>
+        <p className="addon-author">{addon.author.userId}</p>
         <p className="addon-summary">{addon.summary}</p>{" "}
         <InstallButton
           isAddonInstalled={installed}

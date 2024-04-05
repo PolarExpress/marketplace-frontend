@@ -6,7 +6,6 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { User } from "./UserTypes";
 import type { Author } from "./AuthorTypes";
 
 export enum AddonCategory {
@@ -20,16 +19,18 @@ export enum AddonCategory {
  */
 export interface Addon {
   /** Unique identifier for the add-on */
-  id: string;
+  _id: string;
   /** Display name of the add-on */
   name: string;
   /** A short description of the add-on's functionality */
   summary: string;
+  /** Link to the icon of the addon */
+  icon: string;
   /** The category it belongs to (e.g., visualization) */
   category: AddonCategory;
 
-  /** (Optional)  A list of users who have installed the add-on */
-  installedBy?: User[];
+  /** Id of the author that created this add-on */
+  authorId: string;
 
   /** Author of the add-on */
   author: Author;

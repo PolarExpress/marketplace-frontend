@@ -6,14 +6,9 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { User } from "./UserTypes";
-import type { Addon } from "./AddOnTypes";
-
 export interface Author {
   /** Unique identifier for the author */
-  id: string;
-  /** User corresponding to the author */
-  user: User;
-  /** (Optional) The add-ons created by this author */
-  createdAddons?: Addon[];
+  _id: string;
+  /** UserId corresponding to the author */
+  userId: string;
 }
