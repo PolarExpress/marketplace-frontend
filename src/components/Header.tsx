@@ -7,6 +7,7 @@
  */
 
 import SearchBar from "./SearchBar";
+import "../style.css";
 
 /**
  * The Header component renders the main header area of the application,
@@ -14,7 +15,8 @@ import SearchBar from "./SearchBar";
  */
 const Header = () => {
   return (
-    <div data-testid="header">
+    <div className= "mb-100 xl:w-96"
+    data-testid="header">
       <SearchBar />
     </div>
   );

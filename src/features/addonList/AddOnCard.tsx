@@ -9,7 +9,7 @@
 // Component for rendering a single add-on's information
 import type React from "react";
 import type { Addon } from "../../types/AddOnTypes";
-import "../../styles/tempStyles.css";
+import "../../style.css";
 import { Link } from "react-router-dom";
 
 /**

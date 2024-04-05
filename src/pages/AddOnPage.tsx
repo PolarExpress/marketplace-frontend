@@ -7,7 +7,7 @@
  */
 
 import { useParams } from "react-router-dom";
-import "../styles/tempStyles.css";
+import "../style.css";
 import {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
