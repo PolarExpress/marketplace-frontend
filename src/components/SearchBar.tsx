@@ -10,7 +10,7 @@ import type React from "react";
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { updateSearchTerm } from "../features/addonList/AddOnSlice";
-import "../style.css";
+//import "../style.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**

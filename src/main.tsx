@@ -33,13 +33,20 @@ enableMocking().then(() => {
   if (container) {
     const root = createRoot(container);
 
+    let poop = <p className="text-blue-600 font-extrabold mb-9">Does it work please</p>;
+
     root.render(
+
+    <Provider store={store}>    
+      <Router>
+        <App />
+        <p className="text-center text-blue-700 uppercase font-extrabold"> This is a test</p>
+        <p className="text-center text-red-700 uppercase font-extrabold"> This is also test</p>
+      </Router>
+      <p className=" front-bold border border-solid">What if outside router?</p>
+    </Provider>
       //<React.StrictMode>
-      <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
-      </Provider>
+      
       //</React.StrictMode>
     );
   } else {

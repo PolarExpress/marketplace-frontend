@@ -7,7 +7,7 @@
  */
 
 import SearchBar from "./SearchBar";
-import "../style.css";
+//import "../style.css";
 
 /**
  * The Header component renders the main header area of the application,
