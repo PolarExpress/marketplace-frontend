@@ -33,11 +33,11 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
     const body = (await request.json()) as {
-      id: string;
+      _id: string;
     };
-    const addonId = body.id;
+    const addonId = body._id;
 
-    const addon = addonList.find(addon => addon.id === addonId);
+    const addon = addonList.find(addon => addon._id === addonId);
 
     return addon
       ? HttpResponse.json({ addon: addon })
@@ -46,16 +46,17 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/get-readme`, async ({ request }) => {
     const body = (await request.json()) as {
-      id: string;
+      _id: string;
     };
-    const addonId = body.id;
+    const addonId = body._id;
 
-    const addon = addonList.find(addon => addon.id === addonId);
+    const addon = addonList.find(addon => addon._id === addonId);
 
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
       : HttpResponse.json(null);
   }),
+
   http.all("*", () => {
     return passthrough();
   })
