@@ -49,10 +49,10 @@ const AddOnList = () => {
       <div className="bg-fuchsia-500">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
-              <AddOnCard key={addOn.id} addOn={addOn} />
+              <AddOnCard key={addOn._id} addOn={addOn} />
             ))
           : allAddOns.map((addOn: Addon) => (
-              <AddOnCard key={addOn.id} addOn={addOn} />
+              <AddOnCard key={addOn._id} addOn={addOn} />
             ))}
       </div>
     );
