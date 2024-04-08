@@ -33,10 +33,6 @@ enableMocking().then(() => {
   if (container) {
     const root = createRoot(container);
 
-    let poop = (
-      <p className="text-blue-600 font-extrabold mb-9">Does it work please</p>
-    );
-
     root.render(
       <Provider store={store}>
         <Router>
