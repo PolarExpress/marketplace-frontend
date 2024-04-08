@@ -42,15 +42,11 @@ const AddOnList = () => {
 
     // Check if searchTerm is present and no add-ons match the search
     if (searchTerm.length > 0 && filteredAddOns.length === 0) {
-      return (
-        <div className="no-addons-found">
-          No Add-ons found with the given search term
-        </div>
-      );
+      return <div>No Add-ons found with the given search term</div>;
     }
 
     return (
-      <div className="addons-list">
+      <div className="bg-fuchsia-500">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
               <AddOnCard key={addOn.id} addOn={addOn} />
