@@ -19,7 +19,7 @@ export type keyTypeI =
   | "schema"
   | "query"
   | "state"
-  | "mp-backend";
+  | "mpBackend";
 export type subKeyTypeI =
   // Crud
   | "create"
@@ -55,3 +55,27 @@ export type QueuedMessage = {
   message: SendMessageI;
   callback?: Function;
 };
+
+/**
+ * Format for sending message to marketplace backend.
+ * Subkey does not matter.
+ */
+export type MpBackendMessage = SendMessageI & {
+  key: "mpBackend";
+  subKey: "get";
+  body: {
+    action: MpBackendAction;
+    [key: string]: any;
+  };
+};
+
+/**
+ * Types of possible actions to send to the marketplace backend.
+ */
+export type MpBackendAction =
+  | "install"
+  | "uninstall"
+  | "addons/get"
+  | "addons/get-by-id"
+  | "addons/get-readme"
+  | "addons/get-by-user";

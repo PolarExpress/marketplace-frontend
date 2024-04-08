@@ -24,14 +24,15 @@ interface AddOnCardProps {
  * Displays the name and summary of a single add-on.
  * Links to addon page when clicked.
  */
-const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
+const AddOnCard = ({ addOn }: AddOnCardProps) => {
   return (
     <Link
-      to={`/addons/${addOn.id}`}
+      to={`/addons/${addOn._id}`}
       className="addon-card no-underline-link"
       data-testid="addon-card">
       <h1>{addOn.name}</h1>
-      <p>Author: {addOn.author.user.name}</p>
+      {/* TODO: Fetch author name instead of id */}
+      <p>Author: {addOn.author.userId}</p>
       <p>{addOn.summary}</p>
     </Link>
   );
