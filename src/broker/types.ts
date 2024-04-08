@@ -56,14 +56,10 @@ export type QueuedMessage = {
   callback?: Function;
 };
 
-export type MpBackendAction =
-  | "install"
-  | "uninstall"
-  | "addons/get"
-  | "addons/get-by-id"
-  | "addons/get-readme"
-  | "addons/get-by-user";
-
+/**
+ * Format for sending message to marketplace backend.
+ * Subkey does not matter.
+ */
 export type MpBackendMessage = SendMessageI & {
   key: "mpBackend";
   subKey: "get";
@@ -72,3 +68,14 @@ export type MpBackendMessage = SendMessageI & {
     [key: string]: any;
   };
 };
+
+/**
+ * Types of possible actions to send to the marketplace backend.
+ */
+export type MpBackendAction =
+  | "install"
+  | "uninstall"
+  | "addons/get"
+  | "addons/get-by-id"
+  | "addons/get-readme"
+  | "addons/get-by-user";

@@ -24,14 +24,17 @@ interface InstallButtonProps {
   handleClick: () => void;
 }
 
-const InstallButton: React.FC<InstallButtonProps> = ({
+/**
+ * Renders the install button
+ */
+const InstallButton = ({
   isAddonInstalled,
   installPending,
   uninstallPending,
   userAddonsLoading,
   authorized,
   handleClick
-}) => {
+}: InstallButtonProps) => {
   return (
     <button
       onClick={handleClick}

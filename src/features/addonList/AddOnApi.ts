@@ -30,10 +30,10 @@ const addOnApi = emptySplitApi.injectEndpoints({
     }),
     // Gets the addon corresponding to the given id from the server
     getAddonById: build.query<Addon, string>({
-      query: _id => ({
+      query: id => ({
         url: "/addons/get-by-id",
         method: "POST",
-        body: { id: _id }
+        body: { id }
       }),
       transformResponse(response: { addon: Addon }) {
         return response.addon;
@@ -41,10 +41,10 @@ const addOnApi = emptySplitApi.injectEndpoints({
     }),
     // Gets the readMe of the given addon id
     getAddonReadmeById: build.query<string, string>({
-      query: _id => ({
+      query: id => ({
         url: "/addons/get-readme",
         method: "POST",
-        body: { id: _id }
+        body: { id }
       }),
       transformResponse(response: { readme: string }) {
         return response.readme;

@@ -28,10 +28,8 @@ export interface Addon {
   icon: string;
   /** The category it belongs to (e.g., visualization) */
   category: AddonCategory;
-
   /** Id of the author that created this add-on */
   authorId: string;
-
   /** Author of the add-on */
   author: Author;
 }

@@ -71,9 +71,7 @@ const AddOnPage = () => {
     addon => addon._id === thisId
   );
 
-  const [installed, setInstalled] = useState<boolean>(
-    isCurrentAddonInstalled ?? false
-  );
+  const [installed, setInstalled] = useState(isCurrentAddonInstalled ?? false);
 
   useEffect(() => {
     setInstalled(isCurrentAddonInstalled ?? false);
@@ -93,7 +91,7 @@ const AddOnPage = () => {
         setInstalled(true);
       }
     } else {
-      // Should redirect to the login page when it exists
+      // TODO: Should redirect to the login page when it exists
       console.warn("User is not logged in. Redirecting to login page.");
     }
   };
@@ -109,6 +107,7 @@ const AddOnPage = () => {
     return (
       <div className="addon-page-container" data-testid="addon-page">
         <h1 className="addon-name">{addon.name}</h1>
+        {/* TODO: Fetch author name instead of id */}
         <p className="addon-author">{addon.author.userId}</p>
         <p className="addon-summary">{addon.summary}</p>{" "}
         <InstallButton

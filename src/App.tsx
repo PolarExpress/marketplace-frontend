@@ -23,10 +23,11 @@ const App = () => {
   const auth = useAuthorizationCache();
   const { login } = useAuth();
 
+  /* eslint-disable react-hooks/exhaustive-deps -- everything breaks if login is a dependency */
   useEffect(() => {
     login();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   // Connects the WebSocket and sets authorisation header for the broker
   useEffect(() => {

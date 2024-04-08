@@ -14,6 +14,6 @@ export interface User {
   _id: string;
   /** Unique identifier for the user */
   userId: string;
-  /** A list of add-ons that the user has installed. */
+  /** A list of add-on id's that the user has installed. */
   installedAddons: string[];
 }

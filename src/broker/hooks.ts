@@ -64,12 +64,11 @@ const useAddon = () => {
 export const useInstallAddon = () => {
   const { isPending, error, manageAddon } = useAddon();
 
-  const installAddon = useCallback(
-    (addonId: string) => {
-      manageAddon({ addonId, action: "install" });
-    },
-    [manageAddon]
-  );
+  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  const installAddon = useCallback((addonId: string) => {
+    manageAddon({ addonId, action: "install" });
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return { isPending, error, installAddon };
 };
@@ -82,12 +81,11 @@ export const useInstallAddon = () => {
 export const useUninstallAddon = () => {
   const { isPending, error, manageAddon } = useAddon();
 
-  const uninstallAddon = useCallback(
-    (addonId: string) => {
-      manageAddon({ addonId, action: "uninstall" });
-    },
-    [manageAddon]
-  );
+  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  const uninstallAddon = useCallback((addonId: string) => {
+    manageAddon({ addonId, action: "uninstall" });
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return { isPending, error, uninstallAddon };
 };
