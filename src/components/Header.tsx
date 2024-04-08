@@ -15,8 +15,7 @@ import SearchBar from "./SearchBar";
  */
 const Header = () => {
   return (
-    <div className= "mb-100 xl:w-96"
-    data-testid="header">
+    <div className="mb-100 xl:w-96" data-testid="header">
       <SearchBar />
     </div>
   );
