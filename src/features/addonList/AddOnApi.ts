@@ -33,7 +33,7 @@ const addOnApi = emptySplitApi.injectEndpoints({
       query: _id => ({
         url: "/addons/get-by-id",
         method: "POST",
-        body: { _id }
+        body: { id: _id }
       }),
       transformResponse(response: { addon: Addon }) {
         return response.addon;
@@ -44,7 +44,7 @@ const addOnApi = emptySplitApi.injectEndpoints({
       query: _id => ({
         url: "/addons/get-readme",
         method: "POST",
-        body: { _id }
+        body: { id: _id }
       }),
       transformResponse(response: { readme: string }) {
         return response.readme;
