@@ -43,4 +43,6 @@ const mediumAddon: Addon = {
   author: authorList[1]
 };
 
+export let installed: Addon[] = [];
+
 export const addonList: Addon[] = [shortAddon, mediumAddon, longAddon];

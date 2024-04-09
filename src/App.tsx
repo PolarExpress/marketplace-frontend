@@ -13,7 +13,7 @@ import AddOnPage from "./pages/AddOnPage";
 import { useAuthorizationCache } from "./app/hooks";
 import { useAuth } from "./features/authentication/useAuth";
 import { useEffect } from "react";
-import { Broker } from "./broker/broker";
+import { importBroker } from "./utils/mocking-utils";
 
 /**
  * The central application component, responsible for high-level page layout and routing.
@@ -31,16 +31,20 @@ const App = () => {
 
   // Connects the WebSocket and sets authorisation header for the broker
   useEffect(() => {
-    if (auth.authorized && auth.jwt) {
-      console.log("Connecting broker");
-      Broker.instance()
-        .useAuth(auth)
-        .connect(() => {
-          console.log("WS connected", window.location.search);
-        });
-    } else {
-      // dispatch(logout());
-    }
+    const connect = async () => {
+      const { Broker } = await importBroker();
+      if (auth.authorized && auth.jwt) {
+        console.log("Connecting broker");
+        Broker.instance()
+          .useAuth(auth)
+          .connect(() => {
+            console.log("WS connected", window.location.search);
+          });
+      } else {
+        // dispatch(logout());
+      }
+    };
+    connect();
   }, [auth]);
 
   return (
