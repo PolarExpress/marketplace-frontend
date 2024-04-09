@@ -53,7 +53,7 @@ export class Broker {
               `Could not find addon. Message body: ${JSON.stringify(message.body)}`
             );
         break;
-          }
+      }
 
       case "uninstall": {
         "addonID" in message.body
