@@ -33,9 +33,9 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
     const body = (await request.json()) as {
-      _id: string;
+      id: string;
     };
-    const addonId = body._id;
+    const addonId = body.id;
 
     const addon = addonList.find(addon => addon._id === addonId);
 
@@ -46,9 +46,9 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/get-readme`, async ({ request }) => {
     const body = (await request.json()) as {
-      _id: string;
+      id: string;
     };
-    const addonId = body._id;
+    const addonId = body.id;
 
     const addon = addonList.find(addon => addon._id === addonId);
 

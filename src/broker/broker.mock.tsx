@@ -7,25 +7,24 @@
  */
 
 import { UseIsAuthorizedState } from "../features/authentication/AuthSlice";
-import { addonList, installed } from "../temp/tempAddons";
+import { addonList } from "../temp/tempAddons";
 import { Addon } from "../types/AddOnTypes";
+import {
+  addInstalled,
+  getInstalled,
+  removeInstalled
+} from "../utils/mocking-utils";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
 export class Broker {
   private static singletonInstance: Broker;
-  private connected: boolean;
 
   public static instance(): Broker {
     if (!this.singletonInstance) this.singletonInstance = new Broker();
     return this.singletonInstance;
   }
 
-  public constructor() {
-    this.connected = false;
-  }
-
   public useAuth(authHeader: UseIsAuthorizedState): Broker {
-    console.log("Mock Broker auth set");
     return this;
   }
 
@@ -37,38 +36,37 @@ export class Broker {
   public sendMessage(message: MpBackendMessage, callback: Function): void {
     let data: Record<string, any> = {};
     const action: MpBackendAction = message.body.action;
-    let addon: Addon | undefined;
-    let index: number;
 
     switch (action) {
       case "addons/get-by-user":
-        data = { addons: installed };
+        data = { addons: getInstalled() };
         break;
 
-      case "install":
-        addon = addonList.find(
+      case "install": {
+        const addon = addonList.find(
           (addon: Addon) =>
-            "addonId" in message.body && addon._id === message.body.addonId
+            "addonID" in message.body && addon._id === message.body.addonID
         );
         addon
-          ? installed.push(addon)
-          : console.warn(`Could not find addon. Message body: ${message.body}`);
+          ? addInstalled(addon)
+          : console.warn(
+              `Could not find addon. Message body: ${JSON.stringify(message.body)}`
+            );
         break;
+          }
 
-      case "uninstall":
-        index = addonList.findIndex(
-          (addon: Addon) =>
-            "addonId" in message.body && addon._id === message.body.addonId
-        );
-        index !== -1
-          ? installed.splice(index, 1)
-          : console.warn(`Could not find addon. Message body: ${message.body}`);
+      case "uninstall": {
+        "addonID" in message.body
+          ? removeInstalled(message.body.addonID)
+          : console.warn(
+              `Invalid message body: ${JSON.stringify(message.body)}`
+            );
         break;
+      }
 
       default:
         console.warn(`Invalid action: ${action}`);
     }
-
     callback(data);
   }
 
