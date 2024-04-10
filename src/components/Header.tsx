@@ -15,7 +15,8 @@ import SearchBar from "./SearchBar";
  */
 const Header = () => {
   return (
-    <div className="mb-100 xl:w-96" data-testid="header">
+    <div className="flex relative justify-center py-3 px-6 bg-gray-50 border-b hover:z-50 hover:shadow-md shadow-black" 
+    data-testid="header">
       <SearchBar />
     </div>
   );

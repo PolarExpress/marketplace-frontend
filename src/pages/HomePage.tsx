@@ -15,9 +15,10 @@ import AddOnList from "../features/addonList/AddOnList";
  */
 const HomePage = () => {
   return (
-    <div data-testid="homepage">
-      <AddOnList />;
-    </div>
+    <section data-testid="homepage"
+    className=" flex bg-gray-100 justify-left p-12">
+      <AddOnList />
+    </section>
   );
 };
 

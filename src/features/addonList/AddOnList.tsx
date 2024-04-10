@@ -46,7 +46,7 @@ const AddOnList = () => {
     }
 
     return (
-      <div className="bg-fuchsia-500">
+      <div className=" relative -z-1 flex flex-wrap gap-4 w-full ">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
               <AddOnCard key={addOn._id} addOn={addOn} />

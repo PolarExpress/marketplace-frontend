@@ -26,15 +26,36 @@ interface AddOnCardProps {
  */
 const AddOnCard = ({ addOn }: AddOnCardProps) => {
   return (
-    <Link
+    //<div className= " w-30 h-30 p-2">
+    <div className= "flex-none gap-4 font-sans font-bold leading-7 h-64 w-64">
+      <Link
       to={`/addons/${addOn._id}`}
-      className="addon-card no-underline-link"
+      className="addon-card block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md h-full"
       data-testid="addon-card">
-      <h1>{addOn.name}</h1>
+      <div className= " pb-2 px-3 pt-2 border- border-solid">
+       <h1 className= "font-semibold text-2xl">{addOn.name}</h1>
+      </div>
+    
       {/* TODO: Fetch author name instead of id */}
-      <p>Author: {addOn.author.userId}</p>
-      <p>{addOn.summary}</p>
+      <p className=" text-xs font-thin text-gray-400 mt-2 ">Author: {addOn.author.userId}</p>
+      <p className="text-gray-700 overflow-x-hidden font-normal text-lg mt-2">{addOn.summary.split(" ").slice(0, 20).join(" ")}...</p>
     </Link>
+    </div>
+    // <div className= " border-l-2 mx-2">
+    //   <Link
+    //   to={`/addons/${addOn._id}`}
+    //   className="addon-card no-underline-link"
+    //   data-testid="addon-card">
+    //   <div className= " pb-2 border-1 border-solid">
+    //     <h1 className= "flex py-2 px-3 font-sans font-semibold">{addOn.name}</h1>
+    //   </div>
+      
+      /* TODO: Fetch author name instead of id */
+    //   <p>Author: {addOn.author.userId}</p>
+    //   <p>{addOn.summary}</p>
+    // </Link>
+    // </div>
+    
   );
 };
 

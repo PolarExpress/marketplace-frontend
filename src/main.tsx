@@ -37,18 +37,7 @@ enableMocking().then(() => {
       <Provider store={store}>
         <Router>
           <App />
-          <p className="text-center text-blue-700 uppercase font-extrabold">
-            {" "}
-            This is a test
-          </p>
-          <p className="text-center text-red-700 uppercase font-extrabold">
-            {" "}
-            This is also test
-          </p>
         </Router>
-        <p className=" front-bold border border-solid">
-          What if outside router?
-        </p>
       </Provider>
       //<React.StrictMode>
 
