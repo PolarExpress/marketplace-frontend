@@ -10,7 +10,6 @@ import { useAppSelector } from "../../app/hooks";
 import type { RootState } from "../../app/store";
 import { AddonCategory, type Addon } from "../../types/AddOnTypes";
 import AddOnCard from "./AddOnCard";
-//import "../../style.css";
 import { useGetAddonsQuery } from "./AddOnApi";
 import RTKError from "../../components/RTKError";
 

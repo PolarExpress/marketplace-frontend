@@ -10,7 +10,6 @@ import type React from "react";
 import { useState } from "react";
 import { useAppDispatch } from "../app/hooks";
 import { updateSearchTerm } from "../features/addonList/AddOnSlice";
-//import "../style.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**
@@ -53,7 +52,7 @@ const SearchBar = () => {
         className="px-3 hover:shadow-md py-2 font-sans font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-1"
       />
       <button
-        className="relative font-sans font-semibold z-[2] flex items-center rounded-r bg-orange-400 px-6 py-2.5 text-xs uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-orange-300 hover:shadow-lg  active:bg-orange-400 active:shadow-lg"
+        className="relative font-sans font-semibold z-[2] flex items-center bg-orange-400 px-6 py-2.5 text-xs uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-orange-300 hover:shadow-lg  active:bg-orange-400 active:shadow-lg rounded-full"
         type="submit">
         Search
       </button>

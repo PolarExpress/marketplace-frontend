@@ -34,14 +34,13 @@ enableMocking().then(() => {
     const root = createRoot(container);
 
     root.render(
+      //</React.StrictMode>
       <Provider store={store}>
         <Router>
           <App />
         </Router>
       </Provider>
       //<React.StrictMode>
-
-      //</React.StrictMode>
     );
   } else {
     throw new Error(
