@@ -46,7 +46,7 @@ const AddOnList = () => {
     }
 
     return (
-      <div className="relative -z-1 flex flex-wrap gap-4 w-full">
+      <div className="relative -z-1 flex flex-wrap gap-4 w-full justify-center">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
               <AddOnCard key={addOn._id} addOn={addOn} />
