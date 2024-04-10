@@ -105,23 +105,24 @@ const AddOnPage = () => {
 
   if (addon != null) {
     return (
-      <div className="m-8 font-sans leading-10" data-testid="addon-page">
-        <div className=" border-b-2 pb-2 mb-2">
-       <h1 className= "font-bold text-4xl">{addon.name}</h1>
-        {/* TODO: Fetch author name instead of id */}
-        <p className=" font-light text-sm">{addon.author.userId}</p>
-        <p className="addon-summary">{addon.summary}</p>{" "}
-        <InstallButton
-          isAddonInstalled={installed}
-          installPending={installPending}
-          uninstallPending={uninstallPending}
-          userAddonsLoading={userAddonsLoading}
-          authorized={auth.authorized ?? false}
-          handleClick={handleInstall}
-        />
+      <div
+        className="m-8 font-sans leading-10 text-center"
+        data-testid="addon-page">
+        <div className="border-b-2 pb-2 mb-2">
+          <h1 className="font-bold text-4xl">{addon.name}</h1>
+          {/* TODO: Fetch author name instead of id */}
+          <p className="font-light text-sm">{addon.author.userId}</p>
+          <p className="addon-summary">{addon.summary}</p>{" "}
+          <InstallButton
+            isAddonInstalled={installed}
+            installPending={installPending}
+            uninstallPending={uninstallPending}
+            userAddonsLoading={userAddonsLoading}
+            authorized={auth.authorized ?? false}
+            handleClick={handleInstall}
+          />
         </div>
-        
-        
+
         {isReadmeLoading && <div>Loading...</div>}
         {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
             TODO: Update if structured errors are implemented.
