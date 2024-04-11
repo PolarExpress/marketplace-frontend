@@ -16,6 +16,9 @@ import {
 } from "../utils/mocking-utils";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
+/**
+ * Mocked version of the broker to run the frontend without backend
+ */
 export class Broker {
   private static singletonInstance: Broker;
 
@@ -33,6 +36,9 @@ export class Broker {
     onOpen();
   }
 
+  /**
+   * Interacts with the sessionStorage to mock install interactions
+   */
   public sendMessage(message: MpBackendMessage, callback?: Function): void {
     let data: Record<string, any> = {};
     const action: MpBackendAction = message.body.action;
@@ -71,6 +77,9 @@ export class Broker {
     if (callback) callback(data);
   }
 
+  /**
+   * Same as normal broker
+   */
   public sendMessageAsync(
     message: MpBackendMessage
   ): Promise<Record<string, any>> {

@@ -11,6 +11,9 @@ import { useAuthorizationCache } from "../app/hooks";
 import { useAuth } from "../features/authentication/useAuth";
 import { importBroker } from "../utils/mocking-utils";
 
+/**
+ * Logs in and connects to the WebSocket
+ */
 const SetupBroker = () => {
   const auth = useAuthorizationCache();
   const { login } = useAuth();
