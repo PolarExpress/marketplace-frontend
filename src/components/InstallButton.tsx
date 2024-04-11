@@ -37,6 +37,7 @@ const InstallButton = ({
 }: InstallButtonProps) => {
   return (
     <button
+      data-testid="install"
       onClick={handleClick}
       disabled={installPending || uninstallPending || userAddonsLoading}>
       {authorized

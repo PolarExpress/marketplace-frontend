@@ -10,9 +10,10 @@ import { Addon } from "../types/AddOnTypes";
 
 /**
  * Decides which broker to import based on mocking global.
- * Use as follows: `const { Broker } = await importBroker();`
  */
 export async function importBroker() {
+  console.log(`VITE_MOCKING: ${import.meta.env.VITE_MOCKING}`);
+  console.log(`DEV: ${import.meta.env.DEV}`);
   return import(
     import.meta.env.VITE_MOCKING ? "../broker/broker.mock" : "../broker/broker"
   );
@@ -20,7 +21,7 @@ export async function importBroker() {
 
 /**
  * Initializes sessionStorage with an empty list.
- * Session storage is used as a temporary database while mocking.
+ * sessionStorage is used as a temporary database while mocking.
  */
 export const initializeInstalled = () => {
   sessionStorage.setItem("installed", JSON.stringify([]));

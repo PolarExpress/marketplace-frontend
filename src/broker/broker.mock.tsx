@@ -33,7 +33,7 @@ export class Broker {
     onOpen();
   }
 
-  public sendMessage(message: MpBackendMessage, callback: Function): void {
+  public sendMessage(message: MpBackendMessage, callback?: Function): void {
     let data: Record<string, any> = {};
     const action: MpBackendAction = message.body.action;
 
@@ -67,7 +67,8 @@ export class Broker {
       default:
         console.warn(`Invalid action: ${action}`);
     }
-    callback(data);
+
+    if (callback) callback(data);
   }
 
   public sendMessageAsync(
