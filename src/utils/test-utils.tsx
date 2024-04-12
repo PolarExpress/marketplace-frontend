@@ -80,21 +80,6 @@ export const renderWithProviders = (
 };
 
 /**
- *
- * @returns A store an empty search term
- */
-export const storeWithMockAddons = () => {
-  // Create partial mock state
-  const mockState: Partial<RootState> = {
-    addons: {
-      searchTerm: ""
-    }
-  };
-
-  return makeStore(mockState);
-};
-
-/**
  * Renders the individual page of an addon
  * @param id Id of addon to be rendered
  * @returns An object containing functions to query the rendered page
