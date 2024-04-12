@@ -57,6 +57,16 @@ export const handlers = [
       : HttpResponse.json(null);
   }),
 
+  http.get("http://localhost:3000/headers", () => {
+    return HttpResponse.json({
+      impersonateID: "",
+      jwt: "JWT",
+      sessionID: "8a762387-270b-43c2-9d77-4fbdc6460b7c",
+      userID: "5d6894e9-7a40-4dd1-bd07-ad28456350e2",
+      username: "Username"
+    });
+  }),
+
   http.all("*", () => {
     return passthrough();
   })
