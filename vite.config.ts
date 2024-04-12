@@ -5,10 +5,11 @@ import removeAttr from "react-remove-attr";
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
   plugins: [
-    mode !== "test" && removeAttr({
-      extensions: ["tsx"],
-      attributes: ["data-testid"]
-    }),
+    mode !== "test" &&
+      removeAttr({
+        extensions: ["tsx"],
+        attributes: ["data-testid"]
+      }),
     react()
   ],
   server: {
