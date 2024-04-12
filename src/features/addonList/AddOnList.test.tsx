@@ -15,12 +15,19 @@ import { HttpResponse, http } from "msw";
 
 describe("AddOnList component", () => {
   it("renders AddOnCard components for all add-ons", async () => {
-    const { findAllByTestId, findByText } = renderWithProviders(<AddOnList />);
+    const { findAllByTestId, findByText, getByText, getAllByText } =
+      renderWithProviders(<AddOnList />);
 
     expect(findByText("Loading...")).toBeDefined();
 
     const addOnCards = await findAllByTestId("addon-card");
     expect(addOnCards.length).toBe(addonList.length);
+
+    for (const addon of addonList) {
+      expect(getByText(addon.name)).toBeDefined();
+      expect(getByText(addon.summary.split(" ").slice(0, 15).join(" "))).toBeDefined();
+      expect(getAllByText(`Author: ${addon.authorId}`)).toBeDefined();
+    }
   });
 
   it("filters add-ons based on searchTerm", async () => {
@@ -28,11 +35,10 @@ describe("AddOnList component", () => {
       preloadedState: { addons: { searchTerm: addonList[0].name } }
     });
 
-    // Expect only one AddOnCard (the one matching the search term)
     const addOnCards = await findAllByTestId("addon-card");
 
     expect(addOnCards.length).toBe(1);
-    expect(getByText(addonList[0].summary)).toBeDefined();
+    expect(getByText(addonList[0].summary.split(" ").slice(0, 15).join(" "))).toBeDefined();
   });
 
   it("displays message when no addons are found with search term", async () => {
@@ -48,6 +54,7 @@ describe("AddOnList component", () => {
 
   it("displays the returned error", async () => {
     const baseUrl = import.meta.env.VITE_API_BASE;
+
     // Setup specific msw handlers for returning errors
     server.use(
       http.post(`${baseUrl}/addons/get`, () => {

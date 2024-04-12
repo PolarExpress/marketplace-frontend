@@ -10,15 +10,13 @@ import type { Author } from "../types/AuthorTypes";
 import { userList } from "./tempUsers";
 
 const authorOne: Author = {
-  id: "author-one",
-  user: userList[0]
-  //createdAddons: [addonList[0], addonList[1]]
+  _id: "author-one",
+  userId: userList[0].userId
 };
 
 const authorTwo: Author = {
-  id: "author-two",
-  user: userList[2]
-  //createdAddons: [addonList[2]]
+  _id: "author-two",
+  userId: userList[2].userId
 };
 
 export const authorList: Author[] = [authorOne, authorTwo];

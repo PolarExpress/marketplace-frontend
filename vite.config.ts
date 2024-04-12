@@ -17,14 +17,17 @@ export default defineConfig(({ command }) => ({
       provider: "istanbul",
       reportsDirectory: "./coverage/vitest",
       exclude: [
-        ...configDefaults.coverage.exclude,
+        "public",
+        "storybook-static",
+        "tailwind.config.js",
+        "src/App.tsx",
+        "src/broker/broker.tsx",
+        "src/colors.js",
+        "src/features/authentication",
         "src/main.tsx",
         "src/stories/**/*",
-        "public",
-        "tailwind.config.js",
-        "src/colors.js",
-        "storybook-static",
-        "src/test"
+        "src/test",
+        ...configDefaults.coverage.exclude,
       ]
     }
   }

@@ -64,7 +64,7 @@ describe("SearchBar Component", () => {
         </Routes>
       </>,
       {},
-      [`/addons/${addonList[2].id}`]
+      [`/addons/${addonList[2]._id}`]
     );
 
     // Simulate clicking search button

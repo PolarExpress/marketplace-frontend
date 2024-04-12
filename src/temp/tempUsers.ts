@@ -9,23 +9,20 @@
 import type { User } from "../types/UserTypes";
 
 const userOne: User = {
-  id: "user-one",
-  name: "user one",
-  email: "userone@gmail.com",
+  _id: "user-one",
+  userId: "user-one",
   installedAddons: []
 };
 
 const userTwo: User = {
-  id: "user-two",
-  name: "user two",
-  email: "usertwo@gmail.com",
+  _id: "user-two",
+  userId: "user-two",
   installedAddons: []
 };
 
 const userThree: User = {
-  id: "user-three",
-  name: "user three",
-  email: "userthree@gmail.com",
+  _id: "user-three",
+  userId: "user-three",
   installedAddons: []
 };
 
