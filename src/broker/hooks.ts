@@ -9,7 +9,9 @@
 import { useState, useCallback, useEffect } from "react";
 import type { MpBackendAction, MpBackendMessage } from "./types";
 import { Addon, AddonCategory } from "../types/AddOnTypes";
-import { importBroker } from "../utils/mocking-utils";
+import { createBroker } from "../utils/mocking-utils";
+
+const Broker = createBroker();
 
 /**
  * Interface for parameters used in addon management hooks.
@@ -43,8 +45,7 @@ const useAddon = () => {
 
       try {
         // Unsure how backend error handling will be implemented
-        const { Broker } = await importBroker();
-        await Broker.instance().sendMessageAsync(message);
+        await Broker.sendMessageAsync(message);
       } catch (error) {
         setError(`Failed to ${action}. ${error}`);
       }
@@ -125,8 +126,7 @@ export const useGetAddonsByUserId = ({
       };
 
       try {
-        const { Broker } = await importBroker();
-        const response = await Broker.instance().sendMessageAsync(message);
+        const response = await Broker.sendMessageAsync(message);
         setData(response.addons);
       } catch (error) {
         setError(`Failed to get addons by user ID. ${error}`);

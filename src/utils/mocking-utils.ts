@@ -6,15 +6,20 @@
  * (Department of Information and Computing Sciences)
  */
 
+import { Broker } from "../broker/broker";
+import { BrokerBase } from "../broker/broker.interface";
+import { MockBroker } from "../broker/broker.mock";
 import { Addon } from "../types/AddOnTypes";
 
 /**
- * Decides which broker to import based on mocking global.
+ * Decides which broker to use based on mocking global.
  */
-export async function importBroker() {
-  return import(
-    import.meta.env.VITE_MOCKING ? "../broker/broker.mock" : "../broker/broker"
-  );
+export function createBroker(): BrokerBase {
+  if (import.meta.env.VITE_MOCKING) {
+    return MockBroker.instance();
+  } else {
+    return Broker.instance();
+  }
 }
 
 /**

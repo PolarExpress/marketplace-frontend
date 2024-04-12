@@ -61,7 +61,7 @@ export class Broker {
   public static instance(): Broker {
     if (!this.singletonInstance)
       this.singletonInstance = new Broker(this.BACKEND_WSS_URL);
-    return this.singletonInstance;
+    return this.singletonInstance as Broker;
   }
 
   /**
@@ -134,7 +134,7 @@ export class Broker {
     this.connected = false;
   }
 
-  public useAuth(authHeader: UseIsAuthorizedState): Broker {
+  public setAuth(authHeader: UseIsAuthorizedState): Broker {
     this.authHeader = authHeader;
     return this;
   }
