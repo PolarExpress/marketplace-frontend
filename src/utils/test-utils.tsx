@@ -13,7 +13,9 @@ import type { PropsWithChildren, ReactElement } from "react";
 import { Provider } from "react-redux";
 import type { AppStore, RootState } from "../app/store";
 import { makeStore } from "../app/store";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import SetupBroker from "../broker/setupBroker";
+import AddOnPage from "../pages/AddOnPage";
 
 /**
  * This type extends the default options for
@@ -64,6 +66,7 @@ export const renderWithProviders = (
 
   const Wrapper = ({ children }: PropsWithChildren) => (
     <Provider store={store}>
+      <SetupBroker />
       <MemoryRouter initialEntries={initialEntries}> {children} </MemoryRouter>
     </Provider>
   );
@@ -74,4 +77,19 @@ export const renderWithProviders = (
     user: userEvent.setup(),
     ...render(ui, { wrapper: Wrapper, ...renderOptions })
   };
+};
+
+/**
+ * Renders the individual page of an addon
+ * @param id Id of addon to be rendered
+ * @returns An object containing functions to query the rendered page
+ */
+export const setupPageWithId = (id: string) => {
+  return renderWithProviders(
+    <Routes>
+      <Route path="/addons/:id" element={<AddOnPage />} />
+    </Routes>,
+    {},
+    [`/addons/${id}`]
+  );
 };

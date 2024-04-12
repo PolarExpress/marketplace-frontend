@@ -1,4 +1,5 @@
 package-lock.json
+pnpm-lock.yaml
 *.md
 src/style.css
 public

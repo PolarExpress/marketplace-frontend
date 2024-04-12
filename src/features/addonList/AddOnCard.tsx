@@ -7,9 +7,7 @@
  */
 
 // Component for rendering a single add-on's information
-import type React from "react";
 import type { Addon } from "../../types/AddOnTypes";
-import "../../styles/tempStyles.css";
 import { Link } from "react-router-dom";
 
 /**
@@ -24,16 +22,26 @@ interface AddOnCardProps {
  * Displays the name and summary of a single add-on.
  * Links to addon page when clicked.
  */
-const AddOnCard: React.FC<AddOnCardProps> = ({ addOn }) => {
+const AddOnCard = ({ addOn }: AddOnCardProps) => {
   return (
-    <Link
-      to={`/addons/${addOn.id}`}
-      className="addon-card no-underline-link"
-      data-testid="addon-card">
-      <h1>{addOn.name}</h1>
-      <p>Author: {addOn.author.user.name}</p>
-      <p>{addOn.summary}</p>
-    </Link>
+    <div className="flex-none gap-4 font-sans font-bold leading-7 h-64 w-64">
+      <Link
+        to={`/addons/${addOn._id}`}
+        className="addon-card block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md h-full"
+        data-testid="addon-card">
+        <div className="pb-2 px-3 pt-2 border- border-solid">
+          <h1 className="font-semibold text-2xl">{addOn.name}</h1>
+        </div>
+
+        {/* TODO: Fetch author name instead of id */}
+        <p className="text-xs font-thin text-gray-400 mt-2">
+          Author: {addOn.author.userId}
+        </p>
+        <p className="text-gray-700 overflow-x-hidden font-normal text-lg mt-2">
+          {addOn.summary.split(" ").slice(0, 20).join(" ")}...
+        </p>
+      </Link>
+    </div>
   );
 };
 

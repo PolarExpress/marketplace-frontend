@@ -10,7 +10,6 @@ import { useAppSelector } from "../../app/hooks";
 import type { RootState } from "../../app/store";
 import { AddonCategory, type Addon } from "../../types/AddOnTypes";
 import AddOnCard from "./AddOnCard";
-import "../../styles/tempStyles.css";
 import { useGetAddonsQuery } from "./AddOnApi";
 import RTKError from "../../components/RTKError";
 
@@ -42,21 +41,17 @@ const AddOnList = () => {
 
     // Check if searchTerm is present and no add-ons match the search
     if (searchTerm.length > 0 && filteredAddOns.length === 0) {
-      return (
-        <div className="no-addons-found">
-          No Add-ons found with the given search term
-        </div>
-      );
+      return <div>No Add-ons found with the given search term</div>;
     }
 
     return (
-      <div className="addons-list">
+      <div className="relative -z-1 flex flex-wrap gap-4 w-full justify-center">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
-              <AddOnCard key={addOn.id} addOn={addOn} />
+              <AddOnCard key={addOn._id} addOn={addOn} />
             ))
           : allAddOns.map((addOn: Addon) => (
-              <AddOnCard key={addOn.id} addOn={addOn} />
+              <AddOnCard key={addOn._id} addOn={addOn} />
             ))}
       </div>
     );
