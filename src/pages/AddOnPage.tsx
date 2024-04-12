@@ -21,6 +21,7 @@ import {
   useUninstallAddon
 } from "../broker/hooks";
 import { useEffect, useState } from "react";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 /**
  * Represents the individual page of an add-on.
@@ -95,7 +96,12 @@ const AddOnPage = () => {
     }
   };
 
-  if (isAddonLoading) return <div>Loading...</div>;
+  if (isAddonLoading)
+    return (
+      <div className="flex w-full justify-center">
+        <LoadingSpinner>Loading...</LoadingSpinner>
+      </div>
+    );
 
   if (addonError) return <RTKError error={addonError} />;
 
@@ -122,7 +128,11 @@ const AddOnPage = () => {
           />
         </div>
 
-        {isReadmeLoading && <div>Loading...</div>}
+        {isReadmeLoading && (
+          <div className="flex w-full justify-center">
+            <LoadingSpinner>Loading...</LoadingSpinner>
+          </div>
+        )}
         {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
             TODO: Update if structured errors are implemented.
         */}

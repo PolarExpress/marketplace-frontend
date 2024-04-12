@@ -12,6 +12,7 @@ import { AddonCategory, type Addon } from "../../types/AddOnTypes";
 import AddOnCard from "./AddOnCard";
 import { useGetAddonsQuery } from "./AddOnApi";
 import RTKError from "../../components/RTKError";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 const AddOnList = () => {
   // Get the current search term from the state
@@ -28,7 +29,12 @@ const AddOnList = () => {
     category: AddonCategory.VISUALISATION
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex w-full justify-center">
+        <LoadingSpinner>Loading...</LoadingSpinner>
+      </div>
+    );
 
   if (error) return <RTKError error={error} />;
 
