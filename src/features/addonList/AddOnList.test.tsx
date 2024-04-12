@@ -12,6 +12,11 @@ import AddOnList from "./AddOnList";
 import { addonList } from "../../temp/tempAddons";
 import { server } from "../../setupTests";
 import { HttpResponse, http } from "msw";
+import Header from "../../components/Header";
+import { Routes, Route } from "react-router-dom";
+import AddOnPage from "../../pages/AddOnPage";
+import HomePage from "../../pages/HomePage";
+import { getByRole } from "@testing-library/react";
 
 describe("AddOnList component", () => {
   it("renders AddOnCard components for all add-ons", async () => {
@@ -33,9 +38,19 @@ describe("AddOnList component", () => {
   });
 
   it("filters add-ons based on searchTerm", async () => {
-    const { findAllByTestId, getByText } = renderWithProviders(<AddOnList />, {
-      preloadedState: { addons: { searchTerm: addonList[0].name } }
-    });
+    const { user, findAllByTestId, getByText, findByTestId } =
+      renderWithProviders(
+        <>
+          <Header />
+          <AddOnList />
+        </>
+      );
+
+    const search = await findByTestId("search-input");
+    const submit = await findByTestId("search-submit");
+
+    await user.type(search, "Vis1");
+    await user.click(submit);
 
     const addOnCards = await findAllByTestId("addon-card");
 
@@ -68,5 +83,25 @@ describe("AddOnList component", () => {
     const { findByTestId } = renderWithProviders(<AddOnList />);
 
     await expect(findByTestId("fetch-error")).toBeDefined();
+  });
+
+  it("navigates to Home Page when submitted", async () => {
+    const { user, findByTestId, getByRole } = renderWithProviders(
+      <>
+        <Header />
+        <Routes>
+          <Route path="/addons/:id" element={<AddOnPage />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </>,
+      {},
+      [`/addons/${addonList[2]._id}`]
+    );
+
+    // Simulate clicking search button
+    await user.click(getByRole("button", { name: "Search" }));
+
+    // Assert that the homepage is rendered
+    await expect(findByTestId("homepage")).toBeDefined();
   });
 });

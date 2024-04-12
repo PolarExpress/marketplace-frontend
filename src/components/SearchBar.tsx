@@ -50,10 +50,12 @@ const SearchBar = () => {
         onChange={e => setSearchTerm(e.target.value)}
         placeholder="Search add-ons..."
         className="px-3 hover:shadow-md py-2 font-sans font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-1"
+        data-testid="search-input"
       />
       <button
         className="relative font-sans font-semibold z-[2] flex items-center bg-orange-400 px-6 py-2.5 text-xs uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-orange-300 hover:shadow-lg  active:bg-orange-400 active:shadow-lg rounded-full"
-        type="submit">
+        type="submit"
+        data-testid="search-submit">
         Search
       </button>
     </form>
