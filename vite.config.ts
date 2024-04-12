@@ -1,9 +1,16 @@
 import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import removeAttr from "react-remove-attr";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
-  plugins: [react()],
+  plugins: [
+    removeAttr({
+      extensions: ["tsx"],
+      attributes: ["data-testid"]
+    }),
+    react()
+  ],
   server: {
     open: true
   },
@@ -27,7 +34,7 @@ export default defineConfig(({ command }) => ({
         "src/main.tsx",
         "src/stories/**/*",
         "src/test",
-        ...configDefaults.coverage.exclude
+        ...configDefaults.coverage.exclude!
       ]
     }
   }

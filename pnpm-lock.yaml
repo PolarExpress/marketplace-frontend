@@ -133,6 +133,9 @@ devDependencies:
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
+  react-remove-attr:
+    specifier: ^0.0.6
+    version: 0.0.6
   storybook:
     specifier: ^7.6.17
     version: 7.6.17
@@ -11355,6 +11358,10 @@ packages:
   /react-refresh@0.14.0:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /react-remove-attr@0.0.6:
+    resolution: {integrity: sha512-h+xlchFtfnhBwskPrA4OMx1XjmCQGH2nNz8JUPUFjc4lyhJgr6UdaF42UUGpw0NOpSIn063hPT0TGsU5Oyz5lA==}
     dev: true
 
   /react-remove-scroll-bar@2.3.6(@types/react@18.2.74)(react@18.2.0):

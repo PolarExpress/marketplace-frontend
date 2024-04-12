@@ -16,7 +16,6 @@ import Header from "../../components/Header";
 import { Routes, Route } from "react-router-dom";
 import AddOnPage from "../../pages/AddOnPage";
 import HomePage from "../../pages/HomePage";
-import { getByRole } from "@testing-library/react";
 
 describe("AddOnList component", () => {
   it("renders AddOnCard components for all add-ons", async () => {
