@@ -26,10 +26,10 @@ const RTKError = ({ error }: ErrorProps) => {
     // You can access all properties of `FetchBaseQueryError` here
     const errMsg = "error" in error ? error.error : JSON.stringify(error.data);
 
-    return <div>An error has occurred: {errMsg}</div>;
+    return <div data-testid="fetch-error">An error has occurred: {errMsg}</div>;
   } else {
     // You can access all properties of `SerializedError` here
-    return <div>{error.message}</div>;
+    return <div data-testid="serialized-error">{error.message}</div>;
   }
 };
 

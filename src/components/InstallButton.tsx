@@ -39,7 +39,7 @@ const InstallButton = ({
     <button
       data-testid="install"
       className={
-        isAddonInstalled === true
+        isAddonInstalled
           ? "hover:shadow-md text-orange-500 text-center bg-white h-10 w-24 border-2 border-orange-500 rounded-full"
           : "hover:shadow-md text-white text-center border-none bg-orange-500 h-10 w-24 rounded-full"
       }

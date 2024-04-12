@@ -29,11 +29,11 @@ describe("InstallButton", () => {
 
   /**
    * Sets up the InstallButton component for testing.
-   * @returns {Promise<{ user: UserEvent, button: HTMLButtonElement }>} A promise that resolves to an object containing the user event and the button element.
+   * @returns A promise that resolves to an object containing the user event and the button element.
    */
   const setupButton = async () => {
     const { user, findByTestId, getByTestId } = setupPageWithId(testAddon._id);
-    await expect(findByTestId("addon-loading")).rejects.toThrow();
+    await expect(findByTestId("button-loading")).rejects.toThrow();
     const button = getByTestId("install") as HTMLButtonElement;
     return { user, button };
   };
@@ -72,7 +72,7 @@ describe("InstallButton", () => {
     });
 
     const { findByTestId, getByText } = setupPageWithId(testAddon._id);
-    await expect(findByTestId("addon-loading")).rejects.toThrow();
+    await expect(findByTestId("install-loading")).rejects.toThrow();
 
     expect(getByText("Install error")).toBeDefined();
   });

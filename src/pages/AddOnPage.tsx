@@ -44,7 +44,7 @@ const AddOnPage = () => {
     isLoading: isReadmeLoading,
     error: readmeError
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
-    skip: !addon
+    skip: addon == null
   });
 
   // Use the custom hooks for interacting with the backend over AMQP
@@ -95,12 +95,16 @@ const AddOnPage = () => {
     }
   };
 
-  if (isAddonLoading) return <div>Loading...</div>;
+  if (isAddonLoading) return <div data-testid="addon-loading">Loading...</div>;
 
   if (addonError) return <RTKError error={addonError} />;
 
   if (installError || uninstallError || userAddonsError)
-    return <div>{installError || uninstallError || userAddonsError}</div>;
+    return (
+      <div data-testid="button-loading">
+        {installError || uninstallError || userAddonsError}
+      </div>
+    );
 
   if (addon != null) {
     return (
@@ -110,7 +114,7 @@ const AddOnPage = () => {
         <div className="border-b-2 pb-2 mb-2">
           <h1 className="font-bold text-4xl">{addon.name}</h1>
           {/* TODO: Fetch author name instead of id */}
-          <p className="font-light text-sm">{addon.author.userId}</p>
+          <p className="font-light text-sm">{addon.authorId}</p>
           <p className="addon-summary">{addon.summary}</p>{" "}
           <InstallButton
             isAddonInstalled={installed}
@@ -122,7 +126,7 @@ const AddOnPage = () => {
           />
         </div>
 
-        {isReadmeLoading && <div>Loading...</div>}
+        {isReadmeLoading && <div data-testid="readme-loading">Loading...</div>}
         {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
             TODO: Update if structured errors are implemented.
         */}
@@ -132,7 +136,11 @@ const AddOnPage = () => {
           ) : (
             <RTKError error={readmeError} />
           ))}
-        {readMe != null && <Markdown>{readMe}</Markdown>}
+        {readMe != null && (
+          <div data-testid="readme">
+            <Markdown>{readMe}</Markdown>
+          </div>
+        )}
       </div>
     );
   }

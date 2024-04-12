@@ -7,65 +7,100 @@
  */
 
 import { describe, it, expect } from "vitest";
-/*import type { Addon } from "../../types/AddOnTypes";
-import { AddonCategory } from "../../types/AddOnTypes";
-import { Author } from "../../types/AuthorTypes";
-import { User } from "../../types/UserTypes";
 import { renderWithProviders } from "../../utils/test-utils";
-import AddOnList from "./AddOnList";*/
+import AddOnList from "./AddOnList";
+import { addonList } from "../../temp/tempAddons";
+import { server } from "../../setupTests";
+import { HttpResponse, http } from "msw";
+import Header from "../../components/Header";
+import { Routes, Route } from "react-router-dom";
+import AddOnPage from "../../pages/AddOnPage";
+import HomePage from "../../pages/HomePage";
 
-// Sample add-on data
-/*const mockAddOns: Addon[] = [
-  {
-    id: "1",
-    name: "Mock Addon 1",
-    summary: "Mock Summary 1",
-    category: AddonCategory.VISUALISATION
-  },
-  {
-    id: "2",
-    name: "Mock Addon 2",
-    summary: "Mock Summary 2",
-    category: AddonCategory.VISUALISATION
-  }
-];*/
-
-// TODO: Doesn't succeed because of loading screen when fetching from backend
 describe("AddOnList component", () => {
-  it("temp", () => {
-    expect(true).toEqual(true);
-  });
-  /*it("renders AddOnCard components for all add-ons", async () => {
-    const mockState: AddOnListState = {
-        allAddOns: mockAddOns,
-        searchTerm: "",
-        status: "succeeded",
-        error: null
-    };
+  it("renders AddOnCard components for all add-ons", async () => {
+    const { findAllByTestId, findByText, getByText, getAllByText } =
+      renderWithProviders(<AddOnList />);
 
-    const { getAllByTestId, store } = renderWithProviders(<AddOnList />, {
-      preloadedState: { addons: mockState }
-    });
+    expect(findByText("Loading...")).toBeDefined();
 
-    // Expect two AddOnCard components to be rendered
-    const addOnCards = getAllByTestId("addon-card");
-    expect(addOnCards.length).toBe(2);
+    const addOnCards = await findAllByTestId("addon-card");
+    expect(addOnCards.length).toBe(addonList.length);
+
+    for (const addon of addonList) {
+      expect(getByText(addon.name)).toBeDefined();
+      expect(
+        getByText(addon.summary.split(" ").slice(0, 15).join(" "))
+      ).toBeDefined();
+      expect(getAllByText(`Author: ${addon.authorId}`)).toBeDefined();
+    }
   });
 
   it("filters add-ons based on searchTerm", async () => {
-    const mockState: AddOnListState = {
-        allAddOns: mockAddOns,
-        searchTerm: "mock addon 1",
-        status: "succeeded",
-        error: null
-    };
+    const { user, findAllByTestId, getByText, findByTestId } =
+      renderWithProviders(
+        <>
+          <Header />
+          <AddOnList />
+        </>
+      );
 
-    const { getAllByTestId } = renderWithProviders(<AddOnList />, {
-      preloadedState: {addons: mockState}
+    const search = await findByTestId("search-input");
+    const submit = await findByTestId("search-submit");
+
+    await user.type(search, "Vis1");
+    await user.click(submit);
+
+    const addOnCards = await findAllByTestId("addon-card");
+
+    expect(addOnCards.length).toBe(1);
+    expect(
+      getByText(addonList[0].summary.split(" ").slice(0, 15).join(" "))
+    ).toBeDefined();
+  });
+
+  it("displays message when no addons are found with search term", async () => {
+    const { findByText } = renderWithProviders(<AddOnList />, {
+      preloadedState: { addons: { searchTerm: "qwerty" } }
     });
 
-    // Expect only one AddOnCard (the one matching the search term)
-    const addOnCards = getAllByTestId("addon-card");
-    expect(addOnCards.length).toBe(1);
-  });*/
+    const message = await findByText(
+      "No Add-ons found with the given search term"
+    );
+    expect(message).toBeDefined();
+  });
+
+  it("displays the returned error", async () => {
+    const baseUrl = import.meta.env.VITE_API_BASE;
+
+    // Setup specific msw handlers for returning errors
+    server.use(
+      http.post(`${baseUrl}/addons/get`, () => {
+        return HttpResponse.error();
+      })
+    );
+    const { findByTestId } = renderWithProviders(<AddOnList />);
+
+    await expect(findByTestId("fetch-error")).toBeDefined();
+  });
+
+  it("navigates to Home Page when submitted", async () => {
+    const { user, findByTestId, getByRole } = renderWithProviders(
+      <>
+        <Header />
+        <Routes>
+          <Route path="/addons/:id" element={<AddOnPage />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </>,
+      {},
+      [`/addons/${addonList[2]._id}`]
+    );
+
+    // Simulate clicking search button
+    await user.click(getByRole("button", { name: "Search" }));
+
+    // Assert that the homepage is rendered
+    await expect(findByTestId("homepage")).toBeDefined();
+  });
 });

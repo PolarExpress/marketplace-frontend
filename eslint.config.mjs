@@ -78,6 +78,6 @@ export default [
     }
   },
   {
-    ignores: ["storybook-static/**/*"]
+    ignores: ["storybook-static/**/*", "dist"]
   }
 ];

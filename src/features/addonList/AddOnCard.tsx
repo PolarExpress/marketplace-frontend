@@ -35,10 +35,10 @@ const AddOnCard = ({ addOn }: AddOnCardProps) => {
 
         {/* TODO: Fetch author name instead of id */}
         <p className="text-xs font-thin text-gray-400 mt-2">
-          Author: {addOn.author.userId}
+          Author: {addOn.authorId}
         </p>
         <p className="text-gray-700 overflow-x-hidden font-normal text-lg mt-2">
-          {addOn.summary.split(" ").slice(0, 20).join(" ")}...
+          {addOn.summary.split(" ").slice(0, 15).join(" ")}
         </p>
       </Link>
     </div>

@@ -11,7 +11,7 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import AddOnSlice from "../features/addonList/AddOnSlice";
-import { emptySplitApi } from "../services/api";
+import { emptySplitApi } from "./services/api";
 import AuthSlice from "../features/authentication/AuthSlice";
 
 const rootReducer = combineSlices({

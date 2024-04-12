@@ -5,7 +5,7 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-import { emptySplitApi } from "../../services/api";
+import { emptySplitApi } from "../../app/services/api";
 import type { Addon, AddonCategory } from "../../types/AddOnTypes";
 
 /**
