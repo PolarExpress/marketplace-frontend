@@ -27,7 +27,7 @@ export default defineConfig(({ command }) => ({
         "src/main.tsx",
         "src/stories/**/*",
         "src/test",
-        ...configDefaults.coverage.exclude,
+        ...configDefaults.coverage.exclude
       ]
     }
   }

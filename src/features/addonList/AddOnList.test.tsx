@@ -25,7 +25,9 @@ describe("AddOnList component", () => {
 
     for (const addon of addonList) {
       expect(getByText(addon.name)).toBeDefined();
-      expect(getByText(addon.summary.split(" ").slice(0, 15).join(" "))).toBeDefined();
+      expect(
+        getByText(addon.summary.split(" ").slice(0, 15).join(" "))
+      ).toBeDefined();
       expect(getAllByText(`Author: ${addon.authorId}`)).toBeDefined();
     }
   });
@@ -38,7 +40,9 @@ describe("AddOnList component", () => {
     const addOnCards = await findAllByTestId("addon-card");
 
     expect(addOnCards.length).toBe(1);
-    expect(getByText(addonList[0].summary.split(" ").slice(0, 15).join(" "))).toBeDefined();
+    expect(
+      getByText(addonList[0].summary.split(" ").slice(0, 15).join(" "))
+    ).toBeDefined();
   });
 
   it("displays message when no addons are found with search term", async () => {

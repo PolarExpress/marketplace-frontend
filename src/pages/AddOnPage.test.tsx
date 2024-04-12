@@ -29,7 +29,9 @@ describe("AddOnPage", () => {
 
     expect(getByText(testAddon.name)).toBeDefined();
     expect(getByText(testAddon.author.userId)).toBeDefined();
-    expect(getByText(testAddon.summary.split(" ").slice(0, 15).join(" "))).toBeDefined();
+    expect(
+      getByText(testAddon.summary.split(" ").slice(0, 15).join(" "))
+    ).toBeDefined();
     expect(getByText(`README for ${testAddon.name}`)).toBeDefined();
   });
 
