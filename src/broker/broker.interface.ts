@@ -9,6 +9,10 @@
 import { UseIsAuthorizedState } from "../features/authentication/AuthSlice";
 import { SendMessageI } from "./types";
 
+/**
+ * Abstract base class for the Broker.
+ * Defines the common interface and methods for the Broker implementations.
+ */
 export abstract class BrokerBase {
   protected static singletonInstance: BrokerBase;
 
