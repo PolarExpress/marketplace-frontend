@@ -37,6 +37,7 @@ const InstallButton = ({
 }: InstallButtonProps) => {
   return (
     <button
+      data-testid="install"
       className={
         isAddonInstalled === true
           ? "hover:shadow-md text-orange-500 text-center bg-white h-10 w-24 border-2 border-orange-500 rounded-full"

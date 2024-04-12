@@ -33,9 +33,9 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
     const body = (await request.json()) as {
-      _id: string;
+      id: string;
     };
-    const addonId = body._id;
+    const addonId = body.id;
 
     const addon = addonList.find(addon => addon._id === addonId);
 
@@ -46,15 +46,25 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/get-readme`, async ({ request }) => {
     const body = (await request.json()) as {
-      _id: string;
+      id: string;
     };
-    const addonId = body._id;
+    const addonId = body.id;
 
     const addon = addonList.find(addon => addon._id === addonId);
 
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
       : HttpResponse.json(null);
+  }),
+
+  http.get("http://localhost:3000/headers", () => {
+    return HttpResponse.json({
+      impersonateID: "",
+      jwt: "JWT",
+      sessionID: "8a762387-270b-43c2-9d77-4fbdc6460b7c",
+      userID: "5d6894e9-7a40-4dd1-bd07-ad28456350e2",
+      username: "Username"
+    });
   }),
 
   http.all("*", () => {
