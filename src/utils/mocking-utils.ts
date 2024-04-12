@@ -12,8 +12,6 @@ import { Addon } from "../types/AddOnTypes";
  * Decides which broker to import based on mocking global.
  */
 export async function importBroker() {
-  console.log(`VITE_MOCKING: ${import.meta.env.VITE_MOCKING}`);
-  console.log(`DEV: ${import.meta.env.DEV}`);
   return import(
     import.meta.env.VITE_MOCKING ? "../broker/broker.mock" : "../broker/broker"
   );
