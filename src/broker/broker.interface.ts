@@ -16,6 +16,7 @@ import { SendMessageI } from "./types";
 export abstract class BrokerBase {
   protected static singletonInstance: BrokerBase;
 
+  /** Get the singleton instance of the Broker. */
   public static instance(): BrokerBase {
     if (!this.singletonInstance) {
       throw new Error("Singleton instance not initialized");
@@ -23,8 +24,13 @@ export abstract class BrokerBase {
     return this.singletonInstance;
   }
 
+  
   public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 
+  /**
+   * Create a websocket to the given URL.
+   * @param {string} URL is the URL to which the websocket connection is opened.
+   */
   public abstract connect(onOpen: () => void): void;
 
   public abstract sendMessage(message: SendMessageI, callback?: Function): void;
