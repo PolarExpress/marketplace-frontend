@@ -24,7 +24,6 @@ export abstract class BrokerBase {
     return this.singletonInstance;
   }
 
-  
   public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 
   /**
