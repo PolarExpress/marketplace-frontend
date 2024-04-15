@@ -28,7 +28,6 @@ export abstract class BrokerBase {
 
   /**
    * Create a websocket to the given URL.
-   * @param {string} URL is the URL to which the websocket connection is opened.
    */
   public abstract connect(onOpen: () => void): void;
 
