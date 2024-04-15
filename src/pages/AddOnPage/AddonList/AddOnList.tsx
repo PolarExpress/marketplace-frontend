@@ -6,13 +6,13 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useAppSelector } from "../../app/hooks";
-import type { RootState } from "../../app/store";
-import { AddonCategory, type Addon } from "../../types/AddOnTypes";
+import { useAppSelector } from "../../../data-access/hooks";
+import type { RootState } from "../../../data-access/store";
+import { AddonCategory, type Addon } from "../../../types/addon";
 import AddOnCard from "./AddOnCard";
 import { useGetAddonsQuery } from "./AddOnApi";
-import RTKError from "../../components/RTKError";
-import { LoadingSpinner } from "../../components/LoadingSpinner";
+import RTKError from "../../../components/RTKError";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 const AddOnList = () => {
   // Get the current search term from the state

@@ -7,9 +7,9 @@
  */
 
 import { useEffect } from "react";
-import { useAuthorizationCache } from "../app/hooks";
-import { useAuth } from "../features/authentication/useAuth";
-import { createBroker } from "../utils/mocking-utils";
+import { useAuthorizationCache } from "../hooks";
+import { useAuth } from "../authentication/useAuth";
+import { createBroker } from "../../test/mocking-utils";
 
 const Broker = createBroker();
 

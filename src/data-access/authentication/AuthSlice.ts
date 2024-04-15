@@ -7,7 +7,7 @@
  */
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { RootState } from "../store";
 
 export type UseIsAuthorizedState = SingleIsAuthorizedState & {
   roomID: string | undefined;

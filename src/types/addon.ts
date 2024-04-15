@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { Author } from "./AuthorTypes";
+import type { Author } from "./author";
 
 export enum AddonCategory {
   VISUALISATION = "VISUALISATION",

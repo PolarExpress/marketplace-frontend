@@ -6,10 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { Broker } from "../broker/broker";
-import { BrokerBase } from "../broker/broker.interface";
-import { MockBroker } from "../broker/broker.mock";
-import { Addon } from "../types/AddOnTypes";
+import { Broker } from "../data-access/broker/broker";
+import { BrokerBase } from "../data-access/broker/broker.interface";
+import { MockBroker } from "../data-access/broker/broker.mock";
+import { Addon } from "../types/addon";
 
 /**
  * Decides which broker to use based on mocking global.

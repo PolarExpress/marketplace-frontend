@@ -11,7 +11,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App";
-import { store } from "./app/store";
+import { store } from "./data-access/store";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./style.css";
 
@@ -23,7 +23,7 @@ async function enableMocking() {
   if (!import.meta.env.DEV || !import.meta.env.VITE_MOCKING) return;
 
   const { setupWorker } = await import("msw/browser");
-  const { handlers } = await import("./test/mocks");
+  const { handlers } = await import("./test/mswHandlers");
   await setupWorker(...handlers).start();
 }
 

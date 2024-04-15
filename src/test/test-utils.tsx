@@ -11,11 +11,10 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { PropsWithChildren, ReactElement } from "react";
 import { Provider } from "react-redux";
-import type { AppStore, RootState } from "../app/store";
-import { makeStore } from "../app/store";
+import { type AppStore, type RootState, makeStore } from "../data-access/store";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import SetupBroker from "../broker/setupBroker";
-import AddOnPage from "../pages/AddOnPage";
+import SetupBroker from "../data-access/broker/setupBroker";
+import AddOnPage from "../pages/AddOnPage/AddOnPage";
 
 /**
  * This type extends the default options for

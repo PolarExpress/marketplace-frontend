@@ -7,12 +7,12 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import AddOnCard from "../features/addonList/AddOnCard";
+import AddOnCard from "../pages/AddOnPage/AddonList/AddOnCard";
 import { Provider } from "react-redux";
-import { store } from "../app/store";
+import { store } from "../data-access/store";
 import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
-import { addonList } from "../temp/tempAddons";
+import { addonList } from "../mock-data/addons";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**

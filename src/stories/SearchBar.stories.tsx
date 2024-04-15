@@ -9,7 +9,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import SearchBar from "../components/SearchBar";
 import { Provider } from "react-redux";
-import { store } from "../app/store";
+import { store } from "../data-access/store";
 import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
 

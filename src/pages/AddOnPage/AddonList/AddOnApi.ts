@@ -5,8 +5,8 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-import { emptySplitApi } from "../../app/services/api";
-import type { Addon, AddonCategory } from "../../types/AddOnTypes";
+import { emptySplitApi } from "../../../data-access/api";
+import type { Addon, AddonCategory } from "../../../types/addon";
 
 /**
  * Automatically creates react hooks for interacting with add-on related endpoints.

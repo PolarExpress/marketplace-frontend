@@ -8,8 +8,8 @@
 
 import type React from "react";
 import { useState } from "react";
-import { useAppDispatch } from "../app/hooks";
-import { updateSearchTerm } from "../features/addonList/AddOnSlice";
+import { useAppDispatch } from "../data-access/hooks";
+import { updateSearchTerm } from "../pages/AddOnPage/AddonList/AddOnSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**

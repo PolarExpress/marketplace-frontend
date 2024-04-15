@@ -12,7 +12,7 @@
  * © Copyright Utrecht University (Department of Information and Computing Sciences)
  */
 
-import { UseIsAuthorizedState } from "../features/authentication/AuthSlice";
+import { UseIsAuthorizedState } from "../authentication/AuthSlice";
 import {
   ReceiveMessageI,
   SendMessageI,

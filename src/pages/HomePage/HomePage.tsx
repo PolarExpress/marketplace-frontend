@@ -7,7 +7,7 @@
  */
 
 // Should represent the main marketplace landing page.
-import AddOnList from "../features/addonList/AddOnList";
+import AddOnList from "../AddOnPage/AddonList/AddOnList";
 
 /**
  * Represents the primary landing page of the add-ons marketplace.

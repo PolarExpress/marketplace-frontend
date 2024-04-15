@@ -6,11 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 import { describe, it, expect } from "vitest";
-import { server } from "../setupTests";
+import { server } from "../../setupTests";
 import { HttpResponse, http } from "msw";
-import { setupPageWithId } from "../utils/test-utils";
+import { setupPageWithId } from "../../test/test-utils";
 
-import { addonList } from "../temp/tempAddons";
+import { addonList } from "../../mock-data/addons";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 

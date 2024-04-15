@@ -7,7 +7,7 @@
  */
 
 // Component for rendering a single add-on's information
-import type { Addon } from "../../types/AddOnTypes";
+import type { Addon } from "../../../types/addon";
 import { Link } from "react-router-dom";
 
 /**

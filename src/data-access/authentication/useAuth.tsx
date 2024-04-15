@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../hooks";
 
 import { authorized, changeRoom } from "./AuthSlice";
 

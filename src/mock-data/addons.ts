@@ -7,9 +7,9 @@
  */
 
 // Defines temporary add-ons. Will be removed when backend is connected
-import type { Addon } from "../types/AddOnTypes";
-import { AddonCategory } from "../types/AddOnTypes";
-import { authorList } from "./tempAuthors";
+import type { Addon } from "../types/addon";
+import { AddonCategory } from "../types/addon";
+import { authorList } from "./authors";
 
 const shortAddon: Addon = {
   _id: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d", // A unique identifier

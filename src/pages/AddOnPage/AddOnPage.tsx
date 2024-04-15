@@ -10,18 +10,18 @@ import { useParams } from "react-router-dom";
 import {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
-} from "../features/addonList/AddOnApi";
-import RTKError from "../components/RTKError";
+} from "./AddonList/AddOnApi";
+import RTKError from "../../components/RTKError";
 import Markdown from "react-markdown";
-import InstallButton from "../components/InstallButton";
-import { useAuthorizationCache } from "../app/hooks";
+import InstallButton from "../../components/InstallButton";
+import { useAuthorizationCache } from "../../data-access/hooks";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
   useUninstallAddon
-} from "../broker/hooks";
+} from "../../data-access/broker/hooks";
 import { useEffect, useState } from "react";
-import { LoadingSpinner } from "../components/LoadingSpinner";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 /**
  * Represents the individual page of an add-on.

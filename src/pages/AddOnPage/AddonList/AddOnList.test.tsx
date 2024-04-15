@@ -7,15 +7,15 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { renderWithProviders } from "../../utils/test-utils";
+import { renderWithProviders } from "../../../test/test-utils";
 import AddOnList from "./AddOnList";
-import { addonList } from "../../temp/tempAddons";
-import { server } from "../../setupTests";
+import { addonList } from "../../../mock-data/addons";
+import { server } from "../../../setupTests";
 import { HttpResponse, http } from "msw";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 import { Routes, Route } from "react-router-dom";
-import AddOnPage from "../../pages/AddOnPage";
-import HomePage from "../../pages/HomePage";
+import AddOnPage from "../AddOnPage";
+import HomePage from "../../HomePage/HomePage";
 
 describe("AddOnList component", () => {
   it("renders AddOnCard components for all add-ons", async () => {

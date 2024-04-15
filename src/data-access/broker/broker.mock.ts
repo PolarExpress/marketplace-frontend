@@ -6,14 +6,14 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { UseIsAuthorizedState } from "../features/authentication/AuthSlice";
-import { addonList } from "../temp/tempAddons";
-import { Addon } from "../types/AddOnTypes";
+import { UseIsAuthorizedState } from "../authentication/AuthSlice";
+import { addonList } from "../../mock-data/addons";
+import { Addon } from "../../types/addon";
 import {
   addInstalled,
   getInstalled,
   removeInstalled
-} from "../utils/mocking-utils";
+} from "../../test/mocking-utils";
 import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
