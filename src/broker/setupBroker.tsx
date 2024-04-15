@@ -9,7 +9,9 @@
 import { useEffect } from "react";
 import { useAuthorizationCache } from "../app/hooks";
 import { useAuth } from "../features/authentication/useAuth";
-import { importBroker } from "../utils/mocking-utils";
+import { createBroker } from "../utils/mocking-utils";
+
+const Broker = createBroker();
 
 /**
  * Logs in and connects to the WebSocket
@@ -27,14 +29,11 @@ const SetupBroker = () => {
   // Connects the WebSocket and sets authorisation header for the broker
   useEffect(() => {
     const connect = async () => {
-      const { Broker } = await importBroker();
       if (auth.authorized && auth.jwt) {
         console.log("Connecting broker");
-        Broker.instance()
-          .useAuth(auth)
-          .connect(() => {
-            console.log("WS connected", window.location.search);
-          });
+        Broker.setAuth(auth).connect(() => {
+          console.log("WS connected", window.location.search);
+        });
       } else {
         // dispatch(logout());
       }

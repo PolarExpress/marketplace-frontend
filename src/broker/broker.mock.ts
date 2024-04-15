@@ -14,20 +14,19 @@ import {
   getInstalled,
   removeInstalled
 } from "../utils/mocking-utils";
+import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
 /**
  * Mocked version of the broker to run the frontend without backend
  */
-export class Broker {
-  private static singletonInstance: Broker;
-
-  public static instance(): Broker {
-    if (!this.singletonInstance) this.singletonInstance = new Broker();
-    return this.singletonInstance;
+export class MockBroker extends BrokerBase {
+  public static instance(): MockBroker {
+    if (!this.singletonInstance) this.singletonInstance = new MockBroker();
+    return this.singletonInstance as MockBroker;
   }
 
-  public useAuth(authHeader: UseIsAuthorizedState): Broker {
+  public setAuth(authHeader: UseIsAuthorizedState): MockBroker {
     return this;
   }
 

@@ -57,11 +57,10 @@ export class Broker {
   //TODO: Create env variable
   private static BACKEND_WSS_URL = "ws://localhost:3001/";
 
-  /** Get the singleton instance of the Broker. */
   public static instance(): Broker {
     if (!this.singletonInstance)
       this.singletonInstance = new Broker(this.BACKEND_WSS_URL);
-    return this.singletonInstance;
+    return this.singletonInstance as Broker;
   }
 
   /**
@@ -134,7 +133,7 @@ export class Broker {
     this.connected = false;
   }
 
-  public useAuth(authHeader: UseIsAuthorizedState): Broker {
+  public setAuth(authHeader: UseIsAuthorizedState): Broker {
     this.authHeader = authHeader;
     return this;
   }
@@ -144,10 +143,6 @@ export class Broker {
     return this;
   }
 
-  /**
-   * Create a websocket to the given URL.
-   * @param {string} URL is the URL to which the websocket connection is opened.
-   */
   public connect(onOpen: () => void): void {
     // If there already is already a current websocket connection, close it first.
     if (this.webSocket) this.close();
