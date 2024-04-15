@@ -26,9 +26,6 @@ export abstract class BrokerBase {
 
   public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 
-  /**
-   * Create a websocket to the given URL.
-   */
   public abstract connect(onOpen: () => void): void;
 
   public abstract sendMessage(message: SendMessageI, callback?: Function): void;
