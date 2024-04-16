@@ -27,6 +27,6 @@ const AddOnSlice = createSlice({
   }
 });
 
-export { initialState, type AddonListState as AddonListState };
+export { initialState, type AddonListState };
 export const { updateSearchTerm } = AddOnSlice.actions;
 export default AddOnSlice.reducer;

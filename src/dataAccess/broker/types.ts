@@ -1,4 +1,4 @@
-/** eslint-disable custom/enforce-copyright-comment */
+/* eslint-disable custom/enforce-copyright-comment */
 
 export type ReceiveMessageI = {
   callID: string;

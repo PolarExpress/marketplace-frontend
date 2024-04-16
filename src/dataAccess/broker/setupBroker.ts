@@ -7,8 +7,8 @@
  */
 
 import { useEffect } from "react";
-import { useAuthorizationCache } from "../hooks";
-import { useAuth } from "../authentication/useAuth";
+import { useAuthorizationCache } from "../store";
+import { useAuth } from "../authentication";
 import { createBroker } from "@polarexpress/test/mockingUtils";
 
 const Broker = createBroker();
@@ -16,7 +16,7 @@ const Broker = createBroker();
 /**
  * Logs in and connects to the WebSocket
  */
-const SetupBroker = () => {
+export const SetupBroker = () => {
   const auth = useAuthorizationCache();
   const { login } = useAuth();
 

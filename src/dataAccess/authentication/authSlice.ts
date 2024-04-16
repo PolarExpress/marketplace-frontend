@@ -1,4 +1,4 @@
-/** eslint-disable custom/enforce-copyright-comment */
+/* eslint-disable custom/enforce-copyright-comment */
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";

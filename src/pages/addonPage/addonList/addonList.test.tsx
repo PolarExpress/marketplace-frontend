@@ -7,15 +7,15 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { renderWithProviders } from "@polarexpress/test/testUtils";
+import { renderWithProviders } from "@polarexpress/test/utils";
 import AddonList from "./addonList";
 import { addonList } from "@polarexpress/mockData/addons";
-import { server } from "@polarexpress/test/setupTests";
+import { server } from "@polarexpress/test/setup";
 import { HttpResponse, http } from "msw";
 import Header from "@polarexpress/components/header";
 import { Routes, Route } from "react-router-dom";
 import AddonPage from "../addonPage";
-import HomePage from "@polarexpress/pages/homePage/homePage";
+import HomePage from "@polarexpress/pages/homePage";
 
 describe("AddonList component", () => {
   it("renders AddonCard components for all add-ons", async () => {

@@ -6,13 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useAppSelector } from "@polarexpress/dataAccess/hooks";
-import type { RootState } from "@polarexpress/dataAccess/store";
+import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
 import { AddonCategory, type Addon } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
 import { useGetAddonsQuery } from "./addonApi";
-import RTKError from "@polarexpress/components/rtkError";
-import { LoadingSpinner } from "@polarexpress/components/loadingSpinner";
+import { LoadingSpinner, RTKError } from "@polarexpress/components";
 
 const AddonList = () => {
   // Get the current search term from the state

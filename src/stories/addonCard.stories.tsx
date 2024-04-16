@@ -9,7 +9,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import AddonCard from "@polarexpress/pages/addonPage/addonList/addonCard";
 import { Provider } from "react-redux";
-import { store } from "@polarexpress/dataAccess/store";
+import { store } from "@polarexpress/dataAccess/store/store";
 import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
 import { addonList } from "@polarexpress/mockData/addons";

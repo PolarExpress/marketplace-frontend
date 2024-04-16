@@ -11,17 +11,19 @@ import {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
 } from "./addonList/addonApi";
-import RTKError from "@polarexpress/components/rtkError";
 import Markdown from "react-markdown";
-import InstallButton from "@polarexpress/components/installButton";
-import { useAuthorizationCache } from "@polarexpress/dataAccess/hooks";
+import { useAuthorizationCache } from "@polarexpress/dataAccess/store";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
   useUninstallAddon
 } from "@polarexpress/dataAccess/broker/hooks";
 import { useEffect, useState } from "react";
-import { LoadingSpinner } from "@polarexpress/components/loadingSpinner";
+import {
+  LoadingSpinner,
+  RTKError,
+  InstallButton
+} from "@polarexpress/components";
 
 /**
  * Represents the individual page of an add-on.

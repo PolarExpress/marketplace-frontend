@@ -1,4 +1,4 @@
-/** eslint-disable custom/enforce-copyright-comment */
+/* eslint-disable custom/enforce-copyright-comment */
 
 import { PropsWithChildren } from "react";
 

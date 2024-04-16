@@ -12,8 +12,8 @@ import type { PropsWithChildren, ReactElement } from "react";
 import { Provider } from "react-redux";
 import { type AppStore, type RootState, makeStore } from "../dataAccess/store";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import SetupBroker from "@polarexpress/dataAccess/broker/setupBroker";
-import AddonPage from "@polarexpress/pages/addonPage/addonPage";
+import { SetupBroker } from "@polarexpress/dataAccess/broker";
+import AddonPage from "@polarexpress/pages/addonPage";
 
 /**
  * This type extends the default options for

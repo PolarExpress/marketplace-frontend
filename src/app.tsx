@@ -6,11 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import HomePage from "./pages/homePage/homePage";
+import { HomePage, AddonPage } from "./pages";
 import Header from "./components/header";
 import { Routes, Route } from "react-router-dom";
-import AddonPage from "./pages/addonPage/addonPage";
-import SetupBroker from "./dataAccess/broker/setupBroker";
+import { SetupBroker } from "./dataAccess/broker";
 
 /**
  * The central application component, responsible for high-level page layout and routing.

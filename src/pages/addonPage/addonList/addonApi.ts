@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { emptySplitApi } from "@polarexpress/dataAccess/api";
+import { emptySplitApi } from "@polarexpress/dataAccess/store/api";
 import type { Addon, AddonCategory } from "@polarexpress/types/addon";
 
 /**

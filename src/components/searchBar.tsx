@@ -7,8 +7,8 @@
  */
 
 import { useState } from "react";
-import { useAppDispatch } from "@polarexpress/dataAccess/hooks";
-import { updateSearchTerm } from "@polarexpress/pages/addonPage/addonList/addonSlice";
+import { useAppDispatch } from "@polarexpress/dataAccess/store/hooks";
+import { updateSearchTerm } from "@polarexpress/dataAccess/store/addonSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**

@@ -6,9 +6,9 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { Broker } from "@polarexpress/dataAccess/broker/broker";
-import { BrokerBase } from "@polarexpress/dataAccess/broker/broker.interface";
-import { MockBroker } from "@polarexpress/dataAccess/broker/broker.mock";
+import { Broker } from "@polarexpress/dataAccess/broker";
+import { BrokerBase } from "@polarexpress/dataAccess/broker";
+import { MockBroker } from "@polarexpress/dataAccess/broker";
 import { Addon } from "@polarexpress/types/addon";
 
 /**

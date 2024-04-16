@@ -13,7 +13,7 @@ import {
   addInstalled,
   getInstalled
 } from "@polarexpress/test/mockingUtils";
-import { setupPageWithId } from "@polarexpress/test/testUtils";
+import { setupPageWithId } from "@polarexpress/test/utils";
 import * as hooks from "@polarexpress/dataAccess/broker/hooks";
 
 describe("InstallButton", () => {
