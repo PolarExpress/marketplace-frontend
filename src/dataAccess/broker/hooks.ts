@@ -8,10 +8,8 @@
 
 import { useState, useCallback, useEffect } from "react";
 import type { MpBackendAction, MpBackendMessage } from "./types";
-// import { Addon, AddonCategory } from "../../types/addon";
-import type { Addon, AddonCategory } from "/types/addon";
-// import { createBroker } from "../../test/mocking-utils";
-import { createBroker } from "/test/mocking-utils";
+import type { Addon, AddonCategory } from "@polarexpress/types/addon";
+import { createBroker } from "@polarexpress/test/mockingUtils";
 
 const Broker = createBroker();
 

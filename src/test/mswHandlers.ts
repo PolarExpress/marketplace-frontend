@@ -7,7 +7,7 @@
  */
 
 import { http, HttpResponse, passthrough } from "msw";
-import { addonList } from "../mock-data/addons";
+import { addonList } from "../mockData/addons";
 import { AddonCategory } from "../types/addon";
 
 const baseUrl = import.meta.env.VITE_API_BASE;

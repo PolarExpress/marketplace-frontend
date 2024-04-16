@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { Author } from "../types/author";
+import type { Author } from "@polarexpress/types/author";
 import { userList } from "./users";
 
 const authorOne: Author = {

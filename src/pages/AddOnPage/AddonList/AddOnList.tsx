@@ -6,15 +6,15 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useAppSelector } from "../../../data-access/hooks";
-import type { RootState } from "../../../data-access/store";
-import { AddonCategory, type Addon } from "../../../types/addon";
-import AddOnCard from "./AddOnCard";
-import { useGetAddonsQuery } from "./AddOnApi";
-import RTKError from "../../../components/RTKError";
-import { LoadingSpinner } from "../../../components/LoadingSpinner";
+import { useAppSelector } from "@polarexpress/dataAccess/hooks";
+import type { RootState } from "@polarexpress/dataAccess/store";
+import { AddonCategory, type Addon } from "@polarexpress/types/addon";
+import AddonCard from "./addonCard";
+import { useGetAddonsQuery } from "./addonApi";
+import RTKError from "@polarexpress/components/rtkError";
+import { LoadingSpinner } from "@polarexpress/components/loadingSpinner";
 
-const AddOnList = () => {
+const AddonList = () => {
   // Get the current search term from the state
   const { searchTerm } = useAppSelector((state: RootState) => state.addons);
 
@@ -54,14 +54,14 @@ const AddOnList = () => {
       <div className="relative -z-1 flex flex-wrap gap-4 w-full justify-center">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
-              <AddOnCard key={addOn._id} addOn={addOn} />
+              <AddonCard key={addOn._id} addOn={addOn} />
             ))
           : allAddOns.map((addOn: Addon) => (
-              <AddOnCard key={addOn._id} addOn={addOn} />
+              <AddonCard key={addOn._id} addOn={addOn} />
             ))}
       </div>
     );
   }
 };
 
-export default AddOnList;
+export default AddonList;

@@ -9,7 +9,7 @@
 import { useEffect } from "react";
 import { useAuthorizationCache } from "../hooks";
 import { useAuth } from "../authentication/useAuth";
-import { createBroker } from "../../test/mocking-utils";
+import { createBroker } from "../../test/mockingUtils";
 
 const Broker = createBroker();
 

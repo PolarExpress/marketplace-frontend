@@ -7,20 +7,20 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { renderWithProviders } from "../../../test/test-utils";
-import AddOnList from "./AddOnList";
-import { addonList } from "../../../mock-data/addons";
-import { server } from "../../../setupTests";
+import { renderWithProviders } from "@polarexpress/test/testUtils";
+import AddonList from "./addonList";
+import { addonList } from "@polarexpress/mockData/addons";
+import { server } from "@polarexpress/setupTests";
 import { HttpResponse, http } from "msw";
-import Header from "../../../components/Header";
+import Header from "@polarexpress/components/header";
 import { Routes, Route } from "react-router-dom";
-import AddOnPage from "../AddOnPage";
-import HomePage from "../../HomePage/HomePage";
+import AddonPage from "../addonPage";
+import HomePage from "@polarexpress/pages/homePage/homePage";
 
-describe("AddOnList component", () => {
-  it("renders AddOnCard components for all add-ons", async () => {
+describe("AddonList component", () => {
+  it("renders AddonCard components for all add-ons", async () => {
     const { findAllByTestId, findByText, getByText, getAllByText } =
-      renderWithProviders(<AddOnList />);
+      renderWithProviders(<AddonList />);
 
     expect(findByText("Loading...")).toBeDefined();
 
@@ -41,7 +41,7 @@ describe("AddOnList component", () => {
       renderWithProviders(
         <>
           <Header />
-          <AddOnList />
+          <AddonList />
         </>
       );
 
@@ -60,7 +60,7 @@ describe("AddOnList component", () => {
   });
 
   it("displays message when no addons are found with search term", async () => {
-    const { findByText } = renderWithProviders(<AddOnList />, {
+    const { findByText } = renderWithProviders(<AddonList />, {
       preloadedState: { addons: { searchTerm: "qwerty" } }
     });
 
@@ -79,7 +79,7 @@ describe("AddOnList component", () => {
         return HttpResponse.error();
       })
     );
-    const { findByTestId } = renderWithProviders(<AddOnList />);
+    const { findByTestId } = renderWithProviders(<AddonList />);
 
     await expect(findByTestId("fetch-error")).toBeDefined();
   });
@@ -89,7 +89,7 @@ describe("AddOnList component", () => {
       <>
         <Header />
         <Routes>
-          <Route path="/addons/:id" element={<AddOnPage />} />
+          <Route path="/addons/:id" element={<AddonPage />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
       </>,

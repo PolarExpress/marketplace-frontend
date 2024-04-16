@@ -8,7 +8,7 @@
 
 import { useAppDispatch } from "../hooks";
 
-import { authorized, changeRoom } from "./AuthSlice";
+import { authorized, changeRoom } from "./authSlice";
 
 export type AuthenticationHeader = {
   username: string;

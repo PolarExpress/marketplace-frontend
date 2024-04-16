@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import SearchBar from "./SearchBar";
+import SearchBar from "./searchBar";
 
 /**
  * The Header component renders the main header area of the application,

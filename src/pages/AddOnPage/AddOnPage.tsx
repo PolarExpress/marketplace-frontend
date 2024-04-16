@@ -10,24 +10,24 @@ import { useParams } from "react-router-dom";
 import {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
-} from "./AddonList/AddOnApi";
-import RTKError from "../../components/RTKError";
+} from "./addonList/addonApi";
+import RTKError from "@polarexpress/components/rtkError";
 import Markdown from "react-markdown";
-import InstallButton from "../../components/InstallButton";
-import { useAuthorizationCache } from "../../data-access/hooks";
+import InstallButton from "@polarexpress/components/installButton";
+import { useAuthorizationCache } from "@polarexpress/dataAccess/hooks";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
   useUninstallAddon
-} from "../../data-access/broker/hooks";
+} from "@polarexpress/dataAccess/broker/hooks";
 import { useEffect, useState } from "react";
-import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { LoadingSpinner } from "@polarexpress/components/loadingSpinner";
 
 /**
  * Represents the individual page of an add-on.
  * It retrieves information about the add-on from the store and displays it.
  */
-const AddOnPage = () => {
+const AddonPage = () => {
   // Retrieve URL param
   const { id: thisId } = useParams();
 
@@ -158,4 +158,4 @@ const AddOnPage = () => {
   }
 };
 
-export default AddOnPage;
+export default AddonPage;

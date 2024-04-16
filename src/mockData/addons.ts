@@ -7,8 +7,8 @@
  */
 
 // Defines temporary add-ons. Will be removed when backend is connected
-import type { Addon } from "../types/addon";
-import { AddonCategory } from "../types/addon";
+import type { Addon } from "@polarexpress/types/addon";
+import { AddonCategory } from "@polarexpress/types/addon";
 import { authorList } from "./authors";
 
 const shortAddon: Addon = {

@@ -5,14 +5,15 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-import { emptySplitApi } from "../../../data-access/api";
-import type { Addon, AddonCategory } from "../../../types/addon";
+
+import { emptySplitApi } from "@polarexpress/dataAccess/api";
+import type { Addon, AddonCategory } from "@polarexpress/types/addon";
 
 /**
  * Automatically creates react hooks for interacting with add-on related endpoints.
  * Appends to the split api creator.
  */
-const addOnApi = emptySplitApi.injectEndpoints({
+const addonApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
     // Fetches a list of addons from the server, optionally filtered by page and category.
     getAddons: build.query<
@@ -59,4 +60,4 @@ export const {
   useGetAddonsQuery,
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
-} = addOnApi;
+} = addonApi;

@@ -7,11 +7,11 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import SearchBar from "../components/SearchBar";
-import { Provider } from "react-redux";
-import { store } from "../data-access/store";
-import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
+import SearchBar from "@polarexpress/components/searchBar";
+import { store } from "@polarexpress/dataAccess/store";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**

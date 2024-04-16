@@ -7,20 +7,20 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import AddOnCard from "../pages/AddOnPage/AddonList/AddOnCard";
+import AddonCard from "@polarexpress/pages/addonPage/addonList/addonCard";
 import { Provider } from "react-redux";
-import { store } from "../data-access/store";
+import { store } from "@polarexpress/dataAccess/store";
 import { MemoryRouter } from "react-router-dom";
 import { userEvent, within } from "@storybook/test";
-import { addonList } from "../mock-data/addons";
+import { addonList } from "@polarexpress/mockData/addons";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
  * Provides configuration and metadata for Storybook stories related to the SearchBar component.
  */
 const meta = {
-  title: "frontend/AddOnCard",
-  component: AddOnCard,
+  title: "frontend/AddonCard",
+  component: AddonCard,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered"
@@ -35,13 +35,13 @@ const meta = {
       </Provider>
     )
   ]
-} satisfies Meta<typeof AddOnCard>;
+} satisfies Meta<typeof AddonCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Renders the AddOnCard with a sample add-on for the 'Visualization' category
+ * Renders the AddonCard with a sample add-on for the 'Visualization' category
  */
 export const Basic: Story = {
   args: {
@@ -50,7 +50,7 @@ export const Basic: Story = {
 };
 
 /**
- * Renders the AddOnCard with the mouse hovered over it
+ * Renders the AddonCard with the mouse hovered over it
  */
 export const Hover: Story = {
   args: {

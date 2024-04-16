@@ -6,10 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { Broker } from "../data-access/broker/broker";
-import { BrokerBase } from "../data-access/broker/broker.interface";
-import { MockBroker } from "../data-access/broker/broker.mock";
-import { Addon } from "../types/addon";
+import { Broker } from "@polarexpress/dataAccess/broker/broker";
+import { BrokerBase } from "@polarexpress/dataAccess/broker/broker.interface";
+import { MockBroker } from "@polarexpress/dataAccess/broker/broker.mock";
+import { Addon } from "@polarexpress/types/addon";
 
 /**
  * Decides which broker to use based on mocking global.

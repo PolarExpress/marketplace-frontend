@@ -8,9 +8,9 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { store } from "../data-access/store";
 import { MemoryRouter } from "react-router-dom";
-import RTKError from "../components/RTKError";
+import { store } from "@polarexpress/dataAccess/store";
+import RTKError from "@polarexpress/components/rtkError";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**

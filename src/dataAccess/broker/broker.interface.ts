@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { UseIsAuthorizedState } from "../authentication/AuthSlice";
+import { UseIsAuthorizedState } from "../authentication/authSlice";
 import { SendMessageI } from "./types";
 
 /**

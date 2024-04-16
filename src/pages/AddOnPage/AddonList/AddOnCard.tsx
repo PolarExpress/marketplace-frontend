@@ -7,14 +7,14 @@
  */
 
 // Component for rendering a single add-on's information
-import type { Addon } from "../../../types/addon";
+import type { Addon } from "@polarexpress/types/addon";
 import { Link } from "react-router-dom";
 
 /**
- * Defines the properties for the AddOnCard component.
+ * Defines the properties for the AddonCard component.
  * @prop {Addon} addOn - The add-on data to be displayed.
  */
-interface AddOnCardProps {
+interface AddonCardProps {
   addOn: Addon;
 }
 
@@ -22,7 +22,7 @@ interface AddOnCardProps {
  * Displays the name and summary of a single add-on.
  * Links to addon page when clicked.
  */
-const AddOnCard = ({ addOn }: AddOnCardProps) => {
+const AddonCard = ({ addOn }: AddonCardProps) => {
   return (
     <div className="flex-none gap-4 font-sans font-bold leading-7 h-64 w-64">
       <Link
@@ -45,4 +45,4 @@ const AddOnCard = ({ addOn }: AddOnCardProps) => {
   );
 };
 
-export default AddOnCard;
+export default AddonCard;

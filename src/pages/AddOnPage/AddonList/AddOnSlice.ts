@@ -9,11 +9,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface AddOnListState {
+interface AddonListState {
   searchTerm: string;
 }
 
-const initialState: AddOnListState = {
+const initialState: AddonListState = {
   searchTerm: ""
 };
 
@@ -27,6 +27,6 @@ const AddOnSlice = createSlice({
   }
 });
 
-export { initialState, type AddOnListState };
+export { initialState, type AddonListState as AddonListState };
 export const { updateSearchTerm } = AddOnSlice.actions;
 export default AddOnSlice.reducer;

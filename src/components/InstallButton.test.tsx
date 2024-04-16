@@ -6,15 +6,15 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { addonList } from "../mock-data/addons";
+import { addonList } from "../mockData/addons";
 import {
   initializeInstalled,
   deleteInstalledList,
   addInstalled,
   getInstalled
-} from "../test/mocking-utils";
-import { setupPageWithId } from "../test/test-utils";
-import * as hooks from "../data-access/broker/hooks";
+} from "../test/mockingUtils";
+import { setupPageWithId } from "../test/testUtils";
+import * as hooks from "@polarexpress/dataAccess/broker/hooks";
 
 describe("InstallButton", () => {
   const testAddon = addonList[0];

@@ -5,7 +5,7 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-//
+
 // Centralizes reusable custom Redux hooks
 // Explanation below is from the example project
 
@@ -17,7 +17,7 @@
 /* eslint-disable @typescript-eslint/no-restricted-imports */
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "./store";
-import { UseIsAuthorizedState, authState } from "./authentication/AuthSlice";
+import { UseIsAuthorizedState, authState } from "./authentication/authSlice";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();

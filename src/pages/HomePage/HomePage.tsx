@@ -7,18 +7,18 @@
  */
 
 // Should represent the main marketplace landing page.
-import AddOnList from "../AddOnPage/AddonList/AddOnList";
+import AddonList from "../addonPage/addonList/addonList";
 
 /**
  * Represents the primary landing page of the add-ons marketplace.
- * It renders the AddOnList component to display available add-ons.
+ * It renders the AddonList component to display available add-ons.
  */
 const HomePage = () => {
   return (
     <section
       data-testid="homepage"
       className="flex bg-gray-100 justify-left p-12">
-      <AddOnList />
+      <AddonList />
     </section>
   );
 };
