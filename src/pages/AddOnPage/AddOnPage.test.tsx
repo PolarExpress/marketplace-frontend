@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { server } from "@polarexpress/setupTests";
+import { server } from "@polarexpress/test/setupTests";
 import { HttpResponse, http } from "msw";
 import { setupPageWithId } from "@polarexpress/test/testUtils";
 

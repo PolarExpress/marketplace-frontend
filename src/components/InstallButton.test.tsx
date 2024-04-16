@@ -6,14 +6,14 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { addonList } from "../mockData/addons";
+import { addonList } from "@polarexpress/mockData/addons";
 import {
   initializeInstalled,
   deleteInstalledList,
   addInstalled,
   getInstalled
-} from "../test/mockingUtils";
-import { setupPageWithId } from "../test/testUtils";
+} from "@polarexpress/test/mockingUtils";
+import { setupPageWithId } from "@polarexpress/test/testUtils";
 import * as hooks from "@polarexpress/dataAccess/broker/hooks";
 
 describe("InstallButton", () => {

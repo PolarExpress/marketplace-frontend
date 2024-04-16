@@ -8,19 +8,19 @@
 
 /**
  * Properties for the InstallButton component.
- * @property {boolean} isAddonInstalled - Indicates if the addon is currently installed.
- * @property {boolean} installPending - Indicates if an addon installation is in progress.
- * @property {boolean} uninstallPending - Indicates if an addon uninstallation is in progress.
- * @property {boolean} userAddonsLoading - Indicates if the overall list of user addons is currently being loaded.
- * @property {boolean} authorized - Indicates if the user has the necessary authorization to interact with addons.
- * @property {() => void} handleClick - Function to be executed when the addon button is clicked.
  */
 interface InstallButtonProps {
+  /** Indicates if the addon is currently installed. */
   isAddonInstalled: boolean;
+  /** Indicates if an addon installation is in progress. */
   installPending: boolean;
+  /** Indicates if an addon uninstallation is in progress. */
   uninstallPending: boolean;
+  /** Indicates if the overall list of user addons is currently being loaded. */
   userAddonsLoading: boolean;
+  /** Indicates if the user has the necessary authorization to interact with addons. */
   authorized: boolean;
+  /** Function to be executed when the addon button is clicked. */
   handleClick: () => void;
 }
 

@@ -10,7 +10,7 @@ import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "@polarexpress/test/testUtils";
 import AddonList from "./addonList";
 import { addonList } from "@polarexpress/mockData/addons";
-import { server } from "@polarexpress/setupTests";
+import { server } from "@polarexpress/test/setupTests";
 import { HttpResponse, http } from "msw";
 import Header from "@polarexpress/components/header";
 import { Routes, Route } from "react-router-dom";

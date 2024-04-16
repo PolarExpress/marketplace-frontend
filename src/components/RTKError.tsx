@@ -18,8 +18,8 @@ interface ErrorProps {
  * Distinguishes between network-related errors (`FetchBaseQueryError`) and
  * application-level errors (`SerializedError`).
  *
- * @param {FetchBaseQueryError | SerializedError} props.error - The error object to display.
- * @returns {JSX.Element} - A JSX element rendering the appropriate error message.
+ * @param props.error The error object to display.
+ * @returns A JSX element rendering the appropriate error message.
  */
 const RTKError = ({ error }: ErrorProps) => {
   if ("status" in error) {

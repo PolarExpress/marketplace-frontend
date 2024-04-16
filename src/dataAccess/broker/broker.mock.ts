@@ -7,13 +7,13 @@
  */
 
 import { UseIsAuthorizedState } from "../authentication/authSlice";
-import { addonList } from "../../mockData/addons";
-import { Addon } from "../../types/addon";
+import { addonList } from "@polarexpress/mockData/addons";
+import { Addon } from "@polarexpress/types/addon";
 import {
   addInstalled,
   getInstalled,
   removeInstalled
-} from "../../test/mockingUtils";
+} from "@polarexpress/test/mockingUtils";
 import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
