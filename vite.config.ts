@@ -1,6 +1,7 @@
 import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import removeAttr from "react-remove-attr";
+import pathAlias from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
@@ -10,7 +11,8 @@ export default defineConfig(({ command, mode }) => ({
         extensions: ["tsx"],
         attributes: ["data-testid"]
       }),
-    react()
+    react(),
+    pathAlias()
   ],
   server: {
     open: true
