@@ -10,13 +10,15 @@ import { useEffect } from "react";
 import { useAuthorizationCache } from "../store";
 import { useAuth } from "../authentication";
 import { createBroker } from "@polarexpress/test/mockingUtils";
+import { BrokerBase } from "./broker.interface";
 
-const Broker = createBroker();
+let broker: BrokerBase | null = null;
 
 /**
  * Logs in and connects to the WebSocket
  */
 export const SetupBroker = () => {
+  broker = broker ?? createBroker();
   const auth = useAuthorizationCache();
   const { login } = useAuth();
 
@@ -31,7 +33,7 @@ export const SetupBroker = () => {
     const connect = async () => {
       if (auth.authorized && auth.jwt) {
         console.log("Connecting broker");
-        Broker.setAuth(auth).connect(() => {
+        broker!.setAuth(auth).connect(() => {
           console.log("WS connected", window.location.search);
         });
       } else {
