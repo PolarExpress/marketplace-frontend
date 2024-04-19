@@ -7,7 +7,7 @@
  */
 
 import { renderWithProviders } from "@polarexpress/test/utils";
-import Header from "@polarexpress/components/header"; // eslint-disable-line
+import Header from "@polarexpress/components/header";
 import { addonList } from "@polarexpress/mockData/addons";
 import HomePage from "@polarexpress/pages/homePage";
 import { server } from "@polarexpress/test/setup";

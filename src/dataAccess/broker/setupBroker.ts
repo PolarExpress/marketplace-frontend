@@ -10,7 +10,7 @@ import { createBroker } from "@polarexpress/test/mockingUtils";
 import { useEffect } from "react";
 
 import { useAuthorizationCache } from "../store";
-import { useAuth } from "../authentication"; // eslint-disable-line
+import { useAuth } from "../authentication";
 import { BrokerBase } from "./broker.interface";
 
 let broker: BrokerBase | null = null;

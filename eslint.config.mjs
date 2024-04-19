@@ -80,7 +80,8 @@ export default [
   ),
   {
     rules: {
-      "import/no-anonymous-default-export": "off"
+      "import/no-anonymous-default-export": "off",
+      "perfectionist/sort-imports": "off"
     }
   },
   {
