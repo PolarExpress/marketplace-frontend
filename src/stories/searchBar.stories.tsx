@@ -7,25 +7,19 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
+
+import { SearchBar } from "@polarexpress/components";
+import { store } from "@polarexpress/dataAccess/store";
 import { userEvent, within } from "@storybook/test";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import { SearchBar } from "@polarexpress/components";
-import { store } from "@polarexpress/dataAccess/store";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
  * Provides configuration and metadata for Storybook stories related to the SearchBar component.
  */
 const meta = {
-  title: "frontend/SearchBar",
   component: SearchBar,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered"
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
   // Provides the redux store and browser router for the stories
   decorators: [
     Story => (
@@ -33,7 +27,14 @@ const meta = {
         <MemoryRouter>{Story()}</MemoryRouter>
       </Provider>
     )
-  ]
+  ],
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: "centered"
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ["autodocs"],
+  title: "frontend/SearchBar"
 } satisfies Meta<typeof SearchBar>;
 
 export default meta;

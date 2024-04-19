@@ -6,11 +6,12 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
-import { AddonCategory, type Addon } from "@polarexpress/types/addon";
-import AddonCard from "./addonCard";
-import { useGetAddonsQuery } from "./addonApi";
 import { LoadingSpinner, RTKError } from "@polarexpress/components";
+import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
+import { type Addon, AddonCategory } from "@polarexpress/types/addon";
+
+import { useGetAddonsQuery } from "./addonApi";
+import AddonCard from "./addonCard";
 
 const AddonList = () => {
   // Get the current search term from the state
@@ -19,12 +20,12 @@ const AddonList = () => {
   // Use the RTK Query hook to retrieve addons from the backend
   const {
     data: allAddOns,
-    isLoading,
-    error
+    error,
+    isLoading
   } = useGetAddonsQuery({
+    category: AddonCategory.VISUALISATION,
     // Temporary values
-    page: 0,
-    category: AddonCategory.VISUALISATION
+    page: 0
   });
 
   if (isLoading)
@@ -52,10 +53,10 @@ const AddonList = () => {
       <div className="relative flex w-full flex-wrap justify-center gap-4">
         {searchTerm
           ? filteredAddOns.map((addOn: Addon) => (
-              <AddonCard key={addOn._id} addOn={addOn} />
+              <AddonCard addOn={addOn} key={addOn._id} />
             ))
           : allAddOns.map((addOn: Addon) => (
-              <AddonCard key={addOn._id} addOn={addOn} />
+              <AddonCard addOn={addOn} key={addOn._id} />
             ))}
       </div>
     );

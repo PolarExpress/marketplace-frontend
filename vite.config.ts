@@ -1,31 +1,25 @@
-import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import removeAttr from "react-remove-attr";
 import pathAlias from "vite-tsconfig-paths";
+import { configDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
   plugins: [
     mode !== "test" &&
       removeAttr({
-        extensions: ["tsx"],
-        attributes: ["data-testid"]
+        attributes: ["data-testid"],
+        extensions: ["tsx"]
       }),
     react(),
     pathAlias()
   ],
+  publicDir: command === "serve" ? "public" : false,
   server: {
     open: true
   },
-  publicDir: command === "serve" ? "public" : false,
   test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: "src/setupTests",
-    mockReset: true,
     coverage: {
-      provider: "istanbul",
-      reportsDirectory: "./coverage/vitest",
       exclude: [
         "public",
         "storybook-static",
@@ -39,7 +33,13 @@ export default defineConfig(({ command, mode }) => ({
         "src/stories/**/*",
         "src/test",
         ...configDefaults.coverage.exclude!
-      ]
-    }
+      ],
+      provider: "istanbul",
+      reportsDirectory: "./coverage/vitest"
+    },
+    environment: "jsdom",
+    globals: true,
+    mockReset: true,
+    setupFiles: "src/setupTests"
   }
 }));

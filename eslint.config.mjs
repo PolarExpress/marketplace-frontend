@@ -6,22 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
-import prettier from "eslint-config-prettier";
-import eslint from "@eslint/js";
-
 import { FlatCompat } from "@eslint/eslintrc";
+import eslint from "@eslint/js";
+import prettier from "eslint-config-prettier";
 
 const rule = {
-  meta: {
-    type: "maintenance",
-    docs: {
-      description:
-        "Ensure a specific comment exists at the top of the document",
-      category: "Mandatory",
-      recommended: true
-    },
-    fixable: "code"
-  },
   create(context) {
     const commentText =
       "\n" +
@@ -43,18 +32,28 @@ const rule = {
           )
         ) {
           context.report({
-            node: comments[0] ?? node.body[0],
-            message: "Copyright comment not found at the top",
             fix(fixer) {
               return fixer.insertTextBefore(
                 comments[0] ?? node.body[0],
                 `/*${commentText}*/\n\n`
               );
-            }
+            },
+            message: "Copyright comment not found at the top",
+            node: comments[0] ?? node.body[0]
           });
         }
       }
     };
+  },
+  meta: {
+    docs: {
+      category: "Mandatory",
+      description:
+        "Ensure a specific comment exists at the top of the document",
+      recommended: true
+    },
+    fixable: "code",
+    type: "maintenance"
   }
 };
 
@@ -64,9 +63,9 @@ const compat = new FlatCompat();
 
 export default [
   {
+    ignores: ["**/*.config.*"],
     plugins: { custom: plugin },
-    rules: { "custom/enforce-copyright-comment": "error" },
-    ignores: ["**/*.config.*"]
+    rules: { "custom/enforce-copyright-comment": "error" }
   },
   prettier,
   eslint.configs.recommended,
@@ -74,6 +73,7 @@ export default [
     "plugin:storybook/recommended",
     "plugin:sonarjs/recommended",
     "plugin:tailwindcss/recommended",
+    "plugin:perfectionist/recommended-natural",
     "react-app"
   ),
   {

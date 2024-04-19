@@ -6,8 +6,9 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
+import { createSlice } from "@reduxjs/toolkit";
 
 interface AddonListState {
   searchTerm: string;
@@ -18,8 +19,8 @@ const initialState: AddonListState = {
 };
 
 const AddOnSlice = createSlice({
-  name: "addOnList",
   initialState,
+  name: "addOnList",
   reducers: {
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
@@ -27,6 +28,6 @@ const AddOnSlice = createSlice({
   }
 });
 
-export { initialState, type AddonListState };
+export { type AddonListState, initialState };
 export const { updateSearchTerm } = AddOnSlice.actions;
 export default AddOnSlice.reducer;

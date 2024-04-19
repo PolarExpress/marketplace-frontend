@@ -9,9 +9,10 @@
 // Main entry point for the application
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./dataAccess/store/store";
-import App from "./app";
 import { BrowserRouter as Router } from "react-router-dom";
+
+import App from "./app";
+import { store } from "./dataAccess/store/store";
 import "./style.css";
 
 /**

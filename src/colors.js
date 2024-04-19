@@ -11,39 +11,7 @@ import * as defaultTheme from "tailwindcss/defaultTheme";
 export const tailwindColors = {
   ...defaultTheme.colors,
 
-  primary: {
-    DEFAULT: "hsl(var(--clr-pri) / <alpha-value>)",
-    50: "hsl(var(--clr-pri--50) / <alpha-value>)",
-    100: "hsl(var(--clr-pri--100) / <alpha-value>)",
-    200: "hsl(var(--clr-pri--200) / <alpha-value>)",
-    300: "hsl(var(--clr-pri--300) / <alpha-value>)",
-    400: "hsl(var(--clr-pri--400) / <alpha-value>)",
-    500: "hsl(var(--clr-pri--500) / <alpha-value>)",
-    600: "hsl(var(--clr-pri--600) / <alpha-value>)",
-    700: "hsl(var(--clr-pri--700) / <alpha-value>)",
-    800: "hsl(var(--clr-pri--800) / <alpha-value>)",
-    900: "hsl(var(--clr-pri--900) / <alpha-value>)"
-  },
-
-  secondary: {
-    DEFAULT: "hsl(var(--clr-sec) / <alpha-value>)",
-    0: "hsl(var(--clr-sec--0) / <alpha-value>)",
-    50: "hsl(var(--clr-sec--50) / <alpha-value>)",
-    100: "hsl(var(--clr-sec--100) / <alpha-value>)",
-    200: "hsl(var(--clr-sec--200) / <alpha-value>)",
-    300: "hsl(var(--clr-sec--300) / <alpha-value>)",
-    400: "hsl(var(--clr-sec--400) / <alpha-value>)",
-    500: "hsl(var(--clr-sec--500) / <alpha-value>)",
-    600: "hsl(var(--clr-sec--600) / <alpha-value>)",
-    700: "hsl(var(--clr-sec--700) / <alpha-value>)",
-    800: "hsl(var(--clr-sec--800) / <alpha-value>)",
-    900: "hsl(var(--clr-sec--900) / <alpha-value>)",
-    950: "hsl(var(--clr-sec--950) / <alpha-value>)",
-    1000: "hsl(var(--clr-sec--1000) / <alpha-value>)"
-  },
-
   accent: {
-    DEFAULT: "hsl(var(--clr-acc) / <alpha-value>)",
     100: "hsl(var(--clr-acc--100) / <alpha-value>)",
     200: "hsl(var(--clr-acc--200) / <alpha-value>)",
     300: "hsl(var(--clr-acc--300) / <alpha-value>)",
@@ -51,90 +19,8 @@ export const tailwindColors = {
     500: "hsl(var(--clr-acc--500) / <alpha-value>)",
     600: "hsl(var(--clr-acc--600) / <alpha-value>)",
     700: "hsl(var(--clr-acc--700) / <alpha-value>)",
-    800: "hsl(var(--clr-acc--800) / <alpha-value>)"
-  },
-
-  info: {
-    DEFAULT: "hsl(var(--clr-inf) / <alpha-value>)",
-    100: "hsl(var(--clr-info--100) / <alpha-value>)",
-    200: "hsl(var(--clr-info--200) / <alpha-value>)",
-    300: "hsl(var(--clr-info--300) / <alpha-value>)",
-    400: "hsl(var(--clr-info--400) / <alpha-value>)",
-    500: "hsl(var(--clr-info--500) / <alpha-value>)",
-    600: "hsl(var(--clr-info--600) / <alpha-value>)",
-    700: "hsl(var(--clr-info--700) / <alpha-value>)",
-    800: "hsl(var(--clr-info--800) / <alpha-value>)"
-  },
-
-  success: {
-    DEFAULT: "hsl(var(--clr-succ) / <alpha-value>)",
-    100: "hsl(var(--clr-succ--100) / <alpha-value>)",
-    200: "hsl(var(--clr-succ--200) / <alpha-value>)",
-    300: "hsl(var(--clr-succ--300) / <alpha-value>)",
-    400: "hsl(var(--clr-succ--400) / <alpha-value>)",
-    500: "hsl(var(--clr-succ--500) / <alpha-value>)",
-    600: "hsl(var(--clr-succ--600) / <alpha-value>)",
-    700: "hsl(var(--clr-succ--700) / <alpha-value>)",
-    800: "hsl(var(--clr-succ--800) / <alpha-value>)"
-  },
-
-  warning: {
-    DEFAULT: "hsl(var(--clr-warn) / <alpha-value>)",
-    100: "hsl(var(--clr-warn--100) / <alpha-value>)",
-    200: "hsl(var(--clr-warn--200) / <alpha-value>)",
-    300: "hsl(var(--clr-warn--300) / <alpha-value>)",
-    400: "hsl(var(--clr-warn--400) / <alpha-value>)",
-    500: "hsl(var(--clr-warn--500) / <alpha-value>)",
-    600: "hsl(var(--clr-warn--600) / <alpha-value>)",
-    700: "hsl(var(--clr-warn--700) / <alpha-value>)",
-    800: "hsl(var(--clr-warn--800) / <alpha-value>)"
-  },
-
-  danger: {
-    DEFAULT: "hsl(var(--clr-dang) / <alpha-value>)",
-    100: "hsl(var(--clr-dang--100) / <alpha-value>)",
-    200: "hsl(var(--clr-dang--200) / <alpha-value>)",
-    300: "hsl(var(--clr-dang--300) / <alpha-value>)",
-    400: "hsl(var(--clr-dang--400) / <alpha-value>)",
-    500: "hsl(var(--clr-dang--500) / <alpha-value>)",
-    600: "hsl(var(--clr-dang--600) / <alpha-value>)",
-    700: "hsl(var(--clr-dang--700) / <alpha-value>)",
-    800: "hsl(var(--clr-dang--800) / <alpha-value>)"
-  },
-
-  light: "hsl(var(--clr-light) / <alpha-value>)",
-  dark: "hsl(var(--clr-dark) / <alpha-value>)",
-
-  entity: {
-    // https://www.tailwindshades.com/#color=29.41176470588235%2C100%2C50&step-up=8&step-down=8&hue-shift=5&name=flush-orange&base-stop=6&v=1&overrides=e30%3D
-    DEFAULT: "#FF7D00",
-    0: "#FFFAF9",
-    50: "#FFF3E6",
-    100: "#FFE7CC",
-    200: "#FFD3A3",
-    300: "#FFBF7A",
-    400: "#FFA952",
-    500: "#FF9429",
-    600: "#FF7D00", // primary
-    700: "#D66700",
-    800: "#AD5200",
-    900: "#853E00",
-    950: "#703400"
-  },
-  relation: {
-    //https://www.tailwindshades.com/#color=207.97297297297297%2C62.184873949579824%2C46.666666666666664&step-up=9&step-down=10&hue-shift=0&name=mariner&base-stop=6&v=1&overrides=e30%3D
-    DEFAULT: "#2D7CC1",
-    50: "#EFF6FB",
-    100: "#DDEBF7",
-    200: "#B7D5EE",
-    300: "#92BFE6",
-    400: "#6DA9DD",
-    500: "#4893D4",
-    600: "#2D7CC1",
-    700: "#236198",
-    800: "#1A476E",
-    900: "#102C45",
-    950: "#0B1F30"
+    800: "hsl(var(--clr-acc--800) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-acc) / <alpha-value>)"
   },
 
   custom: {
@@ -160,12 +46,125 @@ export const tailwindColors = {
       "#00ff00",
       "#0000ff"
     ]
+  },
+
+  danger: {
+    100: "hsl(var(--clr-dang--100) / <alpha-value>)",
+    200: "hsl(var(--clr-dang--200) / <alpha-value>)",
+    300: "hsl(var(--clr-dang--300) / <alpha-value>)",
+    400: "hsl(var(--clr-dang--400) / <alpha-value>)",
+    500: "hsl(var(--clr-dang--500) / <alpha-value>)",
+    600: "hsl(var(--clr-dang--600) / <alpha-value>)",
+    700: "hsl(var(--clr-dang--700) / <alpha-value>)",
+    800: "hsl(var(--clr-dang--800) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-dang) / <alpha-value>)"
+  },
+
+  dark: "hsl(var(--clr-dark) / <alpha-value>)",
+
+  entity: {
+    0: "#FFFAF9",
+    50: "#FFF3E6",
+    100: "#FFE7CC",
+    200: "#FFD3A3",
+    300: "#FFBF7A",
+    400: "#FFA952",
+    500: "#FF9429",
+    600: "#FF7D00", // primary
+    700: "#D66700",
+    800: "#AD5200",
+    900: "#853E00",
+    950: "#703400",
+    // https://www.tailwindshades.com/#color=29.41176470588235%2C100%2C50&step-up=8&step-down=8&hue-shift=5&name=flush-orange&base-stop=6&v=1&overrides=e30%3D
+    DEFAULT: "#FF7D00"
+  },
+
+  info: {
+    100: "hsl(var(--clr-info--100) / <alpha-value>)",
+    200: "hsl(var(--clr-info--200) / <alpha-value>)",
+    300: "hsl(var(--clr-info--300) / <alpha-value>)",
+    400: "hsl(var(--clr-info--400) / <alpha-value>)",
+    500: "hsl(var(--clr-info--500) / <alpha-value>)",
+    600: "hsl(var(--clr-info--600) / <alpha-value>)",
+    700: "hsl(var(--clr-info--700) / <alpha-value>)",
+    800: "hsl(var(--clr-info--800) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-inf) / <alpha-value>)"
+  },
+
+  light: "hsl(var(--clr-light) / <alpha-value>)",
+
+  primary: {
+    50: "hsl(var(--clr-pri--50) / <alpha-value>)",
+    100: "hsl(var(--clr-pri--100) / <alpha-value>)",
+    200: "hsl(var(--clr-pri--200) / <alpha-value>)",
+    300: "hsl(var(--clr-pri--300) / <alpha-value>)",
+    400: "hsl(var(--clr-pri--400) / <alpha-value>)",
+    500: "hsl(var(--clr-pri--500) / <alpha-value>)",
+    600: "hsl(var(--clr-pri--600) / <alpha-value>)",
+    700: "hsl(var(--clr-pri--700) / <alpha-value>)",
+    800: "hsl(var(--clr-pri--800) / <alpha-value>)",
+    900: "hsl(var(--clr-pri--900) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-pri) / <alpha-value>)"
+  },
+  relation: {
+    50: "#EFF6FB",
+    100: "#DDEBF7",
+    200: "#B7D5EE",
+    300: "#92BFE6",
+    400: "#6DA9DD",
+    500: "#4893D4",
+    600: "#2D7CC1",
+    700: "#236198",
+    800: "#1A476E",
+    900: "#102C45",
+    950: "#0B1F30",
+    //https://www.tailwindshades.com/#color=207.97297297297297%2C62.184873949579824%2C46.666666666666664&step-up=9&step-down=10&hue-shift=0&name=mariner&base-stop=6&v=1&overrides=e30%3D
+    DEFAULT: "#2D7CC1"
+  },
+
+  secondary: {
+    0: "hsl(var(--clr-sec--0) / <alpha-value>)",
+    50: "hsl(var(--clr-sec--50) / <alpha-value>)",
+    100: "hsl(var(--clr-sec--100) / <alpha-value>)",
+    200: "hsl(var(--clr-sec--200) / <alpha-value>)",
+    300: "hsl(var(--clr-sec--300) / <alpha-value>)",
+    400: "hsl(var(--clr-sec--400) / <alpha-value>)",
+    500: "hsl(var(--clr-sec--500) / <alpha-value>)",
+    600: "hsl(var(--clr-sec--600) / <alpha-value>)",
+    700: "hsl(var(--clr-sec--700) / <alpha-value>)",
+    800: "hsl(var(--clr-sec--800) / <alpha-value>)",
+    900: "hsl(var(--clr-sec--900) / <alpha-value>)",
+    950: "hsl(var(--clr-sec--950) / <alpha-value>)",
+    1000: "hsl(var(--clr-sec--1000) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-sec) / <alpha-value>)"
+  },
+  success: {
+    100: "hsl(var(--clr-succ--100) / <alpha-value>)",
+    200: "hsl(var(--clr-succ--200) / <alpha-value>)",
+    300: "hsl(var(--clr-succ--300) / <alpha-value>)",
+    400: "hsl(var(--clr-succ--400) / <alpha-value>)",
+    500: "hsl(var(--clr-succ--500) / <alpha-value>)",
+    600: "hsl(var(--clr-succ--600) / <alpha-value>)",
+    700: "hsl(var(--clr-succ--700) / <alpha-value>)",
+    800: "hsl(var(--clr-succ--800) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-succ) / <alpha-value>)"
+  },
+
+  warning: {
+    100: "hsl(var(--clr-warn--100) / <alpha-value>)",
+    200: "hsl(var(--clr-warn--200) / <alpha-value>)",
+    300: "hsl(var(--clr-warn--300) / <alpha-value>)",
+    400: "hsl(var(--clr-warn--400) / <alpha-value>)",
+    500: "hsl(var(--clr-warn--500) / <alpha-value>)",
+    600: "hsl(var(--clr-warn--600) / <alpha-value>)",
+    700: "hsl(var(--clr-warn--700) / <alpha-value>)",
+    800: "hsl(var(--clr-warn--800) / <alpha-value>)",
+    DEFAULT: "hsl(var(--clr-warn) / <alpha-value>)"
   }
 };
 
 export const dataColors = {
   black: "hsl(0 0 0%)",
-  white: "hsl(0 0 100%)",
   blue: {
     5: "hsl(220 80% 98%)",
     10: "hsl(220 71% 96%)",
@@ -306,6 +305,7 @@ export const dataColors = {
     95: "hsl(180 61% 10%)",
     100: "hsl(180 56% 7%)"
   },
+  white: "hsl(0 0 100%)",
   yellow: {
     5: "hsl(49 82% 98%)",
     10: "hsl(49 86% 91%)",
@@ -504,22 +504,6 @@ export const divergenceColors = {
   ]
 };
 export const categoricalColors = {
-  lightMode: {
-    1: dataColors.orange[60],
-    2: dataColors.purple[70],
-    3: dataColors.green[70],
-    4: dataColors.blue[50],
-    5: dataColors.red[50],
-    6: dataColors.yellow[50],
-    7: dataColors.magenta[50],
-    8: dataColors.teal[60],
-    9: dataColors.orange[40],
-    10: dataColors.red[80],
-    11: dataColors.purple[40],
-    12: dataColors.blue[80],
-    13: dataColors.green[50],
-    14: dataColors.magenta[70]
-  },
   darkMode: {
     1: dataColors.orange[50],
     2: dataColors.purple[50],
@@ -535,5 +519,21 @@ export const categoricalColors = {
     12: dataColors.blue[60],
     13: dataColors.green[30],
     14: dataColors.magenta[60]
+  },
+  lightMode: {
+    1: dataColors.orange[60],
+    2: dataColors.purple[70],
+    3: dataColors.green[70],
+    4: dataColors.blue[50],
+    5: dataColors.red[50],
+    6: dataColors.yellow[50],
+    7: dataColors.magenta[50],
+    8: dataColors.teal[60],
+    9: dataColors.orange[40],
+    10: dataColors.red[80],
+    11: dataColors.purple[40],
+    12: dataColors.blue[80],
+    13: dataColors.green[50],
+    14: dataColors.magenta[70]
   }
 };

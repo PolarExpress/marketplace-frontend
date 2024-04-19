@@ -6,24 +6,25 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useParams } from "react-router-dom";
 import {
-  useGetAddonByIdQuery,
-  useGetAddonReadmeByIdQuery
-} from "./addonList/addonApi";
-import Markdown from "react-markdown";
-import { useAuthorizationCache } from "@polarexpress/dataAccess/store";
+  InstallButton,
+  LoadingSpinner,
+  RTKError
+} from "@polarexpress/components";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
   useUninstallAddon
 } from "@polarexpress/dataAccess/broker/hooks";
+import { useAuthorizationCache } from "@polarexpress/dataAccess/store";
 import { useEffect, useState } from "react";
+import Markdown from "react-markdown";
+import { useParams } from "react-router-dom";
+
 import {
-  LoadingSpinner,
-  RTKError,
-  InstallButton
-} from "@polarexpress/components";
+  useGetAddonByIdQuery,
+  useGetAddonReadmeByIdQuery
+} from "./addonList/addonApi";
 
 /**
  * Represents the individual page of an add-on.
@@ -38,35 +39,35 @@ const AddonPage = () => {
   // Use the RTK Query hooks to retrieve addon and readme from the backend
   const {
     data: addon,
-    isLoading: isAddonLoading,
-    error: addonError
+    error: addonError,
+    isLoading: isAddonLoading
   } = useGetAddonByIdQuery(thisId ?? "");
   // Fetching of the readme is skipped if the addon is not yet retrieved
   const {
     data: readMe,
-    isLoading: isReadmeLoading,
-    error: readmeError
+    error: readmeError,
+    isLoading: isReadmeLoading
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
     skip: addon == null
   });
 
   // Use the custom hooks for interacting with the backend over AMQP
   const {
-    isPending: installPending,
     error: installError,
-    installAddon
+    installAddon,
+    isPending: installPending
   } = useInstallAddon();
 
   const {
-    isPending: uninstallPending,
     error: uninstallError,
+    isPending: uninstallPending,
     uninstallAddon
   } = useUninstallAddon();
 
   const {
     data: userAddons,
-    isLoading: userAddonsLoading,
-    error: userAddonsError
+    error: userAddonsError,
+    isLoading: userAddonsLoading
   } = useGetAddonsByUserId();
 
   const isCurrentAddonInstalled = userAddons?.some(
@@ -125,12 +126,12 @@ const AddonPage = () => {
           <p className="text-sm font-light">{addon.authorId}</p>
           <p>{addon.summary}</p>{" "}
           <InstallButton
-            isAddonInstalled={installed}
-            installPending={installPending}
-            uninstallPending={uninstallPending}
-            userAddonsLoading={userAddonsLoading}
             authorized={auth.authorized ?? false}
             handleClick={handleInstall}
+            installPending={installPending}
+            isAddonInstalled={installed}
+            uninstallPending={uninstallPending}
+            userAddonsLoading={userAddonsLoading}
           />
         </div>
 

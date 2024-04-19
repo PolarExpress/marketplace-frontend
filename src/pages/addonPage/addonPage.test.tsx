@@ -6,12 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { describe, it, expect } from "vitest";
-import { server } from "@polarexpress/test/setup";
-import { HttpResponse, http } from "msw";
-import { setupPageWithId } from "@polarexpress/test/utils";
-
 import { addonList } from "@polarexpress/mockData/addons";
+import { server } from "@polarexpress/test/setup";
+import { setupPageWithId } from "@polarexpress/test/utils";
+import { HttpResponse, http } from "msw";
+import { describe, expect, it } from "vitest";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 

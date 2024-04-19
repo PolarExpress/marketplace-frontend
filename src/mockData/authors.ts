@@ -7,6 +7,7 @@
  */
 
 import type { Author } from "@polarexpress/types/author";
+
 import { userList } from "./users";
 
 const authorOne: Author = {

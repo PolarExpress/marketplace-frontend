@@ -8,11 +8,13 @@
 
 // Configures Redux store, including middleware and combining reducers
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
+
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+
+import AuthSlice from "../authentication";
 import AddOnSlice from "./addonSlice";
 import { emptySplitApi } from "./api";
-import AuthSlice from "../authentication";
 
 const rootReducer = combineSlices({
   addons: AddOnSlice,
@@ -32,12 +34,12 @@ export type RootState = ReturnType<typeof rootReducer>;
  */
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
-    reducer: rootReducer,
     middleware: getDefaultMiddleware => {
       //API middleware adds logic for managing caching, invalidation, subscriptions, polling, and more.
       return getDefaultMiddleware().concat(emptySplitApi.middleware);
     },
-    preloadedState
+    preloadedState,
+    reducer: rootReducer
   });
 
   // configure listeners using the provided defaults

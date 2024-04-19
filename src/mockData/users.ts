@@ -10,20 +10,20 @@ import type { User } from "@polarexpress/types/user";
 
 const userOne: User = {
   _id: "user-one",
-  userId: "user-one",
-  installedAddons: []
+  installedAddons: [],
+  userId: "user-one"
 };
 
 const userTwo: User = {
   _id: "user-two",
-  userId: "user-two",
-  installedAddons: []
+  installedAddons: [],
+  userId: "user-two"
 };
 
 const userThree: User = {
   _id: "user-three",
-  userId: "user-three",
-  installedAddons: []
+  installedAddons: [],
+  userId: "user-three"
 };
 
 export const userList: User[] = [userOne, userTwo, userThree];

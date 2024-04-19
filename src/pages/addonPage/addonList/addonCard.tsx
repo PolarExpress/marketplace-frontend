@@ -8,6 +8,7 @@
 
 // Component for rendering a single add-on's information
 import type { Addon } from "@polarexpress/types/addon";
+
 import { Link } from "react-router-dom";
 
 /**
@@ -26,9 +27,9 @@ const AddonCard = ({ addOn }: AddonCardProps) => {
   return (
     <div className="size-64 flex-none gap-4 font-sans font-bold leading-7">
       <Link
-        to={`/addons/${addOn._id}`}
         className="block h-full rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md"
-        data-testid="addon-card">
+        data-testid="addon-card"
+        to={`/addons/${addOn._id}`}>
         <div className="border-solid px-3 py-2">
           <h1 className="text-2xl font-semibold">{addOn.name}</h1>
         </div>
