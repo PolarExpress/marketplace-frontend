@@ -40,6 +40,6 @@ export default defineConfig(({ command, mode }) => ({
     environment: "jsdom",
     globals: true,
     mockReset: true,
-    setupFiles: "src/setupTests"
+    setupFiles: "src/test/setup"
   }
 }));

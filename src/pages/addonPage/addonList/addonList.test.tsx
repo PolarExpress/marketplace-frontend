@@ -6,11 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
-import Header from "@polarexpress/components/header";
+import { renderWithProviders } from "@polarexpress/test/utils";
+import Header from "@polarexpress/components/header"; // eslint-disable-line
 import { addonList } from "@polarexpress/mockData/addons";
 import HomePage from "@polarexpress/pages/homePage";
 import { server } from "@polarexpress/test/setup";
-import { renderWithProviders } from "@polarexpress/test/utils";
 import { HttpResponse, http } from "msw";
 import { Route, Routes } from "react-router-dom";
 import { describe, expect, it } from "vitest";
