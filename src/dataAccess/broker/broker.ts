@@ -16,22 +16,12 @@ import { UseIsAuthorizedState } from "../authentication/authSlice";
 import {
   ReceiveMessageI,
   SendMessageI,
-  SendMessageWithSessionI,
-  QueuedMessage
+  QueuedMessage,
+  SendMessageWithSessionI
 } from "./types";
 
 /**
  * A broker that handles incoming messages from the backend.
- * It works with routingkeys, a listener can subscribe to messages from the backend with a specific routingkey.
- * Possible routingkeys:
- * - query_result:              Contains an object with nodes and edges or a numerical result.
- * - query_translation_result:  Contains the query translated to the database language.
- * - schema_result:             Contains the schema of the users database.
- * - query_status_update:       Contains an update to if a query is being executed.
- * - query_database_error:      Contains the error received from the database.
- * - query_sent:                Contains the message that a query has been send.
- * - gsa_node_result:           Contains a node that has the data for the graph-schema-analytics
- * - gsa_edge_result:           Contains a edge that has the data for the graph-schema-analytics
  */
 export class Broker {
   private static singletonInstance: Broker;
@@ -57,6 +47,11 @@ export class Broker {
   //TODO: Create env variable
   private static BACKEND_WSS_URL = "ws://localhost:3001/";
 
+  /**
+   * Returns the singleton instance of the Broker.
+   * If the instance doesn't exist, it creates a new one with the default backend URL.
+   * @returns The singleton instance of the Broker.
+   */
   public static instance(): Broker {
     if (!this.singletonInstance)
       this.singletonInstance = new Broker(this.BACKEND_WSS_URL);
@@ -64,85 +59,28 @@ export class Broker {
   }
 
   /**
-   * Subscribe a listener to messages with the specified routingKey.
-   * @param {Function} newListener The listener to subscribe.
-   * @param {string} routingKey The routingkey to subscribe to.
-   * @param {boolean} consumeMostRecentMessage If true and there is a message for this routingkey available, notify the new listener. Default true.
+   * Creates a new instance of the Broker.
+   * @param domain The domain to make the websocket connection with.
    */
-  public subscribe(
-    newListener: Function,
-    routingKey: string,
-    key: string = (Date.now() + Math.floor(Math.random() * 100)).toString(),
-    consumeMostRecentMessage: boolean = false
-  ): string {
-    if (!this.listeners[routingKey]) this.listeners[routingKey] = {};
-
-    // Don't add a listener twice
-    if (!(key in this.listeners[routingKey])) {
-      this.listeners[routingKey][key] = newListener;
-
-      // Consume the most recent message
-      if (consumeMostRecentMessage && routingKey in this.mostRecentMessages)
-        newListener(this.mostRecentMessages[routingKey], routingKey);
-    }
-
-    return key;
-  }
-
-  /**
-   * Subscribe a listener to messages with the specified routingKey.
-   * @param {Function} newListener The listener to subscribe.
-   * @param {string} routingKey The routingkey to subscribe to.
-   * @param {boolean} consumeMostRecentMessage If true and there is a message for this routingkey available, notify the new listener. Default true.
-   */
-  public subscribeDefault(
-    newListener: (data: Record<string, any>, routingKey: string) => void
-  ): void {
-    this.catchAllListener = newListener;
-  }
-
-  /**
-   * Unsubscribes a listener from messages with specified routingkey.
-   * @param {string} routingKey The routing key to unsubscribe from
-   * @param {string} listener key of the listener to unsubscribe.
-   */
-  public unSubscribe(routingKey: string, key: string): void {
-    if (this.listeners[routingKey] && key in this.listeners[routingKey]) {
-      delete this.listeners[routingKey][key];
-    }
-  }
-
-  /**
-   * Unsubscribes the catch all listener from messages
-   */
-  public unSubscribeDefault(): void {
-    this.catchAllListener = undefined;
-  }
-
-  /**
-   * Unsubscribes all listeners from messages with specified routingkey.
-   * @param {string} routingKey The routing key to unsubscribe from
-   */
-  public unSubscribeAll(routingKey: string): void {
-    this.listeners[routingKey] = {};
-  }
-
-  /** @param domain The domain to make the websocket connection with. */
   public constructor(domain: string) {
     this.url = domain;
     this.connected = false;
   }
 
+  /**
+   * Sets the authentication header for the Broker.
+   * @param authHeader The authentication header object.
+   * @returns The Broker instance.
+   */
   public setAuth(authHeader: UseIsAuthorizedState): Broker {
     this.authHeader = authHeader;
     return this;
   }
 
-  public useSaveStateID(saveStateID: string): Broker {
-    this.saveStateID = saveStateID;
-    return this;
-  }
-
+  /**
+   * Connects to the WebSocket and handles the connection logic.
+   * @param onOpen Callback function to be called when the WebSocket connection is opened.
+   */
   public connect(onOpen: () => void): void {
     // If there already is already a current websocket connection, close it first.
     if (this.webSocket) this.close();
@@ -173,18 +111,18 @@ export class Broker {
     this.webSocket.onclose = this.onClose;
   }
 
-  /** Closes the current websocket connection. */
+  /**
+   * Closes the current WebSocket connection.
+   */
   public close = (): void => {
     if (this.webSocket) this.webSocket.close();
     this.connected = false;
     this.webSocket = undefined;
   };
 
-  /** @returns A boolean which indicates if there currently is a socket connection. */
-  public isConnected = (): boolean => {
-    return this.connected;
-  };
-
+  /**
+   * Attempts to reconnect to the WebSocket if the connection is closed or not established.
+   */
   public attemptReconnect = () => {
     console.warn("Attempting to reconnect WS");
 
@@ -199,7 +137,7 @@ export class Broker {
 
   /**
    * Websocket connection close event handler.
-   * @param {any} event Contains the event data.
+   * @param event Contains the event data.
    */
   private onClose(event: any): void {
     console.warn("WS connection was closed from the server side", event.data);
@@ -209,6 +147,11 @@ export class Broker {
     setTimeout(() => Broker.instance().attemptReconnect(), 5000);
   }
 
+  /**
+   * Sends a message through the WebSocket connection.
+   * @param message The message object to be sent.
+   * @param callback Optional callback function to handle the response.
+   */
   public sendMessage(message: SendMessageI, callback?: Function): void {
     console.debug(
       "%cSending WS message: ",
@@ -237,6 +180,11 @@ export class Broker {
     }
   }
 
+  /**
+   * Sends a message through the WebSocket connection asynchronously.
+   * @param message The message object to be sent.
+   * @returns A promise that resolves with the response data.
+   */
   public sendMessageAsync(message: SendMessageI): Promise<Record<string, any>> {
     return new Promise((resolve, _) => {
       this.sendMessage(message, (data: Record<string, any>) => {
@@ -246,8 +194,10 @@ export class Broker {
   }
 
   /**
-   * Websocket connection message event handler. Called if a new message is received through the socket.
-   * @param {any} event Contains the event data.
+   * Websocket connection message event handler.
+   * Called when a new message is received through the WebSocket.
+   * Handles the message based on the routing key and callbacks.
+   * @param event Contains the event data.
    */
   public receiveMessage = (event: MessageEvent<any>) => {
     let jsonObject: ReceiveMessageI = JSON.parse(event.data);
@@ -308,9 +258,13 @@ export class Broker {
 
   /**
    * Websocket connection error event handler.
-   * @param {any} event contains the event data.
+   * @param event Contains the event data.
    */
   private onError(event: any): void {
     console.error("WS error", event);
+  }
+
+  public unused() {
+    console.log("unused");
   }
 }
