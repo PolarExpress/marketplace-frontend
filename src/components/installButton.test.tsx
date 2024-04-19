@@ -33,7 +33,9 @@ describe("InstallButton", () => {
    */
   const setupButton = async () => {
     const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);
+    
     await expect(findByTestId("button-loading")).rejects.toThrow();
+    
     const button = getByTestId("install") as HTMLButtonElement;
     return { button, user };
   };
@@ -58,9 +60,11 @@ describe("InstallButton", () => {
     const { button, user } = await setupButton();
 
     await user.click(button);
+
     expect(getInstalled()).toContainEqual(testAddon);
 
     await user.click(button);
+
     expect(getInstalled()).not.toContainEqual(testAddon);
   });
 
@@ -72,6 +76,7 @@ describe("InstallButton", () => {
     });
 
     const { findByTestId, getByText } = setupPageWithId(testAddon._id);
+
     await expect(findByTestId("install-loading")).rejects.toThrow();
 
     expect(getByText("Install error")).toBeDefined();

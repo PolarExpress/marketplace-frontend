@@ -74,6 +74,8 @@ export default [
     "plugin:sonarjs/recommended",
     "plugin:tailwindcss/recommended",
     "plugin:perfectionist/recommended-natural",
+    "plugin:jest/recommended",
+    "plugin:jest-formatting/strict",
     "react-app"
   ),
   {

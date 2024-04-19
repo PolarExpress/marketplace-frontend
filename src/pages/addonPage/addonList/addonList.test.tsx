@@ -26,6 +26,7 @@ describe("AddonList component", () => {
     expect(findByText("Loading...")).toBeDefined();
 
     const addOnCards = await findAllByTestId("addon-card");
+
     expect(addOnCards.length).toBe(addonList.length);
 
     for (const addon of addonList) {
@@ -68,6 +69,7 @@ describe("AddonList component", () => {
     const message = await findByText(
       "No Add-ons found with the given search term"
     );
+
     expect(message).toBeDefined();
   });
 
