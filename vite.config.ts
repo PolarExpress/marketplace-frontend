@@ -21,7 +21,7 @@ export default defineConfig(({ command, mode }) => ({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "src/setupTests",
+    setupFiles: "src/test/setup",
     mockReset: true,
     coverage: {
       provider: "istanbul",
