@@ -72,4 +72,5 @@ export type MpBackendAction =
   | "addons/get"
   | "addons/get-by-id"
   | "addons/get-readme"
-  | "addons/get-by-user";
+  | "addons/get-by-user"
+  | "addons/search";

@@ -50,6 +50,20 @@ const addonApi = emptySplitApi.injectEndpoints({
       transformResponse(response: { readme: string }) {
         return response.readme;
       }
+    }),
+    // Searches addons in database using given search term
+    searchAddons: build.query<
+      Addon[],
+      { searchTerm: string; page?: number; category?: AddonCategory }
+    >({
+      query: ({ searchTerm, page, category }) => ({
+        url: "/addons/search",
+        method: "POST",
+        body: { searchTerm, page, category }
+      }),
+      transformResponse(response: { addons: Addon[] }) {
+        return response.addons;
+      }
     })
   }),
   overrideExisting: false
@@ -59,5 +73,6 @@ const addonApi = emptySplitApi.injectEndpoints({
 export const {
   useGetAddonsQuery,
   useGetAddonByIdQuery,
-  useGetAddonReadmeByIdQuery
+  useGetAddonReadmeByIdQuery,
+  useSearchAddonsQuery
 } = addonApi;
