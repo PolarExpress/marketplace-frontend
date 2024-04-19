@@ -22,13 +22,12 @@ export default defineConfig(({ command, mode }) => ({
     coverage: {
       exclude: [
         "public",
-        "storybook-static",
         "tailwind.config.js",
-        "src/App.tsx",
-        "src/broker/broker.interface.ts",
-        "src/broker/broker.ts",
         "src/colors.js",
-        "src/features/authentication",
+        "src/app.tsx",
+        "src/dataAccess/broker/broker.interface.ts",
+        "src/dataAccess/broker/broker.ts",
+        "src/dataAccess/authentication",
         "src/main.tsx",
         "src/stories/**/*",
         "src/test",
