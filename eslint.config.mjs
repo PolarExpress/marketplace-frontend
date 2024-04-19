@@ -70,7 +70,12 @@ export default [
   },
   prettier,
   eslint.configs.recommended,
-  ...compat.extends("plugin:storybook/recommended", "plugin:sonarjs/recommended", "plugin:tailwindcss/recommended", "react-app"),
+  ...compat.extends(
+    "plugin:storybook/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:tailwindcss/recommended",
+    "react-app"
+  ),
   {
     rules: {
       "import/no-anonymous-default-export": "off"
