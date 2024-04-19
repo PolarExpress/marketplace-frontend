@@ -76,9 +76,9 @@ export class Broker {
   /**
    * Subscribe a listener to messages with the specified routingKey.
    *
-   * @param {Function} newListener The listener to subscribe.
-   * @param {string} routingKey The routingkey to subscribe to.
-   * @param {boolean} consumeMostRecentMessage If true and there is a message
+   * @param {Function} newListener              The listener to subscribe.
+   * @param {string}   routingKey               The routingkey to subscribe to.
+   * @param {boolean}  consumeMostRecentMessage If true and there is a message
    *   for this routingkey available, notify the new listener. Default true.
    */
   public subscribe(
@@ -104,9 +104,9 @@ export class Broker {
   /**
    * Subscribe a listener to messages with the specified routingKey.
    *
-   * @param {Function} newListener The listener to subscribe.
-   * @param {string} routingKey The routingkey to subscribe to.
-   * @param {boolean} consumeMostRecentMessage If true and there is a message
+   * @param {Function} newListener              The listener to subscribe.
+   * @param {string}   routingKey               The routingkey to subscribe to.
+   * @param {boolean}  consumeMostRecentMessage If true and there is a message
    *   for this routingkey available, notify the new listener. Default true.
    */
   public subscribeDefault(
@@ -119,7 +119,7 @@ export class Broker {
    * Unsubscribes a listener from messages with specified routingkey.
    *
    * @param {string} routingKey The routing key to unsubscribe from.
-   * @param {string} listener Key of the listener to unsubscribe.
+   * @param {string} listener   Key of the listener to unsubscribe.
    */
   public unSubscribe(routingKey: string, key: string): void {
     if (this.listeners[routingKey] && key in this.listeners[routingKey]) {

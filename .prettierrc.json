@@ -12,5 +12,6 @@
   "jsdocCommentLineStrategy": "multiline",
   "jsdocDescriptionWithDot": true,
   "jsdocPreferCodeFences": true,
-  "jsdocSeparateTagGroups": true
+  "jsdocSeparateTagGroups": true,
+  "jsdocVerticalAlignment": true
 }

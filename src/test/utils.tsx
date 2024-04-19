@@ -46,15 +46,15 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
  * function is useful for testing components that are connected to the Redux
  * store.
  *
- * @param ui - The React component or element to render.
- * @param extendedRenderOptions - Optional configuration options for rendering.
- *   This includes `preloadedState` for initial Redux state and `store` for a
- *   specific Redux store instance. Any additional properties are passed to
- *   React Testing Library's render function.
+ * @param   ui                    - The React component or element to render.
+ * @param   extendedRenderOptions - Optional configuration options for
+ *   rendering. This includes `preloadedState` for initial Redux state and
+ *   `store` for a specific Redux store instance. Any additional properties are
+ *   passed to React Testing Library's render function.
  *
- * @returns An object containing the Redux store used in the render, User event
- *   API for simulating user interactions in tests, and all of React Testing
- *   Library's query functions for testing the component.
+ * @returns                       An object containing the Redux store used in
+ *   the render, User event API for simulating user interactions in tests, and
+ *   all of React Testing Library's query functions for testing the component.
  */
 export const renderWithProviders = (
   ui: ReactElement,
@@ -86,9 +86,9 @@ export const renderWithProviders = (
 /**
  * Renders the individual page of an addon.
  *
- * @param id Id of addon to be rendered.
+ * @param   id Id of addon to be rendered.
  *
- * @returns An object containing functions to query the rendered page.
+ * @returns    An object containing functions to query the rendered page.
  */
 export const setupPageWithId = (id: string) => {
   return renderWithProviders(
