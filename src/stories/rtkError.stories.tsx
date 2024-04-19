@@ -14,7 +14,8 @@ import { RTKError } from "@polarexpress/components";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
   title: "frontend/RTKError",
@@ -39,7 +40,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Throws a TypeError to simulate a SerializedError (one of the two types RTK Query could throw)
+ * Throws a TypeError to simulate a SerializedError (one of the two types RTK
+ * Query could throw)
  */
 export const SerializedErrorMessage: Story = {
   args: {
@@ -48,7 +50,7 @@ export const SerializedErrorMessage: Story = {
 };
 
 /**
- * Throws a 500 error to simulate the other type
+ * Throws a 500 error to simulate the other type.
  */
 export const FetchBaseQueryErrorMessage: Story = {
   args: {

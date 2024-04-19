@@ -19,6 +19,7 @@ interface ErrorProps {
  * application-level errors (`SerializedError`).
  *
  * @param props.error The error object to display.
+ *
  * @returns A JSX element rendering the appropriate error message.
  */
 const RTKError = ({ error }: ErrorProps) => {

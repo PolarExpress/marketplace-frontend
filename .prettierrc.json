@@ -9,8 +9,8 @@
   "endOfLine": "lf",
 
   "plugins": ["prettier-plugin-jsdoc"],
-  "jsdoc-comment-line-strategy": "multiline",
-  "jsdoc-description-with-dot": true,
-  "jsdoc-prefer-code-fences": true,
-  "jsdoc-separate-tag-groups": true
+  "jsdocCommentLineStrategy": "multiline",
+  "jsdocDescriptionWithDot": true,
+  "jsdocPreferCodeFences": true,
+  "jsdocSeparateTagGroups": true
 }

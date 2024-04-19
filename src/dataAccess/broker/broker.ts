@@ -7,9 +7,9 @@
  */
 
 /**
- * This program has been developed by students from the bachelor Computer Science at
- * Utrecht University within the Software Project course.
- * © Copyright Utrecht University (Department of Information and Computing Sciences)
+ * This program has been developed by students from the bachelor Computer
+ * Science at Utrecht University within the Software Project course. © Copyright
+ * Utrecht University (Department of Information and Computing Sciences)
  */
 
 import { UseIsAuthorizedState } from "../authentication/authSlice";
@@ -21,17 +21,21 @@ import {
 } from "./types";
 
 /**
- * A broker that handles incoming messages from the backend.
- * It works with routingkeys, a listener can subscribe to messages from the backend with a specific routingkey.
- * Possible routingkeys:
- * - query_result:              Contains an object with nodes and edges or a numerical result.
- * - query_translation_result:  Contains the query translated to the database language.
- * - schema_result:             Contains the schema of the users database.
- * - query_status_update:       Contains an update to if a query is being executed.
- * - query_database_error:      Contains the error received from the database.
- * - query_sent:                Contains the message that a query has been send.
- * - gsa_node_result:           Contains a node that has the data for the graph-schema-analytics
- * - gsa_edge_result:           Contains a edge that has the data for the graph-schema-analytics
+ * A broker that handles incoming messages from the backend. It works with
+ * routingkeys, a listener can subscribe to messages from the backend with a
+ * specific routingkey. Possible routingkeys:
+ *
+ * - Query_result: Contains an object with nodes and edges or a numerical result.
+ * - Query_translation_result: Contains the query translated to the database
+ *   language.
+ * - Schema_result: Contains the schema of the users database.
+ * - Query_status_update: Contains an update to if a query is being executed.
+ * - Query_database_error: Contains the error received from the database.
+ * - Query_sent: Contains the message that a query has been send.
+ * - Gsa_node_result: Contains a node that has the data for the
+ *   graph-schema-analytics.
+ * - Gsa_edge_result: Contains a edge that has the data for the
+ *   graph-schema-analytics.
  */
 export class Broker {
   private static singletonInstance: Broker;
@@ -48,10 +52,16 @@ export class Broker {
   private authHeader: UseIsAuthorizedState | undefined;
   private saveStateID: string | undefined;
 
-  /** mostRecentMessages is a dictionary with <routingkey, messageObject>. It stores the most recent message for that routingkey. */
+  /**
+   * MostRecentMessages is a dictionary with <routingkey, messageObject>. It
+   * stores the most recent message for that routingkey.
+   */
   private mostRecentMessages: Record<string, unknown> = {};
 
-  /** Contains messages to be sent when the connection to the WebSocket has been opened */
+  /**
+   * Contains messages to be sent when the connection to the WebSocket has been
+   * opened.
+   */
   private messageQueue: QueuedMessage[] = [];
 
   //TODO: Create env variable
@@ -65,9 +75,11 @@ export class Broker {
 
   /**
    * Subscribe a listener to messages with the specified routingKey.
+   *
    * @param {Function} newListener The listener to subscribe.
    * @param {string} routingKey The routingkey to subscribe to.
-   * @param {boolean} consumeMostRecentMessage If true and there is a message for this routingkey available, notify the new listener. Default true.
+   * @param {boolean} consumeMostRecentMessage If true and there is a message
+   *   for this routingkey available, notify the new listener. Default true.
    */
   public subscribe(
     newListener: Function,
@@ -91,9 +103,11 @@ export class Broker {
 
   /**
    * Subscribe a listener to messages with the specified routingKey.
+   *
    * @param {Function} newListener The listener to subscribe.
    * @param {string} routingKey The routingkey to subscribe to.
-   * @param {boolean} consumeMostRecentMessage If true and there is a message for this routingkey available, notify the new listener. Default true.
+   * @param {boolean} consumeMostRecentMessage If true and there is a message
+   *   for this routingkey available, notify the new listener. Default true.
    */
   public subscribeDefault(
     newListener: (data: Record<string, any>, routingKey: string) => void
@@ -103,8 +117,9 @@ export class Broker {
 
   /**
    * Unsubscribes a listener from messages with specified routingkey.
-   * @param {string} routingKey The routing key to unsubscribe from
-   * @param {string} listener key of the listener to unsubscribe.
+   *
+   * @param {string} routingKey The routing key to unsubscribe from.
+   * @param {string} listener Key of the listener to unsubscribe.
    */
   public unSubscribe(routingKey: string, key: string): void {
     if (this.listeners[routingKey] && key in this.listeners[routingKey]) {
@@ -113,7 +128,7 @@ export class Broker {
   }
 
   /**
-   * Unsubscribes the catch all listener from messages
+   * Unsubscribes the catch all listener from messages.
    */
   public unSubscribeDefault(): void {
     this.catchAllListener = undefined;
@@ -121,13 +136,16 @@ export class Broker {
 
   /**
    * Unsubscribes all listeners from messages with specified routingkey.
-   * @param {string} routingKey The routing key to unsubscribe from
+   *
+   * @param {string} routingKey The routing key to unsubscribe from.
    */
   public unSubscribeAll(routingKey: string): void {
     this.listeners[routingKey] = {};
   }
 
-  /** @param domain The domain to make the websocket connection with. */
+  /**
+   * @param domain The domain to make the websocket connection with.
+   */
   public constructor(domain: string) {
     this.url = domain;
     this.connected = false;
@@ -173,14 +191,19 @@ export class Broker {
     this.webSocket.onclose = this.onClose;
   }
 
-  /** Closes the current websocket connection. */
+  /**
+   * Closes the current websocket connection.
+   */
   public close = (): void => {
     if (this.webSocket) this.webSocket.close();
     this.connected = false;
     this.webSocket = undefined;
   };
 
-  /** @returns A boolean which indicates if there currently is a socket connection. */
+  /**
+   * @returns A boolean which indicates if there currently is a socket
+   *   connection.
+   */
   public isConnected = (): boolean => {
     return this.connected;
   };
@@ -199,6 +222,7 @@ export class Broker {
 
   /**
    * Websocket connection close event handler.
+   *
    * @param {any} event Contains the event data.
    */
   private onClose(event: any): void {
@@ -246,7 +270,9 @@ export class Broker {
   }
 
   /**
-   * Websocket connection message event handler. Called if a new message is received through the socket.
+   * Websocket connection message event handler. Called if a new message is
+   * received through the socket.
+   *
    * @param {any} event Contains the event data.
    */
   public receiveMessage = (event: MessageEvent<any>) => {
@@ -308,7 +334,8 @@ export class Broker {
 
   /**
    * Websocket connection error event handler.
-   * @param {any} event contains the event data.
+   *
+   * @param {any} event Contains the event data.
    */
   private onError(event: any): void {
     console.error("WS error", event);

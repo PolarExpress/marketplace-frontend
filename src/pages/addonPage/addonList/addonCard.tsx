@@ -12,15 +12,16 @@ import { Link } from "react-router-dom";
 
 /**
  * Defines the properties for the AddonCard component.
- * @prop {Addon} addOn - The add-on data to be displayed.
+ *
+ * @property {Addon} addOn - The add-on data to be displayed.
  */
 interface AddonCardProps {
   addOn: Addon;
 }
 
 /**
- * Displays the name and summary of a single add-on.
- * Links to addon page when clicked.
+ * Displays the name and summary of a single add-on. Links to addon page when
+ * clicked.
  */
 const AddonCard = ({ addOn }: AddonCardProps) => {
   return (

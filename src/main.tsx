@@ -15,7 +15,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./style.css";
 
 /**
- * Register service worker and msw
+ * Register service worker and msw.
  */
 async function enableMocking() {
   // Don't enable mocking when in prod or when explicitly disabled

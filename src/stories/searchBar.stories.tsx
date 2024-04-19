@@ -15,7 +15,8 @@ import { store } from "@polarexpress/dataAccess/store";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
   title: "frontend/SearchBar",
@@ -40,12 +41,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Renders the SearchBar component in its basic state
+ * Renders the SearchBar component in its basic state.
  */
 export const Basic: Story = {};
 
 /**
- * Renders the SearchBar with a search term
+ * Renders the SearchBar with a search term.
  */
 export const WithSearchTerm: Story = {
   play: async ({ canvasElement }) => {
@@ -58,7 +59,7 @@ export const WithSearchTerm: Story = {
 };
 
 /**
- * Renders the SearchBar with the mouse hovered over the search input
+ * Renders the SearchBar with the mouse hovered over the search input.
  */
 export const HoverInput: Story = {
   play: async ({ canvasElement }) => {
@@ -71,7 +72,7 @@ export const HoverInput: Story = {
 };
 
 /**
- * Renders the SearchBar with the mouse hovered over the search button
+ * Renders the SearchBar with the mouse hovered over the search button.
  */
 export const HoverSearch: Story = {
   play: async ({ canvasElement }) => {

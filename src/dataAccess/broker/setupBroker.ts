@@ -15,7 +15,7 @@ import { BrokerBase } from "./broker.interface";
 let broker: BrokerBase | null = null;
 
 /**
- * Logs in and connects to the WebSocket
+ * Logs in and connects to the WebSocket.
  */
 export const SetupBroker = () => {
   broker = broker ?? createBroker();

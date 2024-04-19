@@ -12,7 +12,8 @@ import { Routes, Route } from "react-router-dom";
 import { SetupBroker } from "./dataAccess/broker";
 
 /**
- * The central application component, responsible for high-level page layout and routing.
+ * The central application component, responsible for high-level page layout and
+ * routing.
  */
 const App = () => {
   return (

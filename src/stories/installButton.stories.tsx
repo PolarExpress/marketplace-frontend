@@ -15,7 +15,8 @@ import { InstallButton } from "@polarexpress/components";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
   title: "frontend/InstallButton",
@@ -40,7 +41,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Renders the InstallButton component when the addon is not installed and the user is authorized.
+ * Renders the InstallButton component when the addon is not installed and the
+ * user is authorized.
  */
 export const NotInstalled: Story = {
   args: {
@@ -53,7 +55,8 @@ export const NotInstalled: Story = {
 };
 
 /**
- * Renders the InstallButton component when the addon is currently being installed.
+ * Renders the InstallButton component when the addon is currently being
+ * installed.
  */
 export const Installing: Story = {
   args: {
@@ -66,7 +69,8 @@ export const Installing: Story = {
 };
 
 /**
- * Renders the InstallButton component when the addon is already installed and can be uninstalled.
+ * Renders the InstallButton component when the addon is already installed and
+ * can be uninstalled.
  */
 export const Installed: Story = {
   args: {
@@ -79,7 +83,8 @@ export const Installed: Story = {
 };
 
 /**
- * Renders the InstallButton component when the addon is currently being uninstalled.
+ * Renders the InstallButton component when the addon is currently being
+ * uninstalled.
  */
 export const Uninstalling: Story = {
   args: {
@@ -92,7 +97,8 @@ export const Uninstalling: Story = {
 };
 
 /**
- * Renders the InstallButton component when the overall list of user addons is being loaded.
+ * Renders the InstallButton component when the overall list of user addons is
+ * being loaded.
  */
 export const LoadingUserAddons: Story = {
   args: {
@@ -105,7 +111,8 @@ export const LoadingUserAddons: Story = {
 };
 
 /**
- * Renders the InstallButton component when the user is not authorized to interact with the addon.
+ * Renders the InstallButton component when the user is not authorized to
+ * interact with the addon.
  */
 export const Unauthorized: Story = {
   args: {

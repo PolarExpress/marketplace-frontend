@@ -13,8 +13,7 @@ import { AddonCategory } from "@polarexpress/types/addon";
 const baseUrl = import.meta.env.VITE_API_BASE;
 
 /**
- * Define mocking routes.
- * Roughly corresponds to backend handlers.
+ * Define mocking routes. Roughly corresponds to backend handlers.
  */
 export const handlers = [
   http.post(`${baseUrl}/addons/get`, async ({ request }) => {

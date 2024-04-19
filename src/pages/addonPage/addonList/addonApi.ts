@@ -10,8 +10,8 @@ import { emptySplitApi } from "@polarexpress/dataAccess/store/api";
 import type { Addon, AddonCategory } from "@polarexpress/types/addon";
 
 /**
- * Automatically creates react hooks for interacting with add-on related endpoints.
- * Appends to the split api creator.
+ * Automatically creates react hooks for interacting with add-on related
+ * endpoints. Appends to the split api creator.
  */
 const addonApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
