@@ -33,9 +33,9 @@ describe("InstallButton", () => {
    */
   const setupButton = async () => {
     const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);
-    
+
     await expect(findByTestId("button-loading")).rejects.toThrow();
-    
+
     const button = getByTestId("install") as HTMLButtonElement;
     return { button, user };
   };
