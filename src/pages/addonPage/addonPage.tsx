@@ -117,13 +117,13 @@ const AddonPage = () => {
   if (addon != null) {
     return (
       <div
-        className="m-8 font-sans leading-10 text-center"
+        className="m-8 text-center font-sans leading-10"
         data-testid="addon-page">
-        <div className="border-b-2 pb-2 mb-2">
-          <h1 className="font-bold text-4xl">{addon.name}</h1>
+        <div className="mb-2 border-b-2 pb-2">
+          <h1 className="text-4xl font-bold">{addon.name}</h1>
           {/* TODO: Fetch author name instead of id */}
-          <p className="font-light text-sm">{addon.authorId}</p>
-          <p className="addon-summary">{addon.summary}</p>{" "}
+          <p className="text-sm font-light">{addon.authorId}</p>
+          <p>{addon.summary}</p>{" "}
           <InstallButton
             isAddonInstalled={installed}
             installPending={installPending}

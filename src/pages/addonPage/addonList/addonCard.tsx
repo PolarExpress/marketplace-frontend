@@ -24,20 +24,20 @@ interface AddonCardProps {
  */
 const AddonCard = ({ addOn }: AddonCardProps) => {
   return (
-    <div className="flex-none gap-4 font-sans font-bold leading-7 h-64 w-64">
+    <div className="size-64 flex-none gap-4 font-sans font-bold leading-7">
       <Link
         to={`/addons/${addOn._id}`}
-        className="addon-card block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md h-full"
+        className="block h-full rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md"
         data-testid="addon-card">
-        <div className="pb-2 px-3 pt-2 border- border-solid">
-          <h1 className="font-semibold text-2xl">{addOn.name}</h1>
+        <div className="border-solid px-3 py-2">
+          <h1 className="text-2xl font-semibold">{addOn.name}</h1>
         </div>
 
         {/* TODO: Fetch author name instead of id */}
-        <p className="text-xs font-thin text-gray-400 mt-2">
+        <p className="mt-2 text-xs font-thin text-gray-400">
           Author: {addOn.authorId}
         </p>
-        <p className="text-gray-700 overflow-x-hidden font-normal text-lg mt-2">
+        <p className="mt-2 overflow-x-hidden text-lg font-normal text-gray-700">
           {addOn.summary.split(" ").slice(0, 15).join(" ")}
         </p>
       </Link>
