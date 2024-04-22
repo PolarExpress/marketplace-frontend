@@ -74,5 +74,5 @@ export const {
   useGetAddonsQuery,
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery,
-  useSearchAddonsQuery
+  useLazySearchAddonsQuery
 } = addonApi;

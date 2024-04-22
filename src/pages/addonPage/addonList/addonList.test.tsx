@@ -49,7 +49,10 @@ describe("AddonList component", () => {
     const submit = await findByTestId("search-submit");
 
     await user.type(search, "Vis1");
+
     await user.click(submit);
+
+    await expect(findByTestId("list-loading")).rejects.toThrow();
 
     const addOnCards = await findAllByTestId("addon-card");
 

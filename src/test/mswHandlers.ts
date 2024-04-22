@@ -57,6 +57,29 @@ export const handlers = [
       : HttpResponse.json(null);
   }),
 
+  http.post(`${baseUrl}/addons/search`, async ({ request }) => {
+    const body = (await request.json()) as {
+      searchTerm: string;
+      page?: number;
+      category?: AddonCategory;
+    };
+    const { searchTerm, category } = body;
+    console.log(`Search term: ${searchTerm}`);
+    console.log(`Category: ${category}`);
+
+    let filteredAddons = addonList.filter(addon =>
+      addon.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log(`Filtered: ${JSON.stringify(filteredAddons)}`);
+
+    if (category)
+      filteredAddons = filteredAddons.filter(
+        addon => addon.category === category
+      );
+
+    return HttpResponse.json({ addons: filteredAddons });
+  }),
+
   http.get("http://localhost:3000/headers", () => {
     return HttpResponse.json({
       impersonateID: "",
