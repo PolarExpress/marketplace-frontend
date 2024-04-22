@@ -86,7 +86,7 @@ export class MockBroker extends BrokerBase {
     });
   }
 
-  public setAuth(authHeader: UseIsAuthorizedState): MockBroker {
+  public setAuth(_authHeader: UseIsAuthorizedState): MockBroker {
     return this;
   }
 }
