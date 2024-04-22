@@ -10,21 +10,21 @@ import { UseIsAuthorizedState } from "../authentication/authSlice";
 import { SendMessageI } from "./types";
 
 /**
- * Abstract base class for the Broker.
- * Defines the common interface and methods for the Broker implementations.
+ * Abstract base class for the Broker. Defines the common interface and methods
+ * for the Broker implementations.
  */
 export abstract class BrokerBase {
   protected static singletonInstance: BrokerBase;
 
-  /** Get the singleton instance of the Broker. */
+  /**
+   * Get the singleton instance of the Broker.
+   */
   public static instance(): BrokerBase {
     if (!this.singletonInstance) {
       throw new Error("Singleton instance not initialized");
     }
     return this.singletonInstance;
   }
-
-  public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 
   public abstract connect(onOpen: () => void): void;
 
@@ -33,4 +33,6 @@ export abstract class BrokerBase {
   public abstract sendMessageAsync(
     message: SendMessageI
   ): Promise<Record<string, any>>;
+
+  public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 }

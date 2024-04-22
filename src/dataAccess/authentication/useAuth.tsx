@@ -1,15 +1,14 @@
 /* eslint-disable custom/enforce-copyright-comment */
 
 import { useAppDispatch } from "../store";
-
 import { authorized, changeRoom } from "./authSlice";
 
 export type AuthenticationHeader = {
-  username: string;
-  userID: string;
-  sessionID: string;
-  roomID: string;
   jwt: string;
+  roomID: string;
+  sessionID: string;
+  userID: string;
+  username: string;
 };
 
 // TODO: Put in .env file
@@ -17,8 +16,8 @@ const domain = "http://localhost";
 const useruri = ":3000";
 
 export const fetchSettings: RequestInit = {
-  method: "GET",
   credentials: "include",
+  method: "GET",
   redirect: "follow"
 };
 
@@ -37,11 +36,11 @@ export const useAuth = () => {
           .then((res: AuthenticationHeader) => {
             dispatch(
               authorized({
-                username: res.username,
-                userID: res.userID,
-                sessionID: res.sessionID,
+                authorized: true,
                 jwt: res.jwt,
-                authorized: true
+                sessionID: res.sessionID,
+                userID: res.userID,
+                username: res.username
               })
             );
           })

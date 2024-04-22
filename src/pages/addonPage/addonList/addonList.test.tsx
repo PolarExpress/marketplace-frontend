@@ -6,25 +6,27 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { describe, it, expect } from "vitest";
 import { renderWithProviders } from "@polarexpress/test/utils";
-import AddonList from "./addonList";
+import Header from "@polarexpress/components/header";
 import { addonList } from "@polarexpress/mockData/addons";
+import HomePage from "@polarexpress/pages/homePage";
 import { server } from "@polarexpress/test/setup";
 import { HttpResponse, http } from "msw";
-import Header from "@polarexpress/components/header";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { describe, expect, it } from "vitest";
+
 import AddonPage from "../addonPage";
-import HomePage from "@polarexpress/pages/homePage";
+import AddonList from "./addonList";
 
 describe("AddonList component", () => {
   it("renders AddonCard components for all add-ons", async () => {
-    const { findAllByTestId, findByText, getByText, getAllByText } =
+    const { findAllByTestId, findByText, getAllByText, getByText } =
       renderWithProviders(<AddonList />);
 
     expect(findByText("Loading...")).toBeDefined();
 
     const addOnCards = await findAllByTestId("addon-card");
+
     expect(addOnCards.length).toBe(addonList.length);
 
     for (const addon of addonList) {
@@ -37,7 +39,7 @@ describe("AddonList component", () => {
   });
 
   it("filters add-ons based on searchTerm", async () => {
-    const { user, findAllByTestId, getByText, findByTestId } =
+    const { findAllByTestId, findByTestId, getByText, user } =
       renderWithProviders(
         <>
           <Header />
@@ -70,6 +72,7 @@ describe("AddonList component", () => {
     const message = await findByText(
       "No Add-ons found with the given search term"
     );
+
     expect(message).toBeDefined();
   });
 
@@ -88,12 +91,12 @@ describe("AddonList component", () => {
   });
 
   it("navigates to Home Page when submitted", async () => {
-    const { user, findByTestId, getByRole } = renderWithProviders(
+    const { findByTestId, getByRole, user } = renderWithProviders(
       <>
         <Header />
         <Routes>
-          <Route path="/addons/:id" element={<AddonPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route element={<AddonPage />} path="/addons/:id" />
+          <Route element={<HomePage />} path="/" />
         </Routes>
       </>,
       {},

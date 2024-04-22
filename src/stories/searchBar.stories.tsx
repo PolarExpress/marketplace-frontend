@@ -7,25 +7,20 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
+
+import { SearchBar } from "@polarexpress/components";
+import { store } from "@polarexpress/dataAccess/store";
 import { userEvent, within } from "@storybook/test";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import { SearchBar } from "@polarexpress/components";
-import { store } from "@polarexpress/dataAccess/store";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
-  title: "frontend/SearchBar",
   component: SearchBar,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered"
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
   // Provides the redux store and browser router for the stories
   decorators: [
     Story => (
@@ -33,19 +28,26 @@ const meta = {
         <MemoryRouter>{Story()}</MemoryRouter>
       </Provider>
     )
-  ]
+  ],
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: "centered"
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ["autodocs"],
+  title: "frontend/SearchBar"
 } satisfies Meta<typeof SearchBar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Renders the SearchBar component in its basic state
+ * Renders the SearchBar component in its basic state.
  */
 export const Basic: Story = {};
 
 /**
- * Renders the SearchBar with a search term
+ * Renders the SearchBar with a search term.
  */
 export const WithSearchTerm: Story = {
   play: async ({ canvasElement }) => {
@@ -58,7 +60,7 @@ export const WithSearchTerm: Story = {
 };
 
 /**
- * Renders the SearchBar with the mouse hovered over the search input
+ * Renders the SearchBar with the mouse hovered over the search input.
  */
 export const HoverInput: Story = {
   play: async ({ canvasElement }) => {
@@ -71,7 +73,7 @@ export const HoverInput: Story = {
 };
 
 /**
- * Renders the SearchBar with the mouse hovered over the search button
+ * Renders the SearchBar with the mouse hovered over the search button.
  */
 export const HoverSearch: Story = {
   play: async ({ canvasElement }) => {

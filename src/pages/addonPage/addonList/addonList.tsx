@@ -6,6 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
+import { LoadingSpinner, RTKError } from "@polarexpress/components";
 import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
 import { AddonCategory, type Addon } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
@@ -23,9 +24,9 @@ const AddonList = () => {
     isLoading: allLoading,
     error: allError
   } = useGetAddonsQuery({
+    category: AddonCategory.VISUALISATION,
     // Temporary values
-    page: 0,
-    category: AddonCategory.VISUALISATION
+    page: 0
   });
 
   const [

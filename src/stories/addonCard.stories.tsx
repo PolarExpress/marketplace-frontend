@@ -7,26 +7,21 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import AddonCard from "@polarexpress/pages/addonPage/addonList/addonCard";
-import { Provider } from "react-redux";
+
 import { store } from "@polarexpress/dataAccess/store/store";
-import { MemoryRouter } from "react-router-dom";
-import { userEvent, within } from "@storybook/test";
 import { addonList } from "@polarexpress/mockData/addons";
+import AddonCard from "@polarexpress/pages/addonPage/addonList/addonCard";
+import { userEvent, within } from "@storybook/test";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
-  title: "frontend/AddonCard",
   component: AddonCard,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered"
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
   // Provides the redux store and browser router for the stories
   decorators: [
     Story => (
@@ -34,14 +29,21 @@ const meta = {
         <MemoryRouter> {Story()} </MemoryRouter>
       </Provider>
     )
-  ]
+  ],
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: "centered"
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ["autodocs"],
+  title: "frontend/AddonCard"
 } satisfies Meta<typeof AddonCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Renders the AddonCard with a sample add-on for the 'Visualization' category
+ * Renders the AddonCard with a sample add-on for the 'Visualization' category.
  */
 export const Basic: Story = {
   args: {
@@ -50,7 +52,7 @@ export const Basic: Story = {
 };
 
 /**
- * Renders the AddonCard with the mouse hovered over it
+ * Renders the AddonCard with the mouse hovered over it.
  */
 export const Hover: Story = {
   args: {

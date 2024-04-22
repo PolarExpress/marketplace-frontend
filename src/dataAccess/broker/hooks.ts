@@ -6,10 +6,12 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useState, useCallback, useEffect } from "react";
-import type { MpBackendAction, MpBackendMessage } from "./types";
 import type { Addon, AddonCategory } from "@polarexpress/types/addon";
+
 import { createBroker } from "@polarexpress/test/mockingUtils";
+import { useCallback, useEffect, useState } from "react";
+
+import type { MpBackendAction, MpBackendMessage } from "./types";
 
 const Broker = createBroker();
 
@@ -17,30 +19,32 @@ const Broker = createBroker();
  * Interface for parameters used in addon management hooks.
  */
 interface UseAddonParams {
-  addonId: string;
   action: "install" | "uninstall";
+  addonId: string;
 }
 
 /**
- * A hook to manage (install or uninstall) an addon by sending a message to the backend.
+ * A hook to manage (install or uninstall) an addon by sending a message to the
+ * backend.
  *
- * @returns An object containing the `isPending` state, the `error` state, and the `manageAddon` function.
+ * @returns An object containing the `isPending` state, the `error` state, and
+ *   the `manageAddon` function.
  */
 const useAddon = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<null | string>(null);
 
   const manageAddon = useCallback(
-    async ({ addonId, action }: UseAddonParams) => {
+    async ({ action, addonId }: UseAddonParams) => {
       setIsPending(true);
 
       const message: MpBackendMessage = {
-        key: "mpBackend",
-        subKey: "get",
         body: {
           action: action,
           addonID: addonId
-        }
+        },
+        key: "mpBackend",
+        subKey: "get"
       };
 
       try {
@@ -55,74 +59,77 @@ const useAddon = () => {
     []
   );
 
-  return { isPending, error, manageAddon };
+  return { error, isPending, manageAddon };
 };
 
 /**
  * A hook to install an addon using the generic addon management hook.
  *
- * @returns An object containing the `isPending` state, the `error` state, and the `installAddon` function.
+ * @returns An object containing the `isPending` state, the `error` state, and
+ *   the `installAddon` function.
  */
 export const useInstallAddon = () => {
-  const { isPending, error, manageAddon } = useAddon();
+  const { error, isPending, manageAddon } = useAddon();
 
   /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
   const installAddon = useCallback((addonId: string) => {
-    manageAddon({ addonId, action: "install" });
+    manageAddon({ action: "install", addonId });
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
-  return { isPending, error, installAddon };
+  return { error, installAddon, isPending };
 };
 
 /**
  * A hook to uninstall an addon using the generic addon management hook.
  *
- * @returns An object containing the `isPending` state, the `error` state, and the `uninstallAddon` function.
+ * @returns An object containing the `isPending` state, the `error` state, and
+ *   the `uninstallAddon` function.
  */
 export const useUninstallAddon = () => {
-  const { isPending, error, manageAddon } = useAddon();
+  const { error, isPending, manageAddon } = useAddon();
 
   /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
   const uninstallAddon = useCallback((addonId: string) => {
-    manageAddon({ addonId, action: "uninstall" });
+    manageAddon({ action: "uninstall", addonId });
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
-  return { isPending, error, uninstallAddon };
+  return { error, isPending, uninstallAddon };
 };
 
 /**
- * Interface for parameters used in get GetAddonsByUserId hook
+ * Interface for parameters used in get GetAddonsByUserId hook.
  */
 interface UseGetAddonsByUserIdParams {
-  page?: number;
   category?: AddonCategory;
+  page?: number;
 }
 
 /**
  * A hook to get addons by user ID by sending a message to the backend.
  *
- * @returns An object containing the `data` state, the `isLoading` state, and the `error` state.
+ * @returns An object containing the `data` state, the `isLoading` state, and
+ *   the `error` state.
  */
 export const useGetAddonsByUserId = ({
-  page,
-  category
+  category,
+  page
 }: UseGetAddonsByUserIdParams = {}) => {
   const [data, setData] = useState<Addon[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
     const fetchAddons = async () => {
       const message: MpBackendMessage = {
-        key: "mpBackend",
-        subKey: "get",
         body: {
           action: "addons/get-by-user" as MpBackendAction,
-          page: page,
-          category: category
-        }
+          category: category,
+          page: page
+        },
+        key: "mpBackend",
+        subKey: "get"
       };
 
       try {
@@ -138,5 +145,5 @@ export const useGetAddonsByUserId = ({
     fetchAddons();
   }, [category, page]);
 
-  return { data, isLoading, error };
+  return { data, error, isLoading };
 };

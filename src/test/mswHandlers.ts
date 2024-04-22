@@ -6,21 +6,20 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { http, HttpResponse, passthrough } from "msw";
 import { addonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
+import { HttpResponse, http, passthrough } from "msw";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 
 /**
- * Define mocking routes.
- * Roughly corresponds to backend handlers.
+ * Define mocking routes. Roughly corresponds to backend handlers.
  */
 export const handlers = [
   http.post(`${baseUrl}/addons/get`, async ({ request }) => {
     const body = (await request.json()) as {
-      page?: number;
       category?: AddonCategory;
+      page?: number;
     };
     const category = body.category;
 

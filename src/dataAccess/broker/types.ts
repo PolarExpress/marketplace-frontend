@@ -2,75 +2,76 @@
 
 export type ReceiveMessageI = {
   callID: string;
-  type: string;
   status: string;
+  type: string;
   value: Record<string, any>;
 };
 
-export type keyTypeI =
+type keyTypeI =
   | "broadcastState"
   | "dbConnection"
-  | "schema"
+  | "mpBackend"
+  | "mpBackend"
   | "query"
-  | "state"
-  | "mpBackend";
-export type subKeyTypeI =
+  | "query"
+  | "schema"
+  | "state";
+type subKeyTypeI =
   // Crud
   | "create"
-  | "getAll"
   | "delete"
-  | "update"
-  | "get"
-  | "select"
-  // Custom
-  | "newDbConnection"
-  | "editDbConnection"
   | "deleteDbConnection"
-  | "getDbConnection"
+  | "editDbConnection"
+  | "get"
+  | "getAll"
+  // Custom
   | "getAllDbConnections"
-  | "testConnection"
+  | "getDbConnection"
   | "getSchema"
   | "getSchemaStats"
-  | "runQuery";
+  | "newDbConnection"
+  | "runQuery"
+  | "select"
+  | "testConnection"
+  | "update";
 
 export type SendMessageI = {
+  body?: any;
   key: keyTypeI;
   subKey?: subKeyTypeI;
-  body?: any;
 };
 
-export type SendMessageWithSessionI = SendMessageI & {
+export type SendMessageWithSessionI = {
+  body?: string;
   callID: string;
   sessionID: string;
-  body?: string;
-};
+} & SendMessageI;
 
 export type QueuedMessage = {
-  message: SendMessageI;
   callback?: Function;
+  message: SendMessageI;
 };
 
 /**
- * Format for sending message to marketplace backend.
- * Subkey does not matter.
+ * Format for sending message to marketplace backend. Subkey does not matter.
  */
-export type MpBackendMessage = SendMessageI & {
+export type MpBackendMessage = {
+  body: {
+    [key: string]: any;
+    action: MpBackendAction;
+  };
   key: "mpBackend";
   subKey: "get";
-  body: {
-    action: MpBackendAction;
-    [key: string]: any;
-  };
-};
+} & SendMessageI;
 
 /**
  * Types of possible actions to send to the marketplace backend.
  */
 export type MpBackendAction =
-  | "install"
-  | "uninstall"
   | "addons/get"
   | "addons/get-by-id"
-  | "addons/get-readme"
   | "addons/get-by-user"
-  | "addons/search";
+  | "addons/get-readme"
+  | "addons/search"
+  | "install"
+  | "uninstall";

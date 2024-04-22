@@ -7,24 +7,19 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
+
+import { RTKError } from "@polarexpress/components";
+import { store } from "@polarexpress/dataAccess/store/store";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import { store } from "@polarexpress/dataAccess/store/store";
-import { RTKError } from "@polarexpress/components";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
-  title: "frontend/RTKError",
   component: RTKError,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered"
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
   // Provides the redux store and browser router for the stories
   decorators: [
     Story => (
@@ -32,14 +27,22 @@ const meta = {
         <MemoryRouter> {Story()} </MemoryRouter>
       </Provider>
     )
-  ]
+  ],
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: "centered"
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ["autodocs"],
+  title: "frontend/RTKError"
 } satisfies Meta<typeof RTKError>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Throws a TypeError to simulate a SerializedError (one of the two types RTK Query could throw)
+ * Throws a TypeError to simulate a SerializedError (one of the two types RTK
+ * Query could throw)
  */
 export const SerializedErrorMessage: Story = {
   args: {
@@ -48,13 +51,13 @@ export const SerializedErrorMessage: Story = {
 };
 
 /**
- * Throws a 500 error to simulate the other type
+ * Throws a 500 error to simulate the other type.
  */
 export const FetchBaseQueryErrorMessage: Story = {
   args: {
     error: {
-      status: 500,
-      data: "Internal server error occurred"
+      data: "Internal server error occurred",
+      status: 500
     }
   }
 };

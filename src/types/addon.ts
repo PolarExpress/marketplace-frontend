@@ -9,27 +9,41 @@
 import type { Author } from "./author";
 
 export enum AddonCategory {
-  VISUALISATION = "VISUALISATION",
+  DATA_SOURCE = "DATA_SOURCE",
   MACHINE_LEARNING = "MACHINE_LEARNING",
-  DATA_SOURCE = "DATA_SOURCE"
+  VISUALISATION = "VISUALISATION"
 }
 
 /**
  * Defines the structure of an add-on.
  */
 export interface Addon {
-  /** Unique identifier for the add-on */
+  /**
+   * Unique identifier for the add-on.
+   */
   _id: string;
-  /** Display name of the add-on */
-  name: string;
-  /** A short description of the add-on's functionality */
-  summary: string;
-  /** Link to the icon of the addon */
-  icon: string;
-  /** The category it belongs to (e.g., visualization) */
-  category: AddonCategory;
-  /** Id of the author that created this add-on */
-  authorId: string;
-  /** Author of the add-on */
+  /**
+   * Author of the add-on.
+   */
   author: Author;
+  /**
+   * Id of the author that created this add-on.
+   */
+  authorId: string;
+  /**
+   * The category it belongs to (e.g., visualization)
+   */
+  category: AddonCategory;
+  /**
+   * Link to the icon of the addon.
+   */
+  icon: string;
+  /**
+   * Display name of the add-on.
+   */
+  name: string;
+  /**
+   * A short description of the add-on's functionality.
+   */
+  summary: string;
 }

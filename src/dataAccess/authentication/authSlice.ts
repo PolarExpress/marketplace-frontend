@@ -1,11 +1,12 @@
 /* eslint-disable custom/enforce-copyright-comment */
 
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 import { RootState } from "../store";
 
-export type UseIsAuthorizedState = SingleIsAuthorizedState & {
+export type UseIsAuthorizedState = {
   roomID: string | undefined;
-};
+} & SingleIsAuthorizedState;
 
 export type SingleIsAuthorizedState = {
   authorized: boolean | undefined;
@@ -19,16 +20,16 @@ export type SingleIsAuthorizedState = {
 export const initialState: UseIsAuthorizedState = {
   authorized: undefined,
   jwt: undefined,
-  sessionID: undefined,
   roomID: undefined,
+  sessionID: undefined,
   userID: undefined,
   username: undefined
 };
 
 export const AuthSlice = createSlice({
-  name: "auth",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
+  name: "auth",
   reducers: {
     authorized(state, action: PayloadAction<SingleIsAuthorizedState>) {
       console.info("%cAuthorized", "background-color: blue");
@@ -71,7 +72,7 @@ export const AuthSlice = createSlice({
   }
 });
 
-export const { authorized, unauthorized, logout, changeRoom } =
+export const { authorized, changeRoom, logout, unauthorized } =
   AuthSlice.actions;
 
 export const authState = (state: RootState) => state.auth;

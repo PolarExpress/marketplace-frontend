@@ -6,13 +6,15 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { HomePage, AddonPage } from "./pages";
+import { Route, Routes } from "react-router-dom";
+
 import Header from "./components/header";
-import { Routes, Route } from "react-router-dom";
 import { SetupBroker } from "./dataAccess/broker";
+import { AddonPage, HomePage } from "./pages";
 
 /**
- * The central application component, responsible for high-level page layout and routing.
+ * The central application component, responsible for high-level page layout and
+ * routing.
  */
 const App = () => {
   return (
@@ -20,8 +22,8 @@ const App = () => {
       <SetupBroker />
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/addons/:id" element={<AddonPage />} />
+        <Route element={<HomePage />} path="/" />
+        <Route element={<AddonPage />} path="/addons/:id" />
       </Routes>
     </>
   );

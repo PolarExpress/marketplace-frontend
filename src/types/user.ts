@@ -10,10 +10,16 @@
  * Defines the structure of a user.
  */
 export interface User {
-  /** MongoDB object id */
+  /**
+   * MongoDB object id.
+   */
   _id: string;
-  /** Unique identifier for the user */
-  userId: string;
-  /** A list of add-on id's that the user has installed. */
+  /**
+   * A list of add-on id's that the user has installed.
+   */
   installedAddons: string[];
+  /**
+   * Unique identifier for the user.
+   */
+  userId: string;
 }
