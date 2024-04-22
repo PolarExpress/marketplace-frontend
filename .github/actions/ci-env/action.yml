@@ -22,3 +22,7 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci
       shell: bash
+
+    - name: Set environment var
+      run: cp sample.env .env
+      shell: bash
