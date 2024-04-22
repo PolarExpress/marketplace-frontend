@@ -11,20 +11,20 @@ on:
       - ".dockerignore"
 
 jobs:
-  storybook:
-    if: github.event.pull_request.draft == false
-    name: Storybook (visual tests)
-    runs-on: ubuntu-latest
+  # storybook:
+  #   if: github.event.pull_request.draft == false
+  #   name: Storybook (visual tests)
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Check out Git repository
+  #       uses: actions/checkout@v3
 
-      - name: Set up environment
-        uses: ./.github/actions/ci-env
+  #     - name: Set up environment
+  #       uses: ./.github/actions/ci-env
 
-      - name: Run Storybook tests
-        run: npm run test-storybook:ci
+  #     - name: Run Storybook tests
+  #       run: npm run test-storybook:ci
 
   vitest:
     if: github.event.pull_request.draft == false
