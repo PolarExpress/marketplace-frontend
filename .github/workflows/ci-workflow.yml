@@ -39,7 +39,7 @@ jobs:
         uses: ./.github/actions/ci-env
 
       - name: Run React unit tests
-        run: npm run test
+        run: pnpm test
 
   lint:
     if: github.event.pull_request.draft == false
@@ -54,7 +54,7 @@ jobs:
         uses: ./.github/actions/ci-env
 
       - name: Run eslint
-        run: npm run lint
+        run: pnpm lint
 
   prettier:
     if: github.event.pull_request.draft == false
