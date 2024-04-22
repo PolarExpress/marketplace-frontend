@@ -6,15 +6,15 @@
  * (Department of Information and Computing Sciences)
  */
 
+import * as hooks from "@polarexpress/dataAccess/broker/hooks";
 import { addonList } from "@polarexpress/mockData/addons";
 import {
-  initializeInstalled,
-  deleteInstalledList,
   addInstalled,
-  getInstalled
+  deleteInstalledList,
+  getInstalled,
+  initializeInstalled
 } from "@polarexpress/test/mockingUtils";
 import { setupPageWithId } from "@polarexpress/test/utils";
-import * as hooks from "@polarexpress/dataAccess/broker/hooks";
 
 describe("InstallButton", () => {
   const testAddon = addonList[0];
@@ -32,10 +32,12 @@ describe("InstallButton", () => {
    * @returns A promise that resolves to an object containing the user event and the button element.
    */
   const setupButton = async () => {
-    const { user, findByTestId, getByTestId } = setupPageWithId(testAddon._id);
+    const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);
+
     await expect(findByTestId("button-loading")).rejects.toThrow();
+
     const button = getByTestId("install") as HTMLButtonElement;
-    return { user, button };
+    return { button, user };
   };
 
   it('shows "Install" when addon is NOT installed', async () => {
@@ -55,23 +57,26 @@ describe("InstallButton", () => {
   });
 
   it("updates the installed addons correctly on button click", async () => {
-    const { user, button } = await setupButton();
+    const { button, user } = await setupButton();
 
     await user.click(button);
+
     expect(getInstalled()).toContainEqual(testAddon);
 
     await user.click(button);
+
     expect(getInstalled()).not.toContainEqual(testAddon);
   });
 
   it("renders the correct error", async () => {
     vi.spyOn(hooks, "useGetAddonsByUserId").mockReturnValue({
       data: null,
-      isLoading: false,
-      error: "Install error"
+      error: "Install error",
+      isLoading: false
     });
 
     const { findByTestId, getByText } = setupPageWithId(testAddon._id);
+
     await expect(findByTestId("install-loading")).rejects.toThrow();
 
     expect(getByText("Install error")).toBeDefined();

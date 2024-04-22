@@ -6,14 +6,15 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { UseIsAuthorizedState } from "../authentication/authSlice";
 import { addonList } from "@polarexpress/mockData/addons";
-import { Addon } from "@polarexpress/types/addon";
 import {
   addInstalled,
   getInstalled,
   removeInstalled
 } from "@polarexpress/test/mockingUtils";
+import { Addon } from "@polarexpress/types/addon";
+
+import { UseIsAuthorizedState } from "../authentication/authSlice";
 import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
@@ -24,10 +25,6 @@ export class MockBroker extends BrokerBase {
   public static instance(): MockBroker {
     if (!this.singletonInstance) this.singletonInstance = new MockBroker();
     return this.singletonInstance as MockBroker;
-  }
-
-  public setAuth(_authHeader: UseIsAuthorizedState): MockBroker {
-    return this;
   }
 
   public connect(onOpen: () => void): void {
@@ -87,5 +84,9 @@ export class MockBroker extends BrokerBase {
         resolve(data);
       });
     });
+  }
+
+  public setAuth(_authHeader: UseIsAuthorizedState): MockBroker {
+    return this;
   }
 }

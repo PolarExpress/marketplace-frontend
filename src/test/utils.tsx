@@ -6,14 +6,16 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { type RenderOptions, render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import type { PropsWithChildren, ReactElement } from "react";
-import { Provider } from "react-redux";
-import { type AppStore, type RootState, makeStore } from "../dataAccess/store";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+
 import { SetupBroker } from "@polarexpress/dataAccess/broker";
 import AddonPage from "@polarexpress/pages/addonPage";
+import { type RenderOptions, render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Provider } from "react-redux";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+
+import { type AppStore, type RootState, makeStore } from "../dataAccess/store";
 
 /**
  * This type extends the default options for
@@ -85,7 +87,7 @@ export const renderWithProviders = (
 export const setupPageWithId = (id: string) => {
   return renderWithProviders(
     <Routes>
-      <Route path="/addons/:id" element={<AddonPage />} />
+      <Route element={<AddonPage />} path="/addons/:id" />
     </Routes>,
     {},
     [`/addons/${id}`]

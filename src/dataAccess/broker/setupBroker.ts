@@ -6,10 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
+import { createBroker } from "@polarexpress/test/mockingUtils";
 import { useEffect } from "react";
+
 import { useAuthorizationCache } from "../store";
 import { useAuth } from "../authentication";
-import { createBroker } from "@polarexpress/test/mockingUtils";
 import { BrokerBase } from "./broker.interface";
 
 let broker: BrokerBase | null = null;

@@ -7,8 +7,8 @@
  */
 
 import "@testing-library/jest-dom/vitest";
-
 import { setupServer } from "msw/node";
+
 import { handlers } from "./mswHandlers";
 
 // Set up http handlers during testing (npm test)

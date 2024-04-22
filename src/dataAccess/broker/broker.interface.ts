@@ -24,8 +24,6 @@ export abstract class BrokerBase {
     return this.singletonInstance;
   }
 
-  public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
-
   public abstract connect(onOpen: () => void): void;
 
   public abstract sendMessage(message: SendMessageI, callback?: Function): void;
@@ -33,4 +31,6 @@ export abstract class BrokerBase {
   public abstract sendMessageAsync(
     message: SendMessageI
   ): Promise<Record<string, any>>;
+
+  public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 }
