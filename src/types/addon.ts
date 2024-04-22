@@ -18,18 +18,32 @@ export enum AddonCategory {
  * Defines the structure of an add-on.
  */
 export interface Addon {
-  /** Unique identifier for the add-on */
+  /**
+   * Unique identifier for the add-on.
+   */
   _id: string;
-  /** Author of the add-on */
+  /**
+   * Author of the add-on.
+   */
   author: Author;
-  /** Id of the author that created this add-on */
+  /**
+   * Id of the author that created this add-on.
+   */
   authorId: string;
-  /** The category it belongs to (e.g., visualization) */
+  /**
+   * The category it belongs to (e.g., visualization)
+   */
   category: AddonCategory;
-  /** Link to the icon of the addon */
+  /**
+   * Link to the icon of the addon.
+   */
   icon: string;
-  /** Display name of the add-on */
+  /**
+   * Display name of the add-on.
+   */
   name: string;
-  /** A short description of the add-on's functionality */
+  /**
+   * A short description of the add-on's functionality.
+   */
   summary: string;
 }

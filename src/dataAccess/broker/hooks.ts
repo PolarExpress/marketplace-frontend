@@ -24,9 +24,11 @@ interface UseAddonParams {
 }
 
 /**
- * A hook to manage (install or uninstall) an addon by sending a message to the backend.
+ * A hook to manage (install or uninstall) an addon by sending a message to the
+ * backend.
  *
- * @returns An object containing the `isPending` state, the `error` state, and the `manageAddon` function.
+ * @returns An object containing the `isPending` state, the `error` state, and
+ *   the `manageAddon` function.
  */
 const useAddon = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -63,7 +65,8 @@ const useAddon = () => {
 /**
  * A hook to install an addon using the generic addon management hook.
  *
- * @returns An object containing the `isPending` state, the `error` state, and the `installAddon` function.
+ * @returns An object containing the `isPending` state, the `error` state, and
+ *   the `installAddon` function.
  */
 export const useInstallAddon = () => {
   const { error, isPending, manageAddon } = useAddon();
@@ -80,7 +83,8 @@ export const useInstallAddon = () => {
 /**
  * A hook to uninstall an addon using the generic addon management hook.
  *
- * @returns An object containing the `isPending` state, the `error` state, and the `uninstallAddon` function.
+ * @returns An object containing the `isPending` state, the `error` state, and
+ *   the `uninstallAddon` function.
  */
 export const useUninstallAddon = () => {
   const { error, isPending, manageAddon } = useAddon();
@@ -95,7 +99,7 @@ export const useUninstallAddon = () => {
 };
 
 /**
- * Interface for parameters used in get GetAddonsByUserId hook
+ * Interface for parameters used in get GetAddonsByUserId hook.
  */
 interface UseGetAddonsByUserIdParams {
   category?: AddonCategory;
@@ -105,7 +109,8 @@ interface UseGetAddonsByUserIdParams {
 /**
  * A hook to get addons by user ID by sending a message to the backend.
  *
- * @returns An object containing the `data` state, the `isLoading` state, and the `error` state.
+ * @returns An object containing the `data` state, the `isLoading` state, and
+ *   the `error` state.
  */
 export const useGetAddonsByUserId = ({
   category,

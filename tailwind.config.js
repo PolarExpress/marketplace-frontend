@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+/**
+ * @type {import("tailwindcss").Config}
+ */
 import * as defaultTheme from "tailwindcss/defaultTheme";
 
 import { tailwindColors } from "./src/colors.js";

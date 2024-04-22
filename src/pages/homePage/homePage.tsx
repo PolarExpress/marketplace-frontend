@@ -10,8 +10,8 @@
 import AddonList from "../addonPage/addonList/addonList";
 
 /**
- * Represents the primary landing page of the add-ons marketplace.
- * It renders the AddonList component to display available add-ons.
+ * Represents the primary landing page of the add-ons marketplace. It renders
+ * the AddonList component to display available add-ons.
  */
 const HomePage = () => {
   return (

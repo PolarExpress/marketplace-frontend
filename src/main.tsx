@@ -16,7 +16,7 @@ import App from "./app";
 import "./style.css";
 
 /**
- * Register service worker and msw
+ * Register service worker and msw.
  */
 async function enableMocking() {
   // Don't enable mocking when in prod or when explicitly disabled

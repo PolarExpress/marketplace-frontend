@@ -7,9 +7,9 @@
  */
 
 /**
- * This program has been developed by students from the bachelor Computer Science at
- * Utrecht University within the Software Project course.
- * © Copyright Utrecht University (Department of Information and Computing Sciences)
+ * This program has been developed by students from the bachelor Computer
+ * Science at Utrecht University within the Software Project course. © Copyright
+ * Utrecht University (Department of Information and Computing Sciences)
  */
 
 import { UseIsAuthorizedState } from "../authentication/authSlice";
@@ -35,10 +35,16 @@ export class Broker {
     | undefined;
   private connected: boolean;
   private listeners: Record<string, Record<string, Function>> = {};
-  /** Contains messages to be sent when the connection to the WebSocket has been opened */
+  /**
+   * Contains messages to be sent when the connection to the WebSocket has been
+   * opened.
+   */
   private messageQueue: QueuedMessage[] = [];
 
-  /** mostRecentMessages is a dictionary with <routingkey, messageObject>. It stores the most recent message for that routingkey. */
+  /**
+   * MostRecentMessages is a dictionary with <routingkey, messageObject>. It
+   * stores the most recent message for that routingkey.
+   */
   private mostRecentMessages: Record<string, unknown> = {};
 
   private saveStateID: string | undefined;
@@ -50,7 +56,8 @@ export class Broker {
   private webSocket: WebSocket | undefined;
 
   /**
-   * Attempts to reconnect to the WebSocket if the connection is closed or not established.
+   * Attempts to reconnect to the WebSocket if the connection is closed or not
+   * established.
    */
   public attemptReconnect = () => {
     console.warn("Attempting to reconnect WS");
@@ -74,9 +81,10 @@ export class Broker {
   };
 
   /**
-   * Websocket connection message event handler.
-   * Called when a new message is received through the WebSocket.
-   * Handles the message based on the routing key and callbacks.
+   * Websocket connection message event handler. Called when a new message is
+   * received through the WebSocket. Handles the message based on the routing
+   * key and callbacks.
+   *
    * @param event Contains the event data.
    */
   public receiveMessage = (event: MessageEvent<any>) => {
@@ -136,7 +144,9 @@ export class Broker {
     }
   };
 
-  /** @param domain The domain to make the websocket connection with. */
+  /**
+   * @param domain The domain to make the websocket connection with.
+   */
   public constructor(domain: string) {
     this.url = domain;
     this.connected = false;
@@ -150,6 +160,7 @@ export class Broker {
 
   /**
    * Websocket connection close event handler.
+   *
    * @param {any} event Contains the event data.
    */
   private onClose(event: any): void {
@@ -162,6 +173,7 @@ export class Broker {
 
   /**
    * Websocket connection error event handler.
+   *
    * @param event Contains the event data.
    */
   private onError(event: any): void {
@@ -170,7 +182,9 @@ export class Broker {
 
   /**
    * Connects to the WebSocket and handles the connection logic.
-   * @param onOpen Callback function to be called when the WebSocket connection is opened.
+   *
+   * @param onOpen Callback function to be called when the WebSocket connection
+   *   is opened.
    */
   public connect(onOpen: () => void): void {
     // If there already is already a current websocket connection, close it first.
@@ -204,7 +218,8 @@ export class Broker {
 
   /**
    * Sends a message through the WebSocket connection.
-   * @param message The message object to be sent.
+   *
+   * @param message  The message object to be sent.
    * @param callback Optional callback function to handle the response.
    */
   public sendMessage(message: SendMessageI, callback?: Function): void {
@@ -237,8 +252,10 @@ export class Broker {
 
   /**
    * Sends a message through the WebSocket connection asynchronously.
-   * @param message The message object to be sent.
-   * @returns A promise that resolves with the response data.
+   *
+   * @param   message The message object to be sent.
+   *
+   * @returns         A promise that resolves with the response data.
    */
   public sendMessageAsync(message: SendMessageI): Promise<Record<string, any>> {
     return new Promise((resolve, _) => {
@@ -250,8 +267,10 @@ export class Broker {
 
   /**
    * Sets the authentication header for the Broker.
-   * @param authHeader The authentication header object.
-   * @returns The Broker instance.
+   *
+   * @param   authHeader The authentication header object.
+   *
+   * @returns            The Broker instance.
    */
   public setAuth(authHeader: UseIsAuthorizedState): Broker {
     this.authHeader = authHeader;
