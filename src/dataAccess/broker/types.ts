@@ -7,14 +7,14 @@ export type ReceiveMessageI = {
   value: Record<string, any>;
 };
 
-export type keyTypeI =
+type keyTypeI =
   | "broadcastState"
   | "dbConnection"
   | "schema"
   | "query"
   | "state"
   | "mpBackend";
-export type subKeyTypeI =
+type subKeyTypeI =
   // Crud
   | "create"
   | "getAll"

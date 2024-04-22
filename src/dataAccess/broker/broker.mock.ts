@@ -26,7 +26,7 @@ export class MockBroker extends BrokerBase {
     return this.singletonInstance as MockBroker;
   }
 
-  public setAuth(authHeader: UseIsAuthorizedState): MockBroker {
+  public setAuth(_authHeader: UseIsAuthorizedState): MockBroker {
     return this;
   }
 
