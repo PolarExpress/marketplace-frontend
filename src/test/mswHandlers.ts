@@ -58,18 +58,15 @@ export const handlers = [
 
   http.post(`${baseUrl}/addons/search`, async ({ request }) => {
     const body = (await request.json()) as {
-      searchTerm: string;
-      page?: number;
       category?: AddonCategory;
+      page?: number;
+      searchTerm: string;
     };
-    const { searchTerm, category } = body;
-    console.log(`Search term: ${searchTerm}`);
-    console.log(`Category: ${category}`);
+    const { category, searchTerm } = body;
 
     let filteredAddons = addonList.filter(addon =>
       addon.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log(`Filtered: ${JSON.stringify(filteredAddons)}`);
 
     if (category)
       filteredAddons = filteredAddons.filter(

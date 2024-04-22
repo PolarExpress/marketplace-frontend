@@ -8,10 +8,9 @@
 
 import { LoadingSpinner, RTKError } from "@polarexpress/components";
 import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
-import { AddonCategory, type Addon } from "@polarexpress/types/addon";
+import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
 import { useGetAddonsQuery, useLazySearchAddonsQuery } from "./addonApi";
-import { LoadingSpinner, RTKError } from "@polarexpress/components";
 import { useEffect } from "react";
 
 const AddonList = () => {
@@ -21,8 +20,8 @@ const AddonList = () => {
   // Use the RTK Query hook to retrieve addons from the backend
   const {
     data: allAddOns,
-    isLoading: allLoading,
-    error: allError
+    error: allError,
+    isLoading: allLoading
   } = useGetAddonsQuery({
     category: AddonCategory.VISUALISATION,
     // Temporary values
@@ -31,7 +30,7 @@ const AddonList = () => {
 
   const [
     trigger,
-    { data: filteredAddOns, isLoading: filterLoading, error: filterError }
+    { data: filteredAddOns, error: filterError, isLoading: filterLoading }
   ] = useLazySearchAddonsQuery();
 
   useEffect(() => {
@@ -49,7 +48,6 @@ const AddonList = () => {
     return <RTKError error={allError || filterError!} />;
 
   const addOnsToRender = searchTerm ? filteredAddOns : allAddOns;
-  console.log(`TO RENDER: ${JSON.stringify(addOnsToRender)}`);
 
   // Data might still be undefined
   if (addOnsToRender) {
@@ -63,9 +61,9 @@ const AddonList = () => {
     }
 
     return (
-      <div className="relative -z-1 flex flex-wrap gap-4 w-full justify-center">
+      <div className="relative flex w-full flex-wrap justify-center gap-4">
         {addOnsToRender.map((addOn: Addon) => (
-          <AddonCard key={addOn._id} addOn={addOn} />
+          <AddonCard addOn={addOn} key={addOn._id} />
         ))}
       </div>
     );
