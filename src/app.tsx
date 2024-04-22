@@ -13,7 +13,8 @@ import { SetupBroker } from "./dataAccess/broker";
 import { AddonPage, HomePage } from "./pages";
 
 /**
- * The central application component, responsible for high-level page layout and routing.
+ * The central application component, responsible for high-level page layout and
+ * routing.
  */
 const App = () => {
   return (

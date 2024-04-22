@@ -23,16 +23,17 @@ export function createBroker(): BrokerBase {
 }
 
 /**
- * Initializes sessionStorage with an empty list.
- * sessionStorage is used as a temporary database while mocking.
+ * Initializes sessionStorage with an empty list. sessionStorage is used as a
+ * temporary database while mocking.
  */
 export const initializeInstalled = () => {
   sessionStorage.setItem("installed", JSON.stringify([]));
 };
 
 /**
- * Removes an addon from sessionStorage
- * @param addonId Id of the addon to be uninstalled
+ * Removes an addon from sessionStorage.
+ *
+ * @param addonId Id of the addon to be uninstalled.
  */
 export const removeInstalled = (addonID: string): void => {
   const installedAddons: Addon[] = JSON.parse(
@@ -45,8 +46,9 @@ export const removeInstalled = (addonID: string): void => {
 };
 
 /**
- * Adds an addon to sessionStorage
- * @param addon Addon object to be installed
+ * Adds an addon to sessionStorage.
+ *
+ * @param addon Addon object to be installed.
  */
 export const addInstalled = (addon: Addon): void => {
   const installedAddons: Addon[] = JSON.parse(
@@ -57,17 +59,18 @@ export const addInstalled = (addon: Addon): void => {
 };
 
 /**
- * Deletes the list of installed addons from sessionStorage
+ * Deletes the list of installed addons from sessionStorage.
  */
 export const deleteInstalledList = () => {
   sessionStorage.removeItem("installed");
 };
 
 /**
- * Retrieves the list of installed addons from sessionStorage
+ * Retrieves the list of installed addons from sessionStorage.
  *
  * @returns {Addon[]} A list of Addon objects representing the installed addons.
- * Returns an empty list if the 'installed' item is not found in sessionStorage.
+ *   Returns an empty list if the 'installed' item is not found in
+ *   sessionStorage.
  */
 export const getInstalled = (): Addon[] => {
   const installedAddons: Addon[] = JSON.parse(

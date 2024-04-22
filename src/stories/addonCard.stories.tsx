@@ -17,7 +17,8 @@ import { MemoryRouter } from "react-router-dom";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
- * Provides configuration and metadata for Storybook stories related to the SearchBar component.
+ * Provides configuration and metadata for Storybook stories related to the
+ * SearchBar component.
  */
 const meta = {
   component: AddonCard,
@@ -42,7 +43,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Renders the AddonCard with a sample add-on for the 'Visualization' category
+ * Renders the AddonCard with a sample add-on for the 'Visualization' category.
  */
 export const Basic: Story = {
   args: {
@@ -51,7 +52,7 @@ export const Basic: Story = {
 };
 
 /**
- * Renders the AddonCard with the mouse hovered over it
+ * Renders the AddonCard with the mouse hovered over it.
  */
 export const Hover: Story = {
   args: {

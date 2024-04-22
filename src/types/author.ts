@@ -7,8 +7,12 @@
  */
 
 export interface Author {
-  /** Unique identifier for the author */
+  /**
+   * Unique identifier for the author.
+   */
   _id: string;
-  /** UserId corresponding to the author */
+  /**
+   * UserId corresponding to the author.
+   */
   userId: string;
 }

@@ -10,22 +10,35 @@
  * Properties for the InstallButton component.
  */
 interface InstallButtonProps {
-  /** Indicates if the user has the necessary authorization to interact with addons. */
+  /**
+   * Indicates if the user has the necessary authorization to interact with
+   * addons.
+   */
   authorized: boolean;
-  /** Function to be executed when the addon button is clicked. */
+  /**
+   * Function to be executed when the addon button is clicked.
+   */
   handleClick: () => void;
-  /** Indicates if an addon installation is in progress. */
+  /**
+   * Indicates if an addon installation is in progress.
+   */
   installPending: boolean;
-  /** Indicates if the addon is currently installed. */
+  /**
+   * Indicates if the addon is currently installed.
+   */
   isAddonInstalled: boolean;
-  /** Indicates if an addon uninstallation is in progress. */
+  /**
+   * Indicates if an addon uninstallation is in progress.
+   */
   uninstallPending: boolean;
-  /** Indicates if the overall list of user addons is currently being loaded. */
+  /**
+   * Indicates if the overall list of user addons is currently being loaded.
+   */
   userAddonsLoading: boolean;
 }
 
 /**
- * Renders the install button
+ * Renders the install button.
  */
 const InstallButton = ({
   authorized,

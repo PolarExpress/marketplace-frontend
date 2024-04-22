@@ -29,7 +29,9 @@ describe("InstallButton", () => {
 
   /**
    * Sets up the InstallButton component for testing.
-   * @returns A promise that resolves to an object containing the user event and the button element.
+   *
+   * @returns A promise that resolves to an object containing the user event and
+   *   the button element.
    */
   const setupButton = async () => {
     const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);

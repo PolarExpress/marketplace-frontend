@@ -9,9 +9,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 /**
- * Initialize an empty api service that we'll inject endpoints into later as needed.
- * RTK Query documentation advises to maintain a single API slice per base URL.
- * This API slice will be injected with endpoints in other files.
+ * Initialize an empty api service that we'll inject endpoints into later as
+ * needed. RTK Query documentation advises to maintain a single API slice per
+ * base URL. This API slice will be injected with endpoints in other files.
  */
 export const emptySplitApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE }),

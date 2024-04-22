@@ -27,8 +27,8 @@ import {
 } from "./addonList/addonApi";
 
 /**
- * Represents the individual page of an add-on.
- * It retrieves information about the add-on from the store and displays it.
+ * Represents the individual page of an add-on. It retrieves information about
+ * the add-on from the store and displays it.
  */
 const AddonPage = () => {
   // Retrieve URL param
@@ -81,8 +81,8 @@ const AddonPage = () => {
   }, [isCurrentAddonInstalled]);
 
   /**
-   * Handles the installation or uninstallation of the add-on.
-   * Changes the internal installed state as well.
+   * Handles the installation or uninstallation of the add-on. Changes the
+   * internal installed state as well.
    */
   const handleInstall = () => {
     if (auth.authorized) {

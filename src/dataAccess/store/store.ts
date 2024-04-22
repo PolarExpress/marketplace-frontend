@@ -26,11 +26,12 @@ const rootReducer = combineSlices({
 export type RootState = ReturnType<typeof rootReducer>;
 
 /**
- * Creates a Redux store with a preloaded state and default middleware.
- * Also sets up RTK Query listeners for refetching on focus/reconnect.
+ * Creates a Redux store with a preloaded state and default middleware. Also
+ * sets up RTK Query listeners for refetching on focus/reconnect.
  *
- * @param preloadedState - Optional initial state for the Redux store.
- * @returns {Store} The newly created Redux store.
+ * @param   preloadedState       - Optional initial state for the Redux store.
+ *
+ * @returns {Store}                The newly created Redux store.
  */
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({

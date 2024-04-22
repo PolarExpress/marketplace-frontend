@@ -19,7 +19,7 @@ import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
 /**
- * Mocked version of the broker to run the frontend without backend
+ * Mocked version of the broker to run the frontend without backend.
  */
 export class MockBroker extends BrokerBase {
   public static instance(): MockBroker {
@@ -33,7 +33,7 @@ export class MockBroker extends BrokerBase {
   }
 
   /**
-   * Interacts with the sessionStorage to mock install interactions
+   * Interacts with the sessionStorage to mock install interactions.
    */
   public sendMessage(message: MpBackendMessage, callback?: Function): void {
     let data: Record<string, any> = {};
@@ -74,7 +74,7 @@ export class MockBroker extends BrokerBase {
   }
 
   /**
-   * Same as normal broker
+   * Same as normal broker.
    */
   public sendMessageAsync(
     message: MpBackendMessage

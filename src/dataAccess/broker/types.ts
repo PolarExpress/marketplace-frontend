@@ -53,8 +53,7 @@ export type QueuedMessage = {
 };
 
 /**
- * Format for sending message to marketplace backend.
- * Subkey does not matter.
+ * Format for sending message to marketplace backend. Subkey does not matter.
  */
 export type MpBackendMessage = {
   body: {
