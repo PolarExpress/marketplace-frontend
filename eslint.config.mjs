@@ -70,7 +70,6 @@ export default [
   prettier,
   eslint.configs.recommended,
   ...compat.extends(
-    "plugin:storybook/recommended",
     "plugin:sonarjs/recommended",
     "plugin:tailwindcss/recommended",
     "plugin:perfectionist/recommended-natural",
@@ -85,6 +84,6 @@ export default [
     }
   },
   {
-    ignores: ["storybook-static/**/*", "dist"]
+    ignores: ["dist"]
   }
 ];

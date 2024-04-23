@@ -13,6 +13,7 @@ import { store } from "@polarexpress/dataAccess/store";
 import { userEvent, within } from "@storybook/test";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
+import { SetupBroker } from "@polarexpress/dataAccess/broker";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 /**
@@ -25,6 +26,7 @@ const meta = {
   decorators: [
     Story => (
       <Provider store={store}>
+        <SetupBroker />
         <MemoryRouter>{Story()}</MemoryRouter>
       </Provider>
     )
