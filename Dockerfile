@@ -32,15 +32,3 @@ COPY --from=build /app/dist /app/dist
 ENV  NODE_ENV production
 
 CMD ["serve", "-s", "dist", "-l", "4201"]
-
-# --------------------------------------
-
-FROM    base AS test
-WORKDIR /app
-COPY    --from=deps /deps/dev/node_modules ./node_modules
-COPY    . .
-
-RUN  npx playwright install-deps
-RUN  npx playwright install
-
-ENTRYPOINT ["npm", "run", "test"]
