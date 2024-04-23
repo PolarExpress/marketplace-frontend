@@ -42,8 +42,8 @@ const addonApi = emptySplitApi.injectEndpoints({
       Addon[],
       { category?: AddonCategory; page?: number; searchTerm?: string }
     >({
-      query: ({ category, page, searchTerm }) => ({
-        body: { category, page, searchTerm },
+      query: body => ({
+        body: body,
         method: "POST",
         url: "/addons/get"
       }),
