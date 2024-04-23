@@ -87,7 +87,7 @@ describe("AddonList component", () => {
     );
     const { findByTestId } = renderWithProviders(<AddonList />);
 
-    await expect(findByTestId("fetch-error")).toBeDefined();
+    expect(await findByTestId("fetch-error")).toBeDefined();
   });
 
   it("navigates to Home Page when submitted", async () => {
@@ -107,6 +107,6 @@ describe("AddonList component", () => {
     await user.click(getByRole("button", { name: "Search" }));
 
     // Assert that the homepage is rendered
-    await expect(findByTestId("homepage")).toBeDefined();
+    expect(await findByTestId("homepage")).toBeDefined();
   });
 });
