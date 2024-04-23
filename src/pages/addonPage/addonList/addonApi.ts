@@ -40,26 +40,12 @@ const addonApi = emptySplitApi.injectEndpoints({
     // Fetches a list of addons from the server, optionally filtered by page and category.
     getAddons: build.query<
       Addon[],
-      { category?: AddonCategory; page?: number }
-    >({
-      query: ({ category, page }) => ({
-        body: { category, page },
-        method: "POST",
-        url: "/addons/get"
-      }),
-      transformResponse(response: { addons: Addon[] }) {
-        return response.addons;
-      }
-    }),
-    // Searches addons in database using given search term
-    searchAddons: build.query<
-      Addon[],
-      { category?: AddonCategory; page?: number; searchTerm: string }
+      { category?: AddonCategory; page?: number; searchTerm?: string }
     >({
       query: ({ category, page, searchTerm }) => ({
         body: { category, page, searchTerm },
         method: "POST",
-        url: "/addons/search"
+        url: "/addons/get"
       }),
       transformResponse(response: { addons: Addon[] }) {
         return response.addons;
@@ -74,5 +60,5 @@ export const {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery,
   useGetAddonsQuery,
-  useLazySearchAddonsQuery
+  useLazyGetAddonsQuery
 } = addonApi;

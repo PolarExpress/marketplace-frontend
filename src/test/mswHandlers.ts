@@ -20,12 +20,19 @@ export const handlers = [
     const body = (await request.json()) as {
       category?: AddonCategory;
       page?: number;
+      searchTerm?: string;
     };
-    const category = body.category;
+    const { category, searchTerm } = body;
 
     let filteredAddons = category
       ? addonList.filter(addon => addon.category === category)
       : addonList;
+
+    filteredAddons = searchTerm
+      ? addonList.filter(addon =>
+          addon.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : filteredAddons;
 
     return HttpResponse.json({ addons: filteredAddons });
   }),
@@ -54,26 +61,6 @@ export const handlers = [
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
       : HttpResponse.json(null);
-  }),
-
-  http.post(`${baseUrl}/addons/search`, async ({ request }) => {
-    const body = (await request.json()) as {
-      category?: AddonCategory;
-      page?: number;
-      searchTerm: string;
-    };
-    const { category, searchTerm } = body;
-
-    let filteredAddons = addonList.filter(addon =>
-      addon.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    if (category)
-      filteredAddons = filteredAddons.filter(
-        addon => addon.category === category
-      );
-
-    return HttpResponse.json({ addons: filteredAddons });
   }),
 
   http.get("http://localhost:3000/headers", () => {

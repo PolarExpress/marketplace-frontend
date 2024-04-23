@@ -10,7 +10,7 @@ import { LoadingSpinner, RTKError } from "@polarexpress/components";
 import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
-import { useGetAddonsQuery, useLazySearchAddonsQuery } from "./addonApi";
+import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
 import { useEffect } from "react";
 
 const AddonList = () => {
@@ -31,7 +31,7 @@ const AddonList = () => {
   const [
     trigger,
     { data: filteredAddOns, error: filterError, isLoading: filterLoading }
-  ] = useLazySearchAddonsQuery();
+  ] = useLazyGetAddonsQuery();
 
   useEffect(() => {
     trigger({ searchTerm });
