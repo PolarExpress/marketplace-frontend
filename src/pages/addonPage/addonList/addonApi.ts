@@ -6,9 +6,8 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { Addon, AddonCategory } from "@polarexpress/types/addon";
-
 import { emptySplitApi } from "@polarexpress/dataAccess/store/api";
+import type { Addon, AddonCategory } from "@polarexpress/types/addon";
 
 /**
  * Automatically creates react hooks for interacting with add-on related
@@ -41,10 +40,10 @@ const addonApi = emptySplitApi.injectEndpoints({
     // Fetches a list of addons from the server, optionally filtered by page and category.
     getAddons: build.query<
       Addon[],
-      { category?: AddonCategory; page?: number }
+      { category?: AddonCategory; page?: number; searchTerm?: string }
     >({
-      query: ({ category, page }) => ({
-        body: { category, page },
+      query: body => ({
+        body: body,
         method: "POST",
         url: "/addons/get"
       }),
@@ -60,5 +59,6 @@ const addonApi = emptySplitApi.injectEndpoints({
 export const {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery,
-  useGetAddonsQuery
+  useGetAddonsQuery,
+  useLazyGetAddonsQuery
 } = addonApi;

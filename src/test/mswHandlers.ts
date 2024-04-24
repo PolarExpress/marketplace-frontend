@@ -20,12 +20,19 @@ export const handlers = [
     const body = (await request.json()) as {
       category?: AddonCategory;
       page?: number;
+      searchTerm?: string;
     };
-    const category = body.category;
+    const { category, searchTerm } = body;
 
     let filteredAddons = category
       ? addonList.filter(addon => addon.category === category)
       : addonList;
+
+    filteredAddons = searchTerm
+      ? addonList.filter(addon =>
+          addon.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : filteredAddons;
 
     return HttpResponse.json({ addons: filteredAddons });
   }),

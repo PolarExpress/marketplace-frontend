@@ -50,7 +50,7 @@ describe("AddonPage", () => {
     // Checks if fetching of readme is skipped when addon doesn't load
     await expect(findByTestId("readme-loading")).rejects.toThrow();
 
-    await expect(findByTestId("fetch-error")).toBeDefined();
+    expect(await findByTestId("fetch-error")).toBeDefined();
   });
 
   it("does not attempt to render the addon when it has no data", async () => {

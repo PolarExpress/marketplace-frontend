@@ -9,9 +9,9 @@
 import { LoadingSpinner, RTKError } from "@polarexpress/components";
 import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
-
-import { useGetAddonsQuery } from "./addonApi";
 import AddonCard from "./addonCard";
+import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
+import { useEffect } from "react";
 
 const AddonList = () => {
   // Get the current search term from the state
@@ -20,44 +20,51 @@ const AddonList = () => {
   // Use the RTK Query hook to retrieve addons from the backend
   const {
     data: allAddOns,
-    error,
-    isLoading
+    error: allError,
+    isLoading: allLoading
   } = useGetAddonsQuery({
     category: AddonCategory.VISUALISATION,
     // Temporary values
     page: 0
   });
 
-  if (isLoading)
+  const [
+    trigger,
+    { data: filteredAddOns, error: filterError, isLoading: filterLoading }
+  ] = useLazyGetAddonsQuery();
+
+  useEffect(() => {
+    trigger({ searchTerm });
+  }, [searchTerm, trigger]);
+
+  if (allLoading || filterLoading)
     return (
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center" data-testid="list-loading">
         <LoadingSpinner>Loading...</LoadingSpinner>
       </div>
     );
 
-  if (error) return <RTKError error={error} />;
+  if (allError || filterError)
+    return <RTKError error={allError || filterError!} />;
+
+  const addOnsToRender = searchTerm ? filteredAddOns : allAddOns;
 
   // Data might still be undefined
-  if (allAddOns != null) {
-    // Filter addons according to current searchTerm
-    const filteredAddOns = allAddOns.filter((addOn: Addon) =>
-      addOn.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+  if (addOnsToRender) {
     // Check if searchTerm is present and no add-ons match the search
-    if (searchTerm.length > 0 && filteredAddOns.length === 0) {
+    if (
+      searchTerm.length > 0 &&
+      filteredAddOns &&
+      filteredAddOns.length === 0
+    ) {
       return <div>No Add-ons found with the given search term</div>;
     }
 
     return (
       <div className="relative flex w-full flex-wrap justify-center gap-4">
-        {searchTerm
-          ? filteredAddOns.map((addOn: Addon) => (
-              <AddonCard addOn={addOn} key={addOn._id} />
-            ))
-          : allAddOns.map((addOn: Addon) => (
-              <AddonCard addOn={addOn} key={addOn._id} />
-            ))}
+        {addOnsToRender.map((addOn: Addon) => (
+          <AddonCard addOn={addOn} key={addOn._id} />
+        ))}
       </div>
     );
   }
