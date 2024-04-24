@@ -11,9 +11,7 @@ export type AuthenticationHeader = {
   username: string;
 };
 
-// TODO: Put in .env file
-const domain = "http://localhost";
-const useruri = ":3000";
+const UMS_URL = import.meta.env.VITE_UMS_URL;
 
 export const fetchSettings: RequestInit = {
   credentials: "include",
@@ -29,7 +27,7 @@ export const useAuth = () => {
   };
 
   const login = () => {
-    fetch(`${domain}${useruri}/headers`, fetchSettings)
+    fetch(`${UMS_URL}/headers`, fetchSettings)
       .then(res =>
         res
           .json()
@@ -50,7 +48,7 @@ export const useAuth = () => {
   };
 
   const newShareRoom = () => {
-    fetch(`${domain}${useruri}/share`, { ...fetchSettings, method: "POST" })
+    fetch(`${UMS_URL}/share`, { ...fetchSettings, method: "POST" })
       .then(res =>
         res
           .json()
