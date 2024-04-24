@@ -63,7 +63,7 @@ export const handlers = [
       : HttpResponse.json(null);
   }),
 
-  http.get("http://localhost:3000/headers", () => {
+  http.get(`${import.meta.env.VITE_UMS_URL}/headers`, () => {
     return HttpResponse.json({
       impersonateID: "",
       jwt: "JWT",

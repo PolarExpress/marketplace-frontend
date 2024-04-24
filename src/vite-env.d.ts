@@ -10,7 +10,9 @@
 
 interface ImportMetaEnv {
   VITE_API_BASE: string;
+  VITE_BACKEND_WSS_URL: string;
   VITE_MOCKING?: boolean;
+  VITE_UMS_URL: string;
 }
 
 interface ImportMeta {

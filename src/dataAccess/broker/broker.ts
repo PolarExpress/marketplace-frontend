@@ -24,8 +24,7 @@ import {
  * A broker that handles incoming messages from the backend.
  */
 export class Broker {
-  //TODO: Create env variable
-  private static BACKEND_WSS_URL = "ws://localhost:3001/";
+  private static BACKEND_WSS_URL = import.meta.env.VITE_BACKEND_WSS_URL;
 
   private authHeader: UseIsAuthorizedState | undefined;
   private callbackListeners: Record<string, Function> = {};
