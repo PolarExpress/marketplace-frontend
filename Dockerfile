@@ -15,6 +15,7 @@ FROM    base AS build
 WORKDIR /app
 COPY    --from=deps /deps/dev/node_modules ./node_modules
 COPY    . .
+COPY    .env.production .
 
 ENV     NODE_ENV production
 RUN     npm run build
