@@ -34,7 +34,7 @@ export default defineConfig(({ command, mode }) => ({
         ...configDefaults.coverage.exclude!
       ],
       provider: "istanbul",
-      reporter: ["text", "json-summary", "json"],
+      reporter: ["text", "json-summary", "json", "lcov"],
       reportsDirectory: "./coverage/vitest",
       thresholds: {
         statements: 85
