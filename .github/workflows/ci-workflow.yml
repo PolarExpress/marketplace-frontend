@@ -43,7 +43,7 @@ jobs:
         uses: ./.github/actions/ci-env
 
       - name: Run React unit tests
-        run: cross-env VITE_MOCKING=true npx vitest --coverage.enabled true
+        run: pnpm test
 
       - name: Report test coverage
         uses: davelosert/vitest-coverage-report-action@v2
