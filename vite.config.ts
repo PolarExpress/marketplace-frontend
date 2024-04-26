@@ -35,7 +35,13 @@ export default defineConfig(({ command, mode }) => ({
       ],
       provider: "istanbul",
       reporter: ["text", "json-summary", "json"],
-      reportsDirectory: "./coverage/vitest"
+      reportsDirectory: "./coverage/vitest",
+      thresholds: {
+        branches: 85,
+        functions: 85,
+        lines: 85,
+        statements: 85
+      }
     },
     environment: "jsdom",
     globals: true,
