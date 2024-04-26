@@ -49,6 +49,8 @@ jobs:
         uses: davelosert/vitest-coverage-report-action@v2
         with:
           file-coverage-mode: all
+          json-summary-path: ./coverage/vitest/coverage-summary.json
+          json-final-path: ./coverage/vitest/coverage-final.json
 
   lint:
     if: github.event.pull_request.draft == false
