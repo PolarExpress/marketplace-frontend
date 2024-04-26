@@ -46,7 +46,7 @@ jobs:
         run: cross-env VITE_MOCKING=true npx vitest --coverage.enabled true
 
       - name: Report test coverage
-        uses:  davelosert/vitest-coverage-report-action@v2
+        uses: davelosert/vitest-coverage-report-action@v2
         with:
           file-coverage-mode: all
 
