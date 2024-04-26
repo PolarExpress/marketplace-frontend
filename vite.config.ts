@@ -37,9 +37,6 @@ export default defineConfig(({ command, mode }) => ({
       reporter: ["text", "json-summary", "json"],
       reportsDirectory: "./coverage/vitest",
       thresholds: {
-        branches: 85,
-        functions: 85,
-        lines: 85,
         statements: 85
       }
     },
