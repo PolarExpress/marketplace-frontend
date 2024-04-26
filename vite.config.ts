@@ -26,6 +26,7 @@ export default defineConfig(({ command, mode }) => ({
         "src/colors.js",
         "src/app.tsx",
         "src/dataAccess/broker/broker.interface.ts",
+        "src/dataAccess/broker/broker.mock.ts",
         "src/dataAccess/broker/broker.ts",
         "src/dataAccess/authentication",
         "src/main.tsx",

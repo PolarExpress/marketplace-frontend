@@ -109,4 +109,36 @@ describe("AddonList component", () => {
     // Assert that the homepage is rendered
     expect(await findByTestId("homepage")).toBeDefined();
   });
+
+  it("displays the filterError when an error occurs during filtering", async () => {
+    const baseUrl = import.meta.env.VITE_API_BASE;
+
+    // Setup specific msw handlers for returning errors during filtering
+    server.use(
+      http.post(`${baseUrl}/addons/get`, async ({ request }) => {
+        const { searchTerm } = (await request.json()) as {
+          searchTerm?: string;
+        };
+        if (searchTerm) {
+          return HttpResponse.error();
+        }
+        return HttpResponse.json({ addons: addonList });
+      })
+    );
+
+    const { findByTestId, user } = renderWithProviders(
+      <>
+        <Header />
+        <AddonList />
+      </>
+    );
+
+    const search = await findByTestId("search-input");
+    const submit = await findByTestId("search-submit");
+
+    await user.type(search, "Vis1");
+    await user.click(submit);
+
+    expect(await findByTestId("fetch-error")).toBeDefined();
+  });
 });

@@ -62,7 +62,7 @@ export const renderWithProviders = (
   ui: ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
   initialEntries: string[] = ["/"],
-  authorized: boolean
+  authorized: boolean = true
 ) => {
   const {
     preloadedState = {},
