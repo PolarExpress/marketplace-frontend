@@ -61,7 +61,8 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 export const renderWithProviders = (
   ui: ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
-  initialEntries: string[] = ["/"]
+  initialEntries: string[] = ["/"],
+  authorized: boolean = true
 ) => {
   const {
     preloadedState = {},
@@ -72,7 +73,7 @@ export const renderWithProviders = (
 
   const Wrapper = ({ children }: PropsWithChildren) => (
     <Provider store={store}>
-      <SetupBroker />
+      {!authorized || <SetupBroker />}
       <MemoryRouter initialEntries={initialEntries}> {children} </MemoryRouter>
     </Provider>
   );
@@ -92,12 +93,13 @@ export const renderWithProviders = (
  *
  * @returns    An object containing functions to query the rendered page.
  */
-export const setupPageWithId = (id: string) => {
+export const setupPageWithId = (id: string, authorized: boolean = true) => {
   return renderWithProviders(
     <Routes>
       <Route element={<AddonPage />} path="/addons/:id" />
     </Routes>,
     {},
-    [`/addons/${id}`]
+    [`/addons/${id}`],
+    authorized
   );
 };

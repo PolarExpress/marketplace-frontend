@@ -26,6 +26,7 @@ export default defineConfig(({ command, mode }) => ({
         "src/colors.js",
         "src/app.tsx",
         "src/dataAccess/broker/broker.interface.ts",
+        "src/dataAccess/broker/broker.mock.ts",
         "src/dataAccess/broker/broker.ts",
         "src/dataAccess/authentication",
         "src/main.tsx",
@@ -34,9 +35,12 @@ export default defineConfig(({ command, mode }) => ({
         ...configDefaults.coverage.exclude!
       ],
       provider: "istanbul",
-      reporter: ["text", "json-summary", "json"],
+      reporter: ["text", "json-summary", "json", "lcov"],
       reportsDirectory: "./coverage/vitest",
       thresholds: {
+        branches: 85,
+        functions: 85,
+        lines: 85,
         statements: 85
       }
     },

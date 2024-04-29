@@ -15,3 +15,7 @@ import { handlers } from "./mswHandlers";
 export const server = setupServer(...handlers);
 beforeAll(() => server.listen());
 afterAll(() => server.close());
+
+beforeEach(() => {
+  vi.restoreAllMocks();
+});

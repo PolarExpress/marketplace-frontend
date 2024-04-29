@@ -30,11 +30,16 @@ describe("InstallButton", () => {
   /**
    * Sets up the InstallButton component for testing.
    *
-   * @returns A promise that resolves to an object containing the user event and
-   *   the button element.
+   * @param   authorized If the page should be rendered with authorisation.
+   *
+   * @returns            A promise that resolves to an object containing the
+   *   user event and the button element.
    */
-  const setupButton = async () => {
-    const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);
+  const setupButton = async (authorized: boolean = true) => {
+    const { findByTestId, getByTestId, user } = setupPageWithId(
+      testAddon._id,
+      authorized
+    );
 
     await expect(findByTestId("button-loading")).rejects.toThrow();
 
@@ -68,6 +73,41 @@ describe("InstallButton", () => {
     await user.click(button);
 
     expect(getInstalled()).not.toContainEqual(testAddon);
+  });
+
+  it('shows "Installing..." when installation is in progress', async () => {
+    vi.spyOn(hooks, "useInstallAddon").mockReturnValue({
+      error: null,
+      installAddon: vi.fn(),
+      isPending: true
+    });
+
+    const { button } = await setupButton();
+
+    expect(button.textContent).toBe("Installing...");
+    expect(button.disabled).toBe(true);
+  });
+
+  it('shows "Uninstalling..." when uninstallation is in progress', async () => {
+    addInstalled(testAddon);
+
+    vi.spyOn(hooks, "useUninstallAddon").mockReturnValue({
+      error: null,
+      isPending: true,
+      uninstallAddon: vi.fn()
+    });
+
+    const { button } = await setupButton();
+
+    expect(button.textContent).toBe("Uninstalling...");
+    expect(button.disabled).toBe(true);
+  });
+
+  it('shows "Login to install" when user is not authorized', async () => {
+    const { button } = await setupButton(false);
+
+    expect(button.textContent).toBe("Login to install");
+    expect(button.disabled).toBe(false);
   });
 
   it("renders the correct error", async () => {
