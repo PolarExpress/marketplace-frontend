@@ -8,7 +8,7 @@
 
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
+interface ImportMetaEnvironment {
   VITE_API_BASE: string;
   VITE_BACKEND_WSS_URL: string;
   VITE_MOCKING?: boolean;
@@ -16,5 +16,5 @@ interface ImportMetaEnv {
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv;
+  readonly env: ImportMetaEnvironment;
 }

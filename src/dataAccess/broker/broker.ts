@@ -110,14 +110,13 @@ export class Broker {
     if (
       !stop &&
       this.listeners[routingKey] &&
-      Object.keys(this.listeners[routingKey]).length !== 0
+      Object.keys(this.listeners[routingKey]).length > 0
     ) {
       if (this.catchAllListener) {
         this.catchAllListener(data, routingKey);
       }
-      Object.values(this.listeners[routingKey]).forEach(listener =>
-        listener(data, routingKey)
-      );
+      for (const listener of Object.values(this.listeners[routingKey])) listener(data, routingKey)
+      ;
       console.debug(
         "%c" + routingKey + ` WS response`,
         "background: #222; color: #DBAB2F",
@@ -189,18 +188,18 @@ export class Broker {
     // If there already is already a current websocket connection, close it first.
     if (this.webSocket) this.close();
 
-    const params = new URLSearchParams(window.location.search);
+    const parameters = new URLSearchParams(window.location.search);
     // Most of these parameters are only really used in DEV
     if (this.authHeader?.userID)
-      params.set("userID", this.authHeader?.userID ?? "");
+      parameters.set("userID", this.authHeader?.userID ?? "");
     if (this.authHeader?.roomID)
-      params.set("roomID", this.authHeader?.roomID ?? "");
-    if (this.saveStateID) params.set("saveStateID", this.saveStateID ?? "");
+      parameters.set("roomID", this.authHeader?.roomID ?? "");
+    if (this.saveStateID) parameters.set("saveStateID", this.saveStateID ?? "");
     if (this.authHeader?.sessionID)
-      params.set("sessionID", this.authHeader?.sessionID ?? "");
-    if (this.authHeader?.jwt) params.set("jwt", this.authHeader?.jwt ?? "");
-    this.webSocket = new WebSocket(this.url + "?" + params.toString());
-    this.webSocket.onopen = () => {
+      parameters.set("sessionID", this.authHeader?.sessionID ?? "");
+    if (this.authHeader?.jwt) parameters.set("jwt", this.authHeader?.jwt ?? "");
+    this.webSocket = new WebSocket(this.url + "?" + parameters.toString());
+    this.webSocket.addEventListener('open', () => {
       this.connected = true;
       // Send queued messages
       while (this.messageQueue.length > 0) {
@@ -209,10 +208,10 @@ export class Broker {
         this.sendMessage(message, callback);
       }
       onOpen();
-    };
+    });
     this.webSocket.onmessage = this.receiveMessage;
     this.webSocket.onerror = this.onError;
-    this.webSocket.onclose = this.onClose;
+    this.webSocket.addEventListener('close', this.onClose);
   }
 
   /**
@@ -223,7 +222,7 @@ export class Broker {
    */
   public sendMessage(message: SendMessageI, callback?: Function): void {
     console.debug(
-      "%cSending WS message: ",
+      "%cSending WS message:",
       "background: #222; color: #bada55",
       message
     );

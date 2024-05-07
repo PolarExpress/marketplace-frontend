@@ -22,11 +22,11 @@ const rule = {
       " ";
     return {
       Program(node) {
-        if (!node.body.length) return;
+        if (node.body.length === 0) return;
         const comments = context.sourceCode.getCommentsBefore(node.body[0]);
         if (
           !(
-            comments.length &&
+            comments.length > 0 &&
             comments[0].range[0] === 0 &&
             comments[0].value === commentText
           )
@@ -74,16 +74,23 @@ export default [
     "plugin:tailwindcss/recommended",
     "plugin:perfectionist/recommended-natural",
     "plugin:jest/recommended",
+    "plugin:unicorn/recommended",
     "plugin:jest-formatting/strict",
     "react-app"
   ),
   {
     rules: {
       "import/no-anonymous-default-export": "off",
-      "perfectionist/sort-imports": "off"
+      "perfectionist/sort-imports": "off",
+      "unicorn/filename-case": [
+        "error",
+        {
+          case: "camelCase"
+        }
+      ]
     }
   },
   {
-    ignores: ["dist"]
+    ignores: ["dist", "coverage", "public"]
   }
 ];

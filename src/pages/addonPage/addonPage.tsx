@@ -48,7 +48,7 @@ const AddonPage = () => {
     error: readmeError,
     isLoading: isReadmeLoading
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
-    skip: addon == null
+    skip: addon == undefined
   });
 
   // Use the custom hooks for interacting with the backend over AMQP
@@ -115,7 +115,7 @@ const AddonPage = () => {
       </div>
     );
 
-  if (addon != null) {
+  if (addon != undefined) {
     return (
       <div
         className="m-8 text-center font-sans leading-10"
@@ -151,7 +151,7 @@ const AddonPage = () => {
           ) : (
             <RTKError error={readmeError} />
           ))}
-        {readMe != null && (
+        {readMe != undefined && (
           <div data-testid="readme">
             <Markdown>{readMe}</Markdown>
           </div>

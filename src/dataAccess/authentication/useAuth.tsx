@@ -22,8 +22,8 @@ export const fetchSettings: RequestInit = {
 export const useAuth = () => {
   const dispatch = useAppDispatch();
 
-  const handleError = (err: any) => {
-    console.error(err);
+  const handleError = (error: any) => {
+    console.error(error);
   };
 
   const login = () => {

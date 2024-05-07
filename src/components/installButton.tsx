@@ -9,7 +9,7 @@
 /**
  * Properties for the InstallButton component.
  */
-interface InstallButtonProps {
+interface InstallButtonProperties {
   /**
    * Indicates if the user has the necessary authorization to interact with
    * addons.
@@ -47,7 +47,7 @@ const InstallButton = ({
   isAddonInstalled,
   uninstallPending,
   userAddonsLoading
-}: InstallButtonProps) => {
+}: InstallButtonProperties) => {
   return (
     <button
       className={

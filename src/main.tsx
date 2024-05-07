@@ -28,7 +28,7 @@ async function enableMocking() {
 }
 
 enableMocking().then(() => {
-  const container = document.getElementById("root");
+  const container = document.querySelector("#root");
 
   if (container) {
     const root = createRoot(container);

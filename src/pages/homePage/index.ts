@@ -6,8 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import HomePage from "./homePage";
+
 
 export * from "./homePage";
 
-export default HomePage;
+
+
+export {default} from "./homePage";

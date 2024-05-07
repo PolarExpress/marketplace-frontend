@@ -6,11 +6,13 @@
  * (Department of Information and Computing Sciences)
  */
 
-import addonSlice from "./addonSlice";
+
 
 export * from "./addonSlice";
+export {default} from "./addonSlice";
 export * from "./api";
 export * from "./hooks";
-export * from "./store";
 
-export default addonSlice;
+
+
+export * from "./store";
