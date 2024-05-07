@@ -75,17 +75,11 @@ export default [
     "plugin:perfectionist/recommended-natural",
     "plugin:jest/recommended",
     "plugin:unicorn/recommended",
-    "plugin:eslint-comments/recommended",
     "plugin:jest-formatting/strict",
     "react-app"
   ),
   {
     rules: {
-      "eslint-comments/disable-enable-pair": [
-        "error",
-        { allowWholeFile: true }
-      ],
-      "eslint-comments/no-unlimited-disable": "off",
       "import/no-anonymous-default-export": "off",
       "perfectionist/sort-imports": "off",
       "unicorn/filename-case": [
