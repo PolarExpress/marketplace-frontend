@@ -81,7 +81,7 @@ jobs:
 
       - name: Run Prettier
         run: npx prettier --check .
-  
+
   build:
     name: tsc (build)
     runs-on: ubuntu-latest
