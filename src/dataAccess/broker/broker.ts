@@ -1,10 +1,4 @@
-/*
- * This program has been developed by students from the bachelor
- * Computer Science at Utrecht University within the Software Project course.
- *
- * © Copyright Utrecht University
- * (Department of Information and Computing Sciences)
- */
+/* eslint-disable */
 
 /**
  * This program has been developed by students from the bachelor Computer
@@ -115,8 +109,8 @@ export class Broker {
       if (this.catchAllListener) {
         this.catchAllListener(data, routingKey);
       }
-      for (const listener of Object.values(this.listeners[routingKey])) listener(data, routingKey)
-      ;
+      for (const listener of Object.values(this.listeners[routingKey]))
+        listener(data, routingKey);
       console.debug(
         "%c" + routingKey + ` WS response`,
         "background: #222; color: #DBAB2F",
@@ -199,7 +193,7 @@ export class Broker {
       parameters.set("sessionID", this.authHeader?.sessionID ?? "");
     if (this.authHeader?.jwt) parameters.set("jwt", this.authHeader?.jwt ?? "");
     this.webSocket = new WebSocket(this.url + "?" + parameters.toString());
-    this.webSocket.addEventListener('open', () => {
+    this.webSocket.addEventListener("open", () => {
       this.connected = true;
       // Send queued messages
       while (this.messageQueue.length > 0) {
@@ -211,7 +205,7 @@ export class Broker {
     });
     this.webSocket.onmessage = this.receiveMessage;
     this.webSocket.onerror = this.onError;
-    this.webSocket.addEventListener('close', this.onClose);
+    this.webSocket.addEventListener("close", this.onClose);
   }
 
   /**

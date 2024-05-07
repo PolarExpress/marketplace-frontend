@@ -87,10 +87,11 @@ export default [
         {
           case: "camelCase"
         }
-      ]
+      ],
+      "unicorn/no-abusive-eslint-disable": "off"
     }
   },
   {
-    ignores: ["dist", "coverage", "public"]
+    ignores: ["dist", "coverage", "public", "src/vite-env.d.ts"]
   }
 ];

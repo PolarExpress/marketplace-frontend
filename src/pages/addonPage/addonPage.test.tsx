@@ -57,7 +57,7 @@ describe("AddonPage", () => {
     // Setup specific msw handlers for returning errors
     server.use(
       http.post(`${baseUrl}/addons/get-by-id`, () => {
-        return HttpResponse.json({ addons: null });
+        return HttpResponse.json({ addons: undefined });
       })
     );
     const { findByTestId } = setupPageWithId(addonList[0]._id);

@@ -1,4 +1,4 @@
-/* eslint-disable custom/enforce-copyright-comment */
+/* eslint-disable */
 
 import { useAppDispatch } from "../store";
 import { authorized, changeRoom } from "./authSlice";

@@ -6,16 +6,8 @@
  * (Department of Information and Computing Sciences)
  */
 
-
-
-
-
-
-
-
-
-export {default as Header} from "./header";
-export {default as InstallButton} from "./installButton";
-export {LoadingSpinner} from "./loadingSpinner";
-export {default as RTKError} from "./rtkError";
-export {default as SearchBar} from "./searchBar";
+export { default as Header } from "./header";
+export { default as InstallButton } from "./installButton";
+export { LoadingSpinner } from "./loadingSpinner";
+export { default as RTKError } from "./rtkError";
+export { default as SearchBar } from "./searchBar";

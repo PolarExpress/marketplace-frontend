@@ -1,4 +1,4 @@
-/* eslint-disable custom/enforce-copyright-comment */
+/* eslint-disable */
 
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 

@@ -37,7 +37,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     middleware: getDefaultMiddleware => {
       //API middleware adds logic for managing caching, invalidation, subscriptions, polling, and more.
-      return getDefaultMiddleware().concat(emptySplitApi.middleware);
+      return getDefaultMiddleware().prepend(emptySplitApi.middleware);
     },
     preloadedState,
     reducer: rootReducer

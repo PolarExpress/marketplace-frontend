@@ -6,10 +6,5 @@
  * (Department of Information and Computing Sciences)
  */
 
-
-
-
-
-
-export {default as AddonPage} from "./addonPage";
-export {default as HomePage} from "./homePage";
+export { default as AddonPage } from "./addonPage";
+export { default as HomePage } from "./homePage";

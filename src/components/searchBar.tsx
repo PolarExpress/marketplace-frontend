@@ -46,7 +46,7 @@ const SearchBar = () => {
       <input
         className="rounded-2xl border-none px-3 py-2 font-sans font-semibold text-black ring-2 ring-gray-300 placeholder:text-gray-500 hover:shadow-md focus:ring-1 focus:ring-gray-500"
         data-testid="search-input"
-        onChange={e => setSearchTerm(e.target.value)}
+        onChange={event => setSearchTerm(event.target.value)}
         placeholder="Search add-ons..."
         type="text"
         value={searchTerm}

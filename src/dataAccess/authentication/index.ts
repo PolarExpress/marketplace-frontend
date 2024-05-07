@@ -6,11 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-
-
 export * from "./authSlice";
-export {default} from "./authSlice";
-
-
+export { default } from "./authSlice";
 
 export * from "./useAuth";

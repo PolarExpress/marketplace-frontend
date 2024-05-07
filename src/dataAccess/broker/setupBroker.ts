@@ -13,7 +13,7 @@ import { useAuthorizationCache } from "../store";
 import { useAuth } from "../authentication";
 import { BrokerBase } from "./broker.interface";
 
-let broker: BrokerBase | null = null;
+let broker: BrokerBase | undefined;
 
 /**
  * Logs in and connects to the WebSocket.
@@ -43,8 +43,6 @@ export const SetupBroker = () => {
     };
     connect();
   }, [auth]);
-
-  return null;
 };
 
 export default SetupBroker;

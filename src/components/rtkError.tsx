@@ -25,9 +25,12 @@ interface ErrorProperties {
 const RTKError = ({ error }: ErrorProperties) => {
   if ("status" in error) {
     // You can access all properties of `FetchBaseQueryError` here
-    const errorMessage = "error" in error ? error.error : JSON.stringify(error.data);
+    const errorMessage =
+      "error" in error ? error.error : JSON.stringify(error.data);
 
-    return <div data-testid="fetch-error">An error has occurred: {errorMessage}</div>;
+    return (
+      <div data-testid="fetch-error">An error has occurred: {errorMessage}</div>
+    );
   } else {
     // You can access all properties of `SerializedError` here
     return <div data-testid="serialized-error">{error.message}</div>;

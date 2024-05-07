@@ -48,6 +48,18 @@ const InstallButton = ({
   uninstallPending,
   userAddonsLoading
 }: InstallButtonProperties) => {
+  let buttonText: string;
+
+  if (authorized) {
+    if (isAddonInstalled) {
+      buttonText = uninstallPending ? "Uninstalling..." : "Uninstall";
+    } else {
+      buttonText = installPending ? "Installing..." : "Install";
+    }
+  } else {
+    buttonText = "Login to install";
+  }
+
   return (
     <button
       className={
@@ -58,15 +70,7 @@ const InstallButton = ({
       data-testid="install"
       disabled={installPending || uninstallPending || userAddonsLoading}
       onClick={handleClick}>
-      {authorized
-        ? isAddonInstalled
-          ? uninstallPending
-            ? "Uninstalling..."
-            : "Uninstall"
-          : installPending
-            ? "Installing..."
-            : "Install"
-        : "Login to install"}
+      {buttonText}
     </button>
   );
 };

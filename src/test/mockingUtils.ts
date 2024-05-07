@@ -15,7 +15,9 @@ import { Addon } from "@polarexpress/types/addon";
  * Decides which broker to use based on mocking global.
  */
 export function createBroker(): BrokerBase {
-  return import.meta.env.VITE_MOCKING ? MockBroker.instance() : Broker.instance();
+  return import.meta.env.VITE_MOCKING
+    ? MockBroker.instance()
+    : Broker.instance();
 }
 
 /**
