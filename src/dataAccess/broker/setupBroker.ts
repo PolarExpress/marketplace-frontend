@@ -43,6 +43,8 @@ export const SetupBroker = () => {
     };
     connect();
   }, [auth]);
+
+  return null; /* eslint-disable-line unicorn/no-null -- Empty React component needs to return null */
 };
 
 export default SetupBroker;

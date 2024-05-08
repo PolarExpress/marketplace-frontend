@@ -27,24 +27,24 @@ async function enableMocking() {
   await setupWorker(...handlers).start();
 }
 
-await enableMocking();
+enableMocking().then(() => {
+  const container = document.querySelector("#root");
 
-const container = document.querySelector("#root");
+  if (container) {
+    const root = createRoot(container);
 
-if (container) {
-  const root = createRoot(container);
-
-  root.render(
-    //</React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-    //<React.StrictMode>
-  );
-} else {
-  throw new Error(
-    "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file."
-  );
-}
+    root.render(
+      //</React.StrictMode>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+      //<React.StrictMode>
+    );
+  } else {
+    throw new Error(
+      "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file."
+    );
+  }
+});

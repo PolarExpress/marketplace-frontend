@@ -89,11 +89,13 @@ export default [
         }
       ],
       "unicorn/no-abusive-eslint-disable": "off",
+      "unicorn/prefer-top-level-await": "off",
       "unicorn/prevent-abbreviations": [
         "error",
         {
           replacements: {
-            e: false // "e" is industry standard.
+            e: false,
+            i: false
           }
         }
       ]
