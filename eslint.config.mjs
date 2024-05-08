@@ -88,7 +88,15 @@ export default [
           case: "camelCase"
         }
       ],
-      "unicorn/no-abusive-eslint-disable": "off"
+      "unicorn/no-abusive-eslint-disable": "off",
+      "unicorn/prevent-abbreviations": [
+        "error",
+        {
+          replacements: {
+            e: false // "e" is industry standard.
+          }
+        }
+      ]
     }
   },
   {

@@ -27,10 +27,10 @@ const SearchBar = () => {
    * Handles submission of the search form. Dispatches an action to update the
    * search term in the Redux store. Navigates back to the homepage.
    *
-   * @param event - The React form submission event.
+   * @param e - The React form submission event.
    */
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(updateSearchTerm(searchTerm));
 
     if (location.pathname !== "/") {
