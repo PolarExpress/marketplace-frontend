@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
  *
  * @property {Addon} addOn - The add-on data to be displayed.
  */
-interface AddonCardProps {
+interface AddonCardProperties {
   addOn: Addon;
 }
 
@@ -24,7 +24,7 @@ interface AddonCardProps {
  * Displays the name and summary of a single add-on. Links to addon page when
  * clicked.
  */
-const AddonCard = ({ addOn }: AddonCardProps) => {
+const AddonCard = ({ addOn }: AddonCardProperties) => {
   return (
     <div className="size-64 flex-none gap-4 font-sans font-bold leading-7">
       <Link

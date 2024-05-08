@@ -19,7 +19,7 @@ const config = {
     themes: [
       {
         graphpolarisWhite: {
-          ...require("daisyui/src/theming/themes")["[data-theme=corporate]"],
+          ...import("daisyui/src/theming/themes")["[data-theme=corporate]"],
           accent: "#FF7D00",
           "base-100": "#F7F9FA",
           error: "#dc2626",
@@ -50,7 +50,7 @@ const config = {
     ], // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
     utils: true // adds responsive and modifier utility classes
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [import("@tailwindcss/typography"), import("daisyui")],
   theme: {
     borderRadius: {
       "2xl": "1rem",

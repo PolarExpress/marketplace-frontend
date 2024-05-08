@@ -6,9 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import authSlice from "./authSlice";
-
 export * from "./authSlice";
-export * from "./useAuth";
+export { default } from "./authSlice";
 
-export default authSlice;
+export * from "./useAuth";

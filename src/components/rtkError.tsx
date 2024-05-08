@@ -9,7 +9,7 @@
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { SerializedError } from "@reduxjs/toolkit/react";
 
-interface ErrorProps {
+interface ErrorProperties {
   error: FetchBaseQueryError | SerializedError;
 }
 
@@ -22,12 +22,15 @@ interface ErrorProps {
  *
  * @returns             A JSX element rendering the appropriate error message.
  */
-const RTKError = ({ error }: ErrorProps) => {
+const RTKError = ({ error }: ErrorProperties) => {
   if ("status" in error) {
     // You can access all properties of `FetchBaseQueryError` here
-    const errMsg = "error" in error ? error.error : JSON.stringify(error.data);
+    const errorMessage =
+      "error" in error ? error.error : JSON.stringify(error.data);
 
-    return <div data-testid="fetch-error">An error has occurred: {errMsg}</div>;
+    return (
+      <div data-testid="fetch-error">An error has occurred: {errorMessage}</div>
+    );
   } else {
     // You can access all properties of `SerializedError` here
     return <div data-testid="serialized-error">{error.message}</div>;

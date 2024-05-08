@@ -40,9 +40,10 @@ export class MockBroker extends BrokerBase {
     const action: MpBackendAction = message.body.action;
 
     switch (action) {
-      case "addons/get-by-user":
+      case "addons/get-by-user": {
         data = { addons: getInstalled() };
         break;
+      }
 
       case "install": {
         const addon = addonList.find(
@@ -66,8 +67,9 @@ export class MockBroker extends BrokerBase {
         break;
       }
 
-      default:
+      default: {
         console.warn(`Invalid action: ${action}`);
+      }
     }
 
     if (callback) callback(data);

@@ -6,10 +6,8 @@
  * (Department of Information and Computing Sciences)
  */
 
-import Header from "./header";
-import InstallButton from "./installButton";
-import { LoadingSpinner } from "./loadingSpinner";
-import RTKError from "./rtkError";
-import SearchBar from "./searchBar";
-
-export { Header, InstallButton, LoadingSpinner, RTKError, SearchBar };
+export { default as Header } from "./header";
+export { default as InstallButton } from "./installButton";
+export { LoadingSpinner } from "./loadingSpinner";
+export { default as RTKError } from "./rtkError";
+export { default as SearchBar } from "./searchBar";

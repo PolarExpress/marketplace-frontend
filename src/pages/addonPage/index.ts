@@ -6,8 +6,6 @@
  * (Department of Information and Computing Sciences)
  */
 
-import AddonPage from "./addonPage";
-
 export * from "./addonPage";
 
-export default AddonPage;
+export { default } from "./addonPage";

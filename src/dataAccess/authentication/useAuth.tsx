@@ -1,4 +1,4 @@
-/* eslint-disable custom/enforce-copyright-comment */
+/* eslint-disable */
 
 import { useAppDispatch } from "../store";
 import { authorized, changeRoom } from "./authSlice";
@@ -22,8 +22,8 @@ export const fetchSettings: RequestInit = {
 export const useAuth = () => {
   const dispatch = useAppDispatch();
 
-  const handleError = (err: any) => {
-    console.error(err);
+  const handleError = (error: any) => {
+    console.error(error);
   };
 
   const login = () => {

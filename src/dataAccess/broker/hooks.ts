@@ -18,7 +18,7 @@ const Broker = createBroker();
 /**
  * Interface for parameters used in addon management hooks.
  */
-interface UseAddonParams {
+interface UseAddonParameters {
   action: "install" | "uninstall";
   addonId: string;
 }
@@ -32,10 +32,10 @@ interface UseAddonParams {
  */
 const useAddon = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<string | undefined>();
 
   const manageAddon = useCallback(
-    async ({ action, addonId }: UseAddonParams) => {
+    async ({ action, addonId }: UseAddonParameters) => {
       setIsPending(true);
 
       const message: MpBackendMessage = {
@@ -101,7 +101,7 @@ export const useUninstallAddon = () => {
 /**
  * Interface for parameters used in get GetAddonsByUserId hook.
  */
-interface UseGetAddonsByUserIdParams {
+interface UseGetAddonsByUserIdParameters {
   category?: AddonCategory;
   page?: number;
 }
@@ -115,10 +115,10 @@ interface UseGetAddonsByUserIdParams {
 export const useGetAddonsByUserId = ({
   category,
   page
-}: UseGetAddonsByUserIdParams = {}) => {
-  const [data, setData] = useState<Addon[] | null>(null);
+}: UseGetAddonsByUserIdParameters = {}) => {
+  const [data, setData] = useState<Addon[] | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchAddons = async () => {

@@ -9,7 +9,7 @@
 /**
  * Properties for the InstallButton component.
  */
-interface InstallButtonProps {
+interface InstallButtonProperties {
   /**
    * Indicates if the user has the necessary authorization to interact with
    * addons.
@@ -47,7 +47,19 @@ const InstallButton = ({
   isAddonInstalled,
   uninstallPending,
   userAddonsLoading
-}: InstallButtonProps) => {
+}: InstallButtonProperties) => {
+  let buttonText: string;
+
+  if (authorized) {
+    if (isAddonInstalled) {
+      buttonText = uninstallPending ? "Uninstalling..." : "Uninstall";
+    } else {
+      buttonText = installPending ? "Installing..." : "Install";
+    }
+  } else {
+    buttonText = "Login to install";
+  }
+
   return (
     <button
       className={
@@ -58,15 +70,7 @@ const InstallButton = ({
       data-testid="install"
       disabled={installPending || uninstallPending || userAddonsLoading}
       onClick={handleClick}>
-      {authorized
-        ? isAddonInstalled
-          ? uninstallPending
-            ? "Uninstalling..."
-            : "Uninstall"
-          : installPending
-            ? "Installing..."
-            : "Install"
-        : "Login to install"}
+      {buttonText}
     </button>
   );
 };

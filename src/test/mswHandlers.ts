@@ -45,9 +45,7 @@ export const handlers = [
 
     const addon = addonList.find(addon => addon._id === addonId);
 
-    return addon
-      ? HttpResponse.json({ addon: addon })
-      : HttpResponse.json(null);
+    return addon ? HttpResponse.json({ addon: addon }) : HttpResponse.json();
   }),
 
   http.post(`${baseUrl}/addons/get-readme`, async ({ request }) => {
@@ -60,7 +58,7 @@ export const handlers = [
 
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
-      : HttpResponse.json(null);
+      : HttpResponse.json();
   }),
 
   http.get(`${import.meta.env.VITE_UMS_URL}/headers`, () => {

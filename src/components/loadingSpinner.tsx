@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from "react";
 
-export const LoadingSpinner = (props: PropsWithChildren) => {
+export const LoadingSpinner = (properties: PropsWithChildren) => {
   return (
     <div className="text-sm">
       <svg
@@ -20,7 +20,7 @@ export const LoadingSpinner = (props: PropsWithChildren) => {
           fill="currentFill"
         />
       </svg>
-      {props.children}
+      {properties.children}
     </div>
   );
 };
