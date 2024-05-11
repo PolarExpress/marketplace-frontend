@@ -54,4 +54,4 @@ jobs:
           json-final-path: ./coverage/vitest/coverage-final.json
 
   check:
-    uses: PolarExpress/actions/.github/workflows/ci-workflow.yml@main
+    uses: PolarExpress/ts-configs/.github/workflows/ci-workflow.yml@main
