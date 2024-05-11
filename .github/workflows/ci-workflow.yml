@@ -34,6 +34,7 @@ jobs:
     if: github.event.pull_request.draft == false
     name: Vitest (unit tests)
     runs-on: ubuntu-latest
+    needs: check
 
     steps:
       - name: Check out Git repository
