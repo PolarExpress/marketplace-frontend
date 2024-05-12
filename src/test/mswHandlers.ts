@@ -22,7 +22,7 @@ export const handlers = [
       page?: number;
       searchTerm?: string;
     };
-    const { category, searchTerm } = body;
+    const { category, page = 0, searchTerm } = body;
 
     let filteredAddons = category
       ? addonList.filter(addon => addon.category === category)
@@ -34,7 +34,14 @@ export const handlers = [
         )
       : filteredAddons;
 
-    return HttpResponse.json({ addons: filteredAddons });
+    const pageSize = 1;
+    const startIndex = page * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedAddons = filteredAddons.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredAddons.length / pageSize);
+
+    return HttpResponse.json({ addons: paginatedAddons, totalPages });
   }),
 
   http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
