@@ -6,13 +6,12 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { addonList } from "@polarexpress/mockData/addons";
+import { generateAddon } from "@polarexpress/mockData/addons";
 import {
   addInstalled,
   getInstalled,
   removeInstalled
 } from "@polarexpress/test/mockingUtils";
-import { Addon } from "@polarexpress/types/addon";
 
 import { UseIsAuthorizedState } from "../authentication/authSlice";
 import { BrokerBase } from "./broker.interface";
@@ -46,10 +45,8 @@ export class MockBroker extends BrokerBase {
       }
 
       case "install": {
-        const addon = addonList.find(
-          (addon: Addon) =>
-            "addonID" in message.body && addon._id === message.body.addonID
-        );
+        const addon = generateAddon(Number(message.body.addonID));
+
         addon
           ? addInstalled(addon)
           : console.warn(

@@ -6,43 +6,26 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Defines temporary add-ons. Will be removed when backend is connected
 import type { Addon } from "@polarexpress/types/addon";
 
 import { AddonCategory } from "@polarexpress/types/addon";
 
 import { authorList } from "./authors";
 
-const shortAddon: Addon = {
-  _id: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d", // A unique identifier
-  author: authorList[0],
-  authorId: authorList[0].userId,
+export const generateAddon = (index: number): Addon => ({
+  _id: index.toString(),
+  author: authorList[index % authorList.length],
+  authorId: authorList[index % authorList.length].userId,
   category: AddonCategory.VISUALISATION,
   icon: "icon.png",
-  name: "Vis1",
-  summary: "Lorem ipsum dolor sit amet."
-};
+  name: `Vis${index}`,
+  summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Addon ${index}.`
+});
 
-const longAddon: Addon = {
-  _id: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6a", // A unique identifier
-  author: authorList[0],
-  authorId: authorList[0].userId,
-  category: AddonCategory.VISUALISATION,
-  icon: "icon.png",
-  name: "Vis3",
-  summary:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-};
+export const shortAddonList: Addon[] = Array.from({ length: 3 }, (_, index) =>
+  generateAddon(index)
+);
 
-const mediumAddon: Addon = {
-  _id: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6b", // A unique identifier
-  author: authorList[1],
-  authorId: authorList[1].userId,
-  category: AddonCategory.VISUALISATION,
-  icon: "icon.png",
-  name: "Vis2",
-  summary:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
-};
-
-export const addonList: Addon[] = [shortAddon, mediumAddon, longAddon];
+export const longAddonList: Addon[] = Array.from({ length: 60 }, (_, index) =>
+  generateAddon(index)
+);
