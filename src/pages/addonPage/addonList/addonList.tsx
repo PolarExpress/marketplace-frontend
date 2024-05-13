@@ -94,7 +94,7 @@ const AddonList = () => {
           nextLinkClassName="inline-flex items-center rounded-r-lg border-2 border-orange-400 px-4 py-2 text-sm font-medium text-black hover:bg-orange-400 hover:shadow-md hover:text-white"
           activeClassName="bg-orange-400 text-gray-100 pointer-events-none"
           disabledLinkClassName="hidden"
-          /* eslint-disable perfectionist/sort-jsx-props */
+          /* eslint-enable perfectionist/sort-jsx-props */
         />
       </div>
     );
