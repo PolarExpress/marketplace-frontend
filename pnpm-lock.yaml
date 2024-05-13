@@ -32,8 +32,8 @@ devDependencies:
     specifier: ^7.21.11
     version: 7.21.11(@babel/core@7.24.5)
   '@graphpolaris/ts-configs':
-    specifier: github:PolarExpress/ts-configs#prettier
-    version: github.com/PolarExpress/ts-configs/5910bf66600ab59440a360061ca90e82f48dfcee
+    specifier: github:PolarExpress/ts-configs
+    version: github.com/PolarExpress/ts-configs/01e769c892a3a22db57c56f093aee524c7872809
   '@tailwindcss/typography':
     specifier: ^0.5.10
     version: 0.5.13(tailwindcss@3.4.3)
@@ -6899,8 +6899,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/PolarExpress/ts-configs/5910bf66600ab59440a360061ca90e82f48dfcee:
-    resolution: {tarball: https://codeload.github.com/PolarExpress/ts-configs/tar.gz/5910bf66600ab59440a360061ca90e82f48dfcee}
+  github.com/PolarExpress/ts-configs/01e769c892a3a22db57c56f093aee524c7872809:
+    resolution: {tarball: https://codeload.github.com/PolarExpress/ts-configs/tar.gz/01e769c892a3a22db57c56f093aee524c7872809}
     name: ts-configs
     version: 1.0.0
     dev: true
