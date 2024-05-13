@@ -19,6 +19,7 @@ import {
 import { useAuthorizationCache } from "@polarexpress/dataAccess/store";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useParams } from "react-router-dom";
 
 import {
@@ -117,45 +118,48 @@ const AddonPage = () => {
 
   if (addon !== undefined) {
     return (
-      <div
-        className="m-8 text-center font-sans leading-10"
-        data-testid="addon-page">
-        <div className="mb-2 border-b-2 pb-2">
+      <div className="m-8 font-sans leading-10" data-testid="addon-page">
+        <div className="mb-2 border-b-2 pb-2 text-center">
           <h1 className="text-4xl font-bold">{addon.name}</h1>
-          {/* TODO: Fetch author name instead of id */}
           <p className="text-sm font-light">{addon.authorId}</p>
-          <p>{addon.summary}</p>{" "}
-          <InstallButton
-            authorized={auth.authorized ?? false}
-            handleClick={handleInstall}
-            installPending={installPending}
-            isAddonInstalled={installed}
-            uninstallPending={uninstallPending}
-            userAddonsLoading={userAddonsLoading}
-          />
+          <p>{addon.summary}</p>
+          <div className="my-4 flex justify-center">
+            <InstallButton
+              authorized={auth.authorized ?? false}
+              handleClick={handleInstall}
+              installPending={installPending}
+              isAddonInstalled={installed}
+              uninstallPending={uninstallPending}
+              userAddonsLoading={userAddonsLoading}
+            />
+          </div>
         </div>
 
-        {isReadmeLoading && (
-          <div
-            className="flex w-full justify-center"
-            data-testid="readme-loading">
-            <LoadingSpinner>Loading...</LoadingSpinner>
-          </div>
-        )}
-        {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
+        <div className="mt-8 flex justify-center">
+          <div className="w-full max-w-3xl rounded-2xl border-2 p-4">
+            {isReadmeLoading && (
+              <div
+                className="flex w-full justify-center"
+                data-testid="readme-loading">
+                <LoadingSpinner>Loading...</LoadingSpinner>
+              </div>
+            )}
+            {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
             TODO: Update if structured errors are implemented.
-        */}
-        {readmeError &&
-          ("status" in readmeError && readmeError.status === 400 ? (
-            <div>No readme found</div>
-          ) : (
-            <RTKError error={readmeError} />
-          ))}
-        {readMe !== undefined && (
-          <div data-testid="readme">
-            <Markdown>{readMe}</Markdown>
+            */}
+            {readmeError &&
+              ("status" in readmeError && readmeError.status === 400 ? (
+                <div>No readme found</div>
+              ) : (
+                <RTKError error={readmeError} />
+              ))}
+            {readMe !== undefined && (
+              <div className="markdown" data-testid="readme">
+                <Markdown remarkPlugins={[remarkGfm]}>{readMe}</Markdown>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     );
   }
