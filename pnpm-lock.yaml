@@ -32,8 +32,8 @@ devDependencies:
     specifier: ^7.21.11
     version: 7.21.11(@babel/core@7.24.5)
   '@graphpolaris/ts-configs':
-    specifier: github:PolarExpress/ts-configs#mp-frontend
-    version: github.com/PolarExpress/ts-configs/10f19b7561316c661f49c570da46ea5977c5f738
+    specifier: github:PolarExpress/ts-configs#prettier
+    version: github.com/PolarExpress/ts-configs/a1f479fa5fc497092ce5e829f90dd52187f58c59
   '@tailwindcss/typography':
     specifier: ^0.5.10
     version: 0.5.13(tailwindcss@3.4.3)
@@ -1923,16 +1923,16 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     dev: true
 
-  /@inquirer/confirm@3.1.6:
-    resolution: {integrity: sha512-Mj4TU29g6Uy+37UtpA8UpEOI2icBfpCwSW1QDtfx60wRhUy90s/kHPif2OXSSvuwDQT1lhAYRWUfkNf9Tecxvg==}
+  /@inquirer/confirm@3.1.7:
+    resolution: {integrity: sha512-BZjjj19W8gnh5UGFTdP5ZxpgMNRjy03Dzq3k28sB2MDlEUFrcyTkMEoGgvBmGpUw0vNBoCJkTcbHZ3e9tb+d+w==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 8.1.0
+      '@inquirer/core': 8.2.0
       '@inquirer/type': 1.3.1
     dev: true
 
-  /@inquirer/core@8.1.0:
-    resolution: {integrity: sha512-kfx0SU9nWgGe1f03ao/uXc85SFH1v2w3vQVH7QDGjKxdtJz+7vPitFtG++BTyJMYyYgH8MpXigutcXJeiQwVRw==}
+  /@inquirer/core@8.2.0:
+    resolution: {integrity: sha512-pexNF9j2orvMMTgoQ/uKOw8V6/R7x/sIDwRwXRhl4i0pPSh6paRzFehpFKpfMbqix1/+gzCekhYTmVbQpWkVjQ==}
     engines: {node: '>=18'}
     dependencies:
       '@inquirer/figures': 1.0.1
@@ -6969,7 +6969,7 @@ packages:
     dependencies:
       '@bundled-es-modules/cookie': 2.0.0
       '@bundled-es-modules/statuses': 1.0.1
-      '@inquirer/confirm': 3.1.6
+      '@inquirer/confirm': 3.1.7
       '@mswjs/cookies': 1.1.0
       '@mswjs/interceptors': 0.29.1
       '@open-draft/until': 2.1.0
@@ -9144,8 +9144,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/PolarExpress/ts-configs/10f19b7561316c661f49c570da46ea5977c5f738:
-    resolution: {tarball: https://codeload.github.com/PolarExpress/ts-configs/tar.gz/10f19b7561316c661f49c570da46ea5977c5f738}
+  github.com/PolarExpress/ts-configs/a1f479fa5fc497092ce5e829f90dd52187f58c59:
+    resolution: {tarball: https://codeload.github.com/PolarExpress/ts-configs/tar.gz/a1f479fa5fc497092ce5e829f90dd52187f58c59}
     name: ts-configs
     version: 1.0.0
     dev: true

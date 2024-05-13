@@ -7,7 +7,7 @@
  */
 
 import { FlatCompat } from "@eslint/eslintrc";
-import baseConfig from "@graphpolaris/ts-configs";
+import baseConfig from "@graphpolaris/ts-configs/eslint";
 
 const compat = new FlatCompat();
 
