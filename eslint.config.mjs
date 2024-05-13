@@ -6,10 +6,14 @@
  * (Department of Information and Computing Sciences)
  */
 
+import { FlatCompat } from "@eslint/eslintrc";
 import baseConfig from "@graphpolaris/ts-configs";
+
+const compat = new FlatCompat();
 
 export default [
   ...baseConfig,
+  ...compat.extends("plugin:tailwindcss/recommended"),
   {
     rules: {
       "perfectionist/sort-imports": "off",
