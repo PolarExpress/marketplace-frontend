@@ -14,7 +14,6 @@ import {
 } from "@polarexpress/test/mockingUtils";
 import { Addon } from "@polarexpress/types/addon";
 
-import { UseIsAuthorizedState } from "../authentication/authSlice";
 import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
 
@@ -36,7 +35,7 @@ export class MockBroker extends BrokerBase {
    * Interacts with the sessionStorage to mock install interactions.
    */
   public sendMessage(message: MpBackendMessage, callback?: Function): void {
-    let data: Record<string, any> = {};
+    let data: Record<string, unknown> = {};
     const action: MpBackendAction = message.body.action;
 
     switch (action) {
@@ -60,7 +59,7 @@ export class MockBroker extends BrokerBase {
 
       case "uninstall": {
         "addonID" in message.body
-          ? removeInstalled(message.body.addonID)
+          ? removeInstalled(message.body.addonID as string)
           : console.warn(
               `Invalid message body: ${JSON.stringify(message.body)}`
             );
@@ -80,15 +79,15 @@ export class MockBroker extends BrokerBase {
    */
   public sendMessageAsync(
     message: MpBackendMessage
-  ): Promise<Record<string, any>> {
-    return new Promise((resolve, _) => {
-      this.sendMessage(message, (data: Record<string, any>) => {
+  ): Promise<Record<string, unknown>> {
+    return new Promise(resolve => {
+      this.sendMessage(message, (data: Record<string, unknown>) => {
         resolve(data);
       });
     });
   }
 
-  public setAuth(_authHeader: UseIsAuthorizedState): MockBroker {
+  public setAuth(): MockBroker {
     return this;
   }
 }

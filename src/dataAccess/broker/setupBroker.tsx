@@ -23,11 +23,11 @@ export const SetupBroker = () => {
   const auth = useAuthorizationCache();
   const { login } = useAuth();
 
-  /* eslint-disable react-hooks/exhaustive-deps -- everything breaks if login is a dependency */
+  /* eslint-disable -- everything breaks if login is a dependency */
   useEffect(() => {
     login();
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
+  /* eslint-enable */
 
   // Connects the WebSocket and sets authorisation header for the broker
   useEffect(() => {
