@@ -6,7 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { renderWithProviders } from "@polarexpress/test/utils";
+import {
+  renderWithProviders,
+  setupLongAddonListHandler
+} from "@polarexpress/test/utils";
 import Header from "@polarexpress/components/header";
 import { shortAddonList } from "@polarexpress/mockData/addons";
 import HomePage from "@polarexpress/pages/homePage";
@@ -18,6 +21,8 @@ import { describe, expect, it } from "vitest";
 import AddonPage from "../addonPage";
 import AddonList from "./addonList";
 
+const addonCardTestId = "addon-card";
+
 describe("AddonList component", () => {
   it("renders AddonCard components for all add-ons", async () => {
     const { findAllByTestId, findByText, getAllByText, getByText } =
@@ -25,7 +30,7 @@ describe("AddonList component", () => {
 
     expect(findByText("Loading...")).toBeDefined();
 
-    const addOnCards = await findAllByTestId("addon-card");
+    const addOnCards = await findAllByTestId(addonCardTestId);
 
     expect(addOnCards.length).toBe(shortAddonList.length);
 
@@ -56,7 +61,7 @@ describe("AddonList component", () => {
 
     await expect(findByTestId("list-loading")).rejects.toThrow();
 
-    const addOnCards = await findAllByTestId("addon-card");
+    const addOnCards = await findAllByTestId(addonCardTestId);
 
     expect(addOnCards.length).toBe(1);
     expect(
@@ -111,7 +116,35 @@ describe("AddonList component", () => {
   });
 
   it("correctly navigates between pages", async () => {
-    expect(true).toBeTruthy();
+    setupLongAddonListHandler();
+
+    const { findAllByTestId, findByText, user } = renderWithProviders(
+      <AddonList />
+    );
+
+    let addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(20);
+    expect(await findByText("Vis1")).toBeDefined();
+    expect(await findByText("Vis20")).toBeDefined();
+
+    const nextButton = await findByText(">");
+    await user.click(nextButton);
+
+    addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(20);
+    expect(await findByText("Vis21")).toBeDefined();
+    expect(await findByText("Vis40")).toBeDefined();
+
+    const previousButton = await findByText("<");
+    await user.click(previousButton);
+
+    addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(20);
+    expect(await findByText("Vis1")).toBeDefined();
+    expect(await findByText("Vis20")).toBeDefined();
   });
 
   it("displays the filterError when an error occurs during filtering", async () => {
