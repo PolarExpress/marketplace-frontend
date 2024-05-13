@@ -13,7 +13,11 @@ const compat = new FlatCompat();
 
 export default [
   ...baseConfig,
-  ...compat.extends("plugin:tailwindcss/recommended"),
+  ...compat.extends(
+    "plugin:tailwindcss/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest-formatting/strict"
+  ),
   {
     rules: {
       "perfectionist/sort-imports": "off",
