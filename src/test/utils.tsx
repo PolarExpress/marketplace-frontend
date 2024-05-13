@@ -16,6 +16,9 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
 import { type AppStore, type RootState, makeStore } from "../dataAccess/store";
+import { HttpResponse, http } from "msw";
+import { longAddonList } from "@polarexpress/mockData/addons";
+import { server } from "@polarexpress/test/setup";
 
 /**
  * This type extends the default options for React Testing Library's render
@@ -101,5 +104,30 @@ export const setupPageWithId = (id: string, authorized: boolean = true) => {
     {},
     [`/addons/${id}`],
     authorized
+  );
+};
+
+/**
+ * Sets up an MSW handler for mocking the `/addons/get` endpoint with
+ * `longAddonList` instead of `shortAddonList`.
+ */
+export const setupLongAddonListHandler = () => {
+  const baseUrl = import.meta.env.VITE_API_BASE;
+
+  server.use(
+    http.post(`${baseUrl}/addons/get`, async ({ request }) => {
+      const { page = 0 } = (await request.json()) as {
+        page?: number;
+      };
+
+      const pageSize = 20;
+      const startIndex = page * pageSize;
+      const endIndex = startIndex + pageSize;
+
+      const paginatedAddons = longAddonList.slice(startIndex, endIndex);
+      const totalPages = Math.ceil(longAddonList.length / pageSize);
+
+      return HttpResponse.json({ addons: paginatedAddons, totalPages });
+    })
   );
 };

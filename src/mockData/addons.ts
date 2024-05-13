@@ -14,8 +14,8 @@ import { authorList } from "./authors";
 
 export const generateAddon = (index: number): Addon => ({
   _id: index.toString(),
-  author: authorList[index % authorList.length],
-  authorId: authorList[index % authorList.length].userId,
+  author: authorList[(index - 1) % authorList.length],
+  authorId: authorList[(index - 1) % authorList.length].userId,
   category: AddonCategory.VISUALISATION,
   icon: "icon.png",
   name: `Vis${index}`,
@@ -23,9 +23,9 @@ export const generateAddon = (index: number): Addon => ({
 });
 
 export const shortAddonList: Addon[] = Array.from({ length: 3 }, (_, index) =>
-  generateAddon(index)
+  generateAddon(index + 1)
 );
 
 export const longAddonList: Addon[] = Array.from({ length: 60 }, (_, index) =>
-  generateAddon(index)
+  generateAddon(index + 1)
 );

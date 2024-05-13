@@ -45,12 +45,10 @@ export class MockBroker extends BrokerBase {
       }
 
       case "install": {
-        const addon = generateAddon(Number(message.body.addonID));
-
-        addon
-          ? addInstalled(addon)
+        "addonID" in message.body
+          ? addInstalled(generateAddon(Number(message.body.addonID)))
           : console.warn(
-              `Could not find addon. Message body: ${JSON.stringify(message.body)}`
+              `Invalid message body: ${JSON.stringify(message.body)}`
             );
         break;
       }
