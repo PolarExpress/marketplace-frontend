@@ -11,7 +11,9 @@ export type AuthenticationHeader = {
   username: string;
 };
 
-const UMS_URL = import.meta.env.VITE_UMS_URL;
+const UMS_URL = import.meta.env.VITE_UMS_URL ?? null;
+if (!UMS_URL) 
+  console.log("No Vite ums url found.");
 
 export const fetchSettings: RequestInit = {
   credentials: "include",

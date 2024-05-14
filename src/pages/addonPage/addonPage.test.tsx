@@ -12,7 +12,8 @@ import { setupPageWithId } from "@polarexpress/test/utils";
 import { HttpResponse, http } from "msw";
 import { describe, expect, it } from "vitest";
 
-const baseUrl = import.meta.env.VITE_API_BASE;
+const baseUrl = import.meta.env.VITE_API_BASE ?? undefined;
+if (!baseUrl) console.log("No vite base url found.");
 
 describe("AddonPage", () => {
   it("renders the add-on information when found", async () => {

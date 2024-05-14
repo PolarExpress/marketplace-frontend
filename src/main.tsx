@@ -20,7 +20,10 @@ import "./style.css";
  */
 async function enableMocking() {
   // Don't enable mocking when in prod or when explicitly disabled
-  if (!import.meta.env.DEV || !import.meta.env.VITE_MOCKING) return;
+  if (!(import.meta.env.DEV && import.meta.env.VITE_MOCKING)) {
+    console.log("No mocking environment variables found.");
+    return;
+  }
 
   const { setupWorker } = await import("msw/browser");
   const { handlers } = await import("./test/mswHandlers");
