@@ -4,7 +4,7 @@ export type ReceiveMessageI = {
   callID: string;
   status: string;
   type: string;
-  value: Record<string, any>;
+  value: Record<string, unknown>;
 };
 
 type keyTypeI =
@@ -36,7 +36,7 @@ type subKeyTypeI =
   | "update";
 
 export type SendMessageI = {
-  body?: any;
+  body?: unknown;
   key: keyTypeI;
   subKey?: subKeyTypeI;
 };
@@ -57,7 +57,7 @@ export type QueuedMessage = {
  */
 export type MpBackendMessage = {
   body: {
-    [key: string]: any;
+    [key: string]: unknown;
     action: MpBackendAction;
   };
   key: "mpBackend";

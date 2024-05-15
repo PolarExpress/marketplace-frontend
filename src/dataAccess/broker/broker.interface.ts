@@ -32,7 +32,7 @@ export abstract class BrokerBase {
 
   public abstract sendMessageAsync(
     message: SendMessageI
-  ): Promise<Record<string, any>>;
+  ): Promise<Record<string, unknown>>;
 
   public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 }

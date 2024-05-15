@@ -13,7 +13,7 @@ runs:
     - uses: pnpm/action-setup@v3
       name: Install pnpm
       with:
-        version: 8
+        version: 9
         run_install: false
 
     - name: Get pnpm store directory
@@ -30,9 +30,9 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install dependencies
-      run: pnpm install
+      run: pnpm install --frozen-lockfile
       shell: bash
 
     - name: Set environment var
-      run: cp sample.env .env
+      run: cp sample.env .env || true
       shell: bash

@@ -34,13 +34,14 @@ jobs:
     if: github.event.pull_request.draft == false
     name: Vitest (unit tests)
     runs-on: ubuntu-latest
+    needs: check
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
       - name: Set up environment
-        uses: ./.github/actions/ci-env
+        uses: PolarExpress/ts-configs/.github/actions/ci-env@main
 
       - name: Run React unit tests
         run: pnpm test
@@ -52,47 +53,5 @@ jobs:
           json-summary-path: ./coverage/vitest/coverage-summary.json
           json-final-path: ./coverage/vitest/coverage-final.json
 
-  lint:
-    if: github.event.pull_request.draft == false
-    name: ESLint (linting)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
-
-      - name: Set up environment
-        uses: ./.github/actions/ci-env
-
-      - name: Run eslint
-        run: pnpm lint
-
-  prettier:
-    if: github.event.pull_request.draft == false
-    name: Prettier (formatting)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
-
-      - name: Set up environment
-        uses: ./.github/actions/ci-env
-
-      - name: Run Prettier
-        run: npx prettier --check .
-
-  build:
-    name: tsc (build)
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
-
-      - name: Set up environment
-        uses: ./.github/actions/ci-env
-
-      - name: Build project
-        run: pnpm build
+  check:
+    uses: PolarExpress/ts-configs/.github/workflows/ci-workflow.yml@main
