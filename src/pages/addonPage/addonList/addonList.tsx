@@ -89,7 +89,7 @@ const AddonList = () => {
           onPageChange={handlePageClick}
           breakClassName="items-center px-5 py-2 text-sm font-semibold text-black ring-1 ring-inset ring-gray-300 hover:bg-white inline-flex"
           containerClassName="flex mt-5"
-          pageClassName="items-center px-5 py-2 text-sm font-semibold text-black ring-1 ring-inset ring-gray-300 hover:bg-white inline-flex"
+          pageLinkClassName="items-center px-5 py-2 text-sm font-semibold text-black ring-1 ring-inset ring-gray-300 h-full hover:bg-white inline-flex"
           previousLinkClassName="inline-flex items-center rounded-l-lg border-2 border-orange-400 px-4 py-2 text-sm font-medium text-black hover:bg-orange-400 hover:shadow-md hover:text-white"
           nextLinkClassName="inline-flex items-center rounded-r-lg border-2 border-orange-400 px-4 py-2 text-sm font-medium text-black hover:bg-orange-400 hover:shadow-md hover:text-white"
           activeClassName="bg-orange-400 text-gray-100 pointer-events-none"
