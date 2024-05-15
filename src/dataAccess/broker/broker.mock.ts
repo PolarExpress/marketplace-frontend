@@ -6,13 +6,12 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { addonList } from "@polarexpress/mockData/addons";
+import { generateAddon } from "@polarexpress/mockData/addons";
 import {
   addInstalled,
   getInstalled,
   removeInstalled
 } from "@polarexpress/test/mockingUtils";
-import { Addon } from "@polarexpress/types/addon";
 
 import { BrokerBase } from "./broker.interface";
 import { MpBackendAction, MpBackendMessage } from "./types";
@@ -45,14 +44,10 @@ export class MockBroker extends BrokerBase {
       }
 
       case "install": {
-        const addon = addonList.find(
-          (addon: Addon) =>
-            "addonID" in message.body && addon._id === message.body.addonID
-        );
-        addon
-          ? addInstalled(addon)
+        "addonID" in message.body
+          ? addInstalled(generateAddon(Number(message.body.addonID)))
           : console.warn(
-              `Could not find addon. Message body: ${JSON.stringify(message.body)}`
+              `Invalid message body: ${JSON.stringify(message.body)}`
             );
         break;
       }

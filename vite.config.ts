@@ -26,12 +26,13 @@ export default defineConfig(({ command, mode }) => ({
         "src/colors.js",
         "src/app.tsx",
         "src/dataAccess/broker/broker.interface.ts",
-        "src/dataAccess/broker/broker.mock.ts",
-        "src/dataAccess/broker/broker.ts",
-        "src/dataAccess/authentication",
+        "src/dataAccess/broker/broker.mock.ts", // Used for mocking only.
+        "src/dataAccess/broker/broker.ts", // Not our code.
+        "src/dataAccess/authentication", // Not our code.
         "src/main.tsx",
         "src/stories",
         "src/test",
+        "src/components/rtkError.tsx", // Currently impossible to test all branches in integration tests.
         ...configDefaults.coverage.exclude!
       ],
       provider: "istanbul",

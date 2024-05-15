@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { addonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
 import { HttpResponse, http, passthrough } from "msw";
 
@@ -22,19 +22,26 @@ export const handlers = [
       page?: number;
       searchTerm?: string;
     };
-    const { category, searchTerm } = body;
+    const { category, page = 0, searchTerm } = body;
 
     let filteredAddons = category
-      ? addonList.filter(addon => addon.category === category)
-      : addonList;
+      ? shortAddonList.filter(addon => addon.category === category)
+      : shortAddonList;
 
     filteredAddons = searchTerm
-      ? addonList.filter(addon =>
+      ? shortAddonList.filter(addon =>
           addon.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : filteredAddons;
 
-    return HttpResponse.json({ addons: filteredAddons });
+    const pageSize = 20;
+    const startIndex = page * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedAddons = filteredAddons.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredAddons.length / pageSize);
+
+    return HttpResponse.json({ addons: paginatedAddons, totalPages });
   }),
 
   http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
@@ -43,7 +50,7 @@ export const handlers = [
     };
     const addonId = body.id;
 
-    const addon = addonList.find(addon => addon._id === addonId);
+    const addon = shortAddonList.find(addon => addon._id === addonId);
 
     return addon ? HttpResponse.json({ addon: addon }) : HttpResponse.json();
   }),
@@ -54,7 +61,7 @@ export const handlers = [
     };
     const addonId = body.id;
 
-    const addon = addonList.find(addon => addon._id === addonId);
+    const addon = shortAddonList.find(addon => addon._id === addonId);
 
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })

@@ -6,9 +6,12 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { renderWithProviders } from "@polarexpress/test/utils";
+import {
+  renderWithProviders,
+  setupLongAddonListHandler
+} from "@polarexpress/test/utils";
 import Header from "@polarexpress/components/header";
-import { addonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import HomePage from "@polarexpress/pages/homePage";
 import { server } from "@polarexpress/test/setup";
 import { HttpResponse, http } from "msw";
@@ -18,6 +21,8 @@ import { describe, expect, it } from "vitest";
 import AddonPage from "../addonPage";
 import AddonList from "./addonList";
 
+const addonCardTestId = "addon-card";
+
 describe("AddonList component", () => {
   it("renders AddonCard components for all add-ons", async () => {
     const { findAllByTestId, findByText, getAllByText, getByText } =
@@ -25,11 +30,11 @@ describe("AddonList component", () => {
 
     expect(findByText("Loading...")).toBeDefined();
 
-    const addOnCards = await findAllByTestId("addon-card");
+    const addOnCards = await findAllByTestId(addonCardTestId);
 
-    expect(addOnCards.length).toBe(addonList.length);
+    expect(addOnCards.length).toBe(shortAddonList.length);
 
-    for (const addon of addonList) {
+    for (const addon of shortAddonList) {
       expect(getByText(addon.name)).toBeDefined();
       expect(
         getByText(addon.summary.split(" ").slice(0, 15).join(" "))
@@ -50,17 +55,17 @@ describe("AddonList component", () => {
     const search = await findByTestId("search-input");
     const submit = await findByTestId("search-submit");
 
-    await user.type(search, "Vis1");
+    await user.type(search, shortAddonList[0].name);
 
     await user.click(submit);
 
     await expect(findByTestId("list-loading")).rejects.toThrow();
 
-    const addOnCards = await findAllByTestId("addon-card");
+    const addOnCards = await findAllByTestId(addonCardTestId);
 
     expect(addOnCards.length).toBe(1);
     expect(
-      getByText(addonList[0].summary.split(" ").slice(0, 15).join(" "))
+      getByText(shortAddonList[0].summary.split(" ").slice(0, 15).join(" "))
     ).toBeDefined();
   });
 
@@ -100,7 +105,7 @@ describe("AddonList component", () => {
         </Routes>
       </>,
       {},
-      [`/addons/${addonList[2]._id}`]
+      [`/addons/${shortAddonList[2]._id}`]
     );
 
     // Simulate clicking search button
@@ -108,6 +113,38 @@ describe("AddonList component", () => {
 
     // Assert that the homepage is rendered
     expect(await findByTestId("homepage")).toBeDefined();
+  });
+
+  it("correctly navigates between pages", async () => {
+    setupLongAddonListHandler();
+
+    const { findAllByTestId, findByText, user } = renderWithProviders(
+      <AddonList />
+    );
+
+    let addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(20);
+    expect(await findByText("Vis1")).toBeDefined();
+    expect(await findByText("Vis20")).toBeDefined();
+
+    const nextButton = await findByText(">");
+    await user.click(nextButton);
+
+    addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(20);
+    expect(await findByText("Vis21")).toBeDefined();
+    expect(await findByText("Vis40")).toBeDefined();
+
+    const previousButton = await findByText("<");
+    await user.click(previousButton);
+
+    addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(20);
+    expect(await findByText("Vis1")).toBeDefined();
+    expect(await findByText("Vis20")).toBeDefined();
   });
 
   it("displays the filterError when an error occurs during filtering", async () => {
@@ -122,7 +159,7 @@ describe("AddonList component", () => {
         if (searchTerm) {
           return HttpResponse.error();
         }
-        return HttpResponse.json({ addons: addonList });
+        return HttpResponse.json({ addons: shortAddonList });
       })
     );
 
@@ -136,7 +173,7 @@ describe("AddonList component", () => {
     const search = await findByTestId("search-input");
     const submit = await findByTestId("search-submit");
 
-    await user.type(search, "Vis1");
+    await user.type(search, shortAddonList[0].name);
     await user.click(submit);
 
     expect(await findByTestId("fetch-error")).toBeDefined();

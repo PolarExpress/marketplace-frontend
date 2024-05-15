@@ -39,17 +39,14 @@ const addonApi = emptySplitApi.injectEndpoints({
     }),
     // Fetches a list of addons from the server, optionally filtered by page and category.
     getAddons: build.query<
-      Addon[],
+      { addons: Addon[]; totalPages: number },
       { category?: AddonCategory; page?: number; searchTerm?: string }
     >({
       query: body => ({
         body: body,
         method: "POST",
         url: "/addons/get"
-      }),
-      transformResponse(response: { addons: Addon[] }) {
-        return response.addons;
-      }
+      })
     })
   }),
   overrideExisting: false

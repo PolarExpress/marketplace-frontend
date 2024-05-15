@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { addonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import { server } from "@polarexpress/test/setup";
 import { setupPageWithId } from "@polarexpress/test/utils";
 import { HttpResponse, http } from "msw";
@@ -16,7 +16,7 @@ const baseUrl = import.meta.env.VITE_API_BASE;
 
 describe("AddonPage", () => {
   it("renders the add-on information when found", async () => {
-    const testAddon = addonList[0];
+    const testAddon = shortAddonList[0];
 
     const { findByTestId, getByTestId, getByText } = setupPageWithId(
       testAddon._id
@@ -45,7 +45,7 @@ describe("AddonPage", () => {
         return HttpResponse.error();
       })
     );
-    const { findByTestId } = setupPageWithId(addonList[0]._id);
+    const { findByTestId } = setupPageWithId(shortAddonList[0]._id);
 
     // Checks if fetching of readme is skipped when addon doesn't load
     await expect(findByTestId("readme-loading")).rejects.toThrow();
@@ -60,7 +60,7 @@ describe("AddonPage", () => {
         return HttpResponse.json({ addons: undefined });
       })
     );
-    const { findByTestId } = setupPageWithId(addonList[0]._id);
+    const { findByTestId } = setupPageWithId(shortAddonList[0]._id);
 
     await expect(findByTestId("addon-page")).rejects.toThrow();
   });

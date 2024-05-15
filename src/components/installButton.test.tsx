@@ -7,7 +7,7 @@
  */
 
 import * as hooks from "@polarexpress/dataAccess/broker/hooks";
-import { addonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import {
   addInstalled,
   deleteInstalledList,
@@ -17,7 +17,7 @@ import {
 import { setupPageWithId } from "@polarexpress/test/utils";
 
 describe("InstallButton", () => {
-  const testAddon = addonList[0];
+  const testAddon = shortAddonList[0];
 
   beforeEach(() => {
     initializeInstalled();
