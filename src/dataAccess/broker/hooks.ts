@@ -71,11 +71,11 @@ const useAddon = () => {
 export const useInstallAddon = () => {
   const { error, isPending, manageAddon } = useAddon();
 
-  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  /* eslint-disable -- dependency cannot change */
   const installAddon = useCallback((addonId: string) => {
     manageAddon({ action: "install", addonId });
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
+  /* eslint-enable */
 
   return { error, installAddon, isPending };
 };
@@ -89,11 +89,11 @@ export const useInstallAddon = () => {
 export const useUninstallAddon = () => {
   const { error, isPending, manageAddon } = useAddon();
 
-  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  /* eslint-disable -- dependency cannot change */
   const uninstallAddon = useCallback((addonId: string) => {
     manageAddon({ action: "uninstall", addonId });
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
+  /* eslint-enable */
 
   return { error, isPending, uninstallAddon };
 };
@@ -134,7 +134,7 @@ export const useGetAddonsByUserId = ({
 
       try {
         const response = await Broker.sendMessageAsync(message);
-        setData(response.addons);
+        setData(response.addons as Addon[]);
       } catch (error) {
         setError(`Failed to get addons by user ID. ${error}`);
       }
