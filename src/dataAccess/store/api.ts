@@ -15,7 +15,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
  */
 export const emptySplitApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_BASE ?? undefined
+    baseUrl:
+      import.meta.env.VITE_API_BASE ??
+      console.log("no VITE_API_BASE environment variable found.")
   }),
   endpoints: () => ({})
 });
