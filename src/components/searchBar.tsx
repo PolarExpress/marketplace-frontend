@@ -29,8 +29,8 @@ const SearchBar = () => {
    *
    * @param e - The React form submission event.
    */
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(updateSearchTerm(searchTerm));
 
     if (location.pathname !== "/") {

@@ -8,13 +8,13 @@
 
 /// <reference types="vite/client" />
 
-interface ImportMetaEnvironment {
-  VITE_API_BASE: string;
-  VITE_BACKEND_WSS_URL: string;
-  VITE_MOCKING?: boolean;
-  VITE_UMS_URL: string;
-}
+type ImportMetaEnvAugmented =
+  import("@julr/vite-plugin-validate-env").ImportMetaEnvAugmented<
+    typeof import("../env").default
+  >;
 
-interface ImportMeta {
-  readonly env: ImportMetaEnvironment;
+interface ImportMetaEnv extends ImportMetaEnvAugmented {
+  // Now import.meta.env is totally type-safe and based on your `env.ts` schema definition
+  // You can also add custom variables that are not defined in your schema
+  VITE_MOCKING?: boolean;
 }
