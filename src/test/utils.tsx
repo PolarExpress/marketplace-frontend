@@ -19,6 +19,7 @@ import { type AppStore, type RootState, makeStore } from "../dataAccess/store";
 import { HttpResponse, http } from "msw";
 import { longAddonList } from "@polarexpress/mockData/addons";
 import { server } from "@polarexpress/test/setup";
+import { AddonCategory } from "@polarexpress/types/addon";
 
 /**
  * This type extends the default options for React Testing Library's render
@@ -112,22 +113,28 @@ export const setupPageWithId = (id: string, authorized: boolean = true) => {
  * `longAddonList` instead of `shortAddonList`.
  */
 export const setupLongAddonListHandler = () => {
-  const baseUrl = import.meta.env.VITE_API_BASE;
-
   server.use(
-    http.post(`${baseUrl}/addons/get`, async ({ request }) => {
-      const { page = 0 } = (await request.json()) as {
-        page?: number;
-      };
+    http.post(
+      `${import.meta.env.VITE_API_BASE}/addons/get`,
+      async ({ request }) => {
+        const { category, page = 0 } = (await request.json()) as {
+          category?: AddonCategory;
+          page?: number;
+        };
 
-      const pageSize = 20;
-      const startIndex = page * pageSize;
-      const endIndex = startIndex + pageSize;
+        const filteredAddons = category
+          ? longAddonList.filter(addon => addon.category === category)
+          : longAddonList;
 
-      const paginatedAddons = longAddonList.slice(startIndex, endIndex);
-      const totalPages = Math.ceil(longAddonList.length / pageSize);
+        const pageSize = 20;
+        const startIndex = page * pageSize;
+        const endIndex = startIndex + pageSize;
 
-      return HttpResponse.json({ addons: paginatedAddons, totalPages });
-    })
+        const paginatedAddons = filteredAddons.slice(startIndex, endIndex);
+        const totalPages = Math.ceil(filteredAddons.length / pageSize);
+
+        return HttpResponse.json({ addons: paginatedAddons, totalPages });
+      }
+    )
   );
 };

@@ -20,26 +20,32 @@ import { describe, expect, it } from "vitest";
 
 import AddonPage from "../addonPage";
 import AddonList from "./addonList";
+import { AddonCategory } from "@polarexpress/types/addon";
 
 const addonCardTestId = "addon-card";
 
 describe("AddonList component", () => {
   it("renders AddonCard components for all add-ons", async () => {
-    const { findAllByTestId, findByText, getAllByText, getByText } =
-      renderWithProviders(<AddonList />);
+    const { findAllByTestId, findByText, getByText } = renderWithProviders(
+      <AddonList />
+    );
 
     expect(findByText("Loading...")).toBeDefined();
 
     const addOnCards = await findAllByTestId(addonCardTestId);
 
-    expect(addOnCards.length).toBe(shortAddonList.length);
+    const visualisationAddons = shortAddonList.filter(
+      addon => addon.category === AddonCategory.VISUALISATION
+    );
 
-    for (const addon of shortAddonList) {
+    expect(addOnCards.length).toBe(visualisationAddons.length);
+
+    for (const addon of visualisationAddons) {
       expect(getByText(addon.name)).toBeDefined();
       expect(
         getByText(addon.summary.split(" ").slice(0, 15).join(" "))
       ).toBeDefined();
-      expect(getAllByText(`Author: ${addon.authorId}`)).toBeDefined();
+      expect(getByText(`Author: ${addon.authorId}`)).toBeDefined();
     }
   });
 
@@ -125,8 +131,8 @@ describe("AddonList component", () => {
     let addOnCards = await findAllByTestId(addonCardTestId);
 
     expect(addOnCards.length).toBe(20);
-    expect(await findByText("Vis1")).toBeDefined();
-    expect(await findByText("Vis20")).toBeDefined();
+    expect(await findByText("Addon1")).toBeDefined();
+    expect(await findByText("Addon58")).toBeDefined();
 
     const nextButton = await findByText(">");
     await user.click(nextButton);
@@ -134,8 +140,8 @@ describe("AddonList component", () => {
     addOnCards = await findAllByTestId(addonCardTestId);
 
     expect(addOnCards.length).toBe(20);
-    expect(await findByText("Vis21")).toBeDefined();
-    expect(await findByText("Vis40")).toBeDefined();
+    expect(await findByText("Addon61")).toBeDefined();
+    expect(await findByText("Addon118")).toBeDefined();
 
     const previousButton = await findByText("<");
     await user.click(previousButton);
@@ -143,9 +149,35 @@ describe("AddonList component", () => {
     addOnCards = await findAllByTestId(addonCardTestId);
 
     expect(addOnCards.length).toBe(20);
-    expect(await findByText("Vis1")).toBeDefined();
-    expect(await findByText("Vis20")).toBeDefined();
+    expect(await findByText("Addon1")).toBeDefined();
+    expect(await findByText("Addon58")).toBeDefined();
   });
+
+  /* eslint-disable jest/no-commented-out-tests */
+  /*it("filters add-ons based on selected category", async () => {
+    setupLongAddonListHandler();
+
+    const { findAllByTestId, getByText, user } = renderWithProviders(
+      <AddonList />
+    );
+
+    await findAllByTestId(addonCardTestId);
+
+    await user.click(getByText("MACHINE LEARNING"));
+
+    const addOnCards = await findAllByTestId(addonCardTestId);
+
+    const addOns = addOnCards.map(card => {
+      const nameElement = card.querySelector("h1");
+      const name = nameElement ? nameElement.textContent : "";
+      return longAddonList.find(addon => addon.name === name);
+    });
+
+    for (const addon of addOns) {
+      expect(addon?.category).toBe(AddonCategory.MACHINE_LEARNING);
+    }
+  });*/
+  /* eslint-enable jest/no-commented-out-tests */
 
   it("displays the filterError when an error occurs during filtering", async () => {
     const baseUrl = import.meta.env.VITE_API_BASE;

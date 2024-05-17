@@ -14,8 +14,10 @@ import { AddonCategory } from "@polarexpress/types/addon";
 interface AddonTabsProperties {
   /**
    * Callback function to handle category change.
+   *
+   * @param newCategory Category the user clicked on.
    */
-  onCategoryChange: (category: AddonCategory) => void;
+  onCategoryChange: (newCategory: AddonCategory) => void;
 
   /**
    * The currently selected add-on category.
