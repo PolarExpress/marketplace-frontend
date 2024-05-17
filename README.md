@@ -8,8 +8,10 @@ It uses [Vite](https://vitejs.dev/) and [Vitest](https://vitest.dev/) to create 
 
 Before starting the application, you need to complete the following steps:
 
-1. Install dependencies via `pnpm i`.
+1. Install the dependencies using `pnpm i`.
 2. Create a `.env` file by running `cp sample.env .env`.
+3. Ensure the backend is running on the port specified in the `.env` file.
+4. Ensure the User Management Service is running in Docker on the port specified in the `.env` file.
 
 ## Scripts
 
