@@ -18,8 +18,10 @@ Before starting the application, ensure the following services are running:
 
 Next, follow these steps:
 
-1. Install the dependencies using `pnpm i`.
-2. Create a `.env` file by running `cp sample.env .env`.
+1. Create a `.env` file and set the required environment variables to match
+your setup. For an example, see the `sample.env` file.
+2. Install the dependencies using `pnpm i`.
+3. Run `pnpm start` to start the frontend.
 
 ## Scripts
 
