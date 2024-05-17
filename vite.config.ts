@@ -1,11 +1,13 @@
 import react from "@vitejs/plugin-react";
 import removeAttr from "react-remove-attr";
 import pathAlias from "vite-tsconfig-paths";
+import { ValidateEnv } from "@julr/vite-plugin-validate-env";
 import { configDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
   plugins: [
+    ValidateEnv(),
     mode !== "test" &&
       removeAttr({
         attributes: ["data-testid"],
