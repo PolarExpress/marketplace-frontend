@@ -12,13 +12,11 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**
- * Provides a user interface for searching add-ons.
+ * Renders an input for searching add-ons.
  */
 const SearchBar = () => {
-  // Tracks unsubmitted search term
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,7 +25,7 @@ const SearchBar = () => {
    * Handles submission of the search form. Dispatches an action to update the
    * search term in the Redux store. Navigates back to the homepage.
    *
-   * @param e - The React form submission event.
+   * @param event - The React form submission event.
    */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

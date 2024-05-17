@@ -10,7 +10,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * Interface representing the state of the addon list.
+ */
 interface AddonListState {
+  /**
+   * The search term used to filter the addon list.
+   */
   searchTerm: string;
 }
 

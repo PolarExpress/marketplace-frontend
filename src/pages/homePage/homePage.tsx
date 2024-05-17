@@ -6,12 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Should represent the main marketplace landing page.
 import AddonList from "../addonPage/addonList/addonList";
 
 /**
- * Represents the primary landing page of the add-ons marketplace. It renders
- * the AddonList component to display available add-ons.
+ * Renders the primary landing page of the add-ons marketplace.
  */
 const HomePage = () => {
   return (

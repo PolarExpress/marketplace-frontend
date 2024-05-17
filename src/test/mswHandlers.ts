@@ -68,6 +68,7 @@ export const handlers = [
       : HttpResponse.json();
   }),
 
+  // Mocks a request to the User Management Server
   http.get(`${import.meta.env.VITE_UMS_URL}/headers`, () => {
     return HttpResponse.json({
       impersonateID: "",

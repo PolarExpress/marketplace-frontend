@@ -26,13 +26,40 @@ export abstract class BrokerBase {
     return this.singletonInstance;
   }
 
+  /**
+   * Connects to the broker and executes the provided callback when the
+   * connection is open.
+   *
+   * @param onOpen Callback function to be called when the connection is open.
+   */
   public abstract connect(onOpen: () => void): void;
 
+  /**
+   * Sends a message to the broker with an optional callback function.
+   *
+   * @param message  The message to send.
+   * @param callback Optional callback function to handle the response.
+   */
   public abstract sendMessage(message: SendMessageI, callback?: Function): void;
 
+  /**
+   * Sends a message to the broker asynchronously and returns a promise that
+   * resolves with the response.
+   *
+   * @param   message The message to send.
+   *
+   * @returns         A promise that resolves with the response data.
+   */
   public abstract sendMessageAsync(
     message: SendMessageI
   ): Promise<Record<string, unknown>>;
 
+  /**
+   * Sets the authentication header for the broker.
+   *
+   * @param   authHeader The authentication header state.
+   *
+   * @returns            The broker instance.
+   */
   public abstract setAuth(authHeader: UseIsAuthorizedState): BrokerBase;
 }

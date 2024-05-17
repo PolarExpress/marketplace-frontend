@@ -26,4 +26,7 @@ const userThree: User = {
   userId: "user-three"
 };
 
+/**
+ * List of 3 mock user objects.
+ */
 export const userList: User[] = [userOne, userTwo, userThree];

@@ -30,9 +30,7 @@ export class MockBroker extends BrokerBase {
     onOpen();
   }
 
-  /**
-   * Interacts with the sessionStorage to mock install interactions.
-   */
+  // Interacts with the sessionStorage to mock install interactions.
   public sendMessage(message: MpBackendMessage, callback?: Function): void {
     let data: Record<string, unknown> = {};
     const action: MpBackendAction = message.body.action;
@@ -69,9 +67,7 @@ export class MockBroker extends BrokerBase {
     if (callback) callback(data);
   }
 
-  /**
-   * Same as normal broker.
-   */
+  // Same as normal broker.
   public sendMessageAsync(
     message: MpBackendMessage
   ): Promise<Record<string, unknown>> {

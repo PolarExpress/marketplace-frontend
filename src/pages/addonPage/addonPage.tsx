@@ -28,31 +28,29 @@ import {
 } from "./addonList/addonApi";
 
 /**
- * Represents the individual page of an add-on. It retrieves information about
- * the add-on from the store and displays it.
+ * Renders the individual page of an add-on. It retrieves information about the
+ * add-on from the store and displays it.
  */
 const AddonPage = () => {
-  // Retrieve URL param
   const { id: thisId } = useParams();
 
   const auth = useAuthorizationCache();
 
-  // Use the RTK Query hooks to retrieve addon and readme from the backend
   const {
     data: addon,
     error: addonError,
     isLoading: isAddonLoading
   } = useGetAddonByIdQuery(thisId ?? "");
-  // Fetching of the readme is skipped if the addon is not yet retrieved
+
   const {
     data: readMe,
     error: readmeError,
     isLoading: isReadmeLoading
   } = useGetAddonReadmeByIdQuery(thisId ?? "", {
+    // Fetching of the readme is skipped if the addon is not yet retrieved
     skip: addon === undefined
   });
 
-  // Use the custom hooks for interacting with the backend over AMQP
   const {
     error: installError,
     installAddon,
