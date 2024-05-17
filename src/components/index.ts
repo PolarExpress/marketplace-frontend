@@ -6,6 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
+export { default as AddonTabs } from "./addonTabs";
 export { default as Header } from "./header";
 export { default as InstallButton } from "./installButton";
 export { LoadingSpinner } from "./loadingSpinner";

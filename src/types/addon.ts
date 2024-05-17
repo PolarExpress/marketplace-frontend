@@ -8,11 +8,13 @@
 
 import type { Author } from "./author";
 
+/* eslint-disable perfectionist/sort-enums -- Should be ordered by importance */
 export enum AddonCategory {
-  DATA_SOURCE = "DATA_SOURCE",
+  VISUALISATION = "VISUALISATION",
   MACHINE_LEARNING = "MACHINE_LEARNING",
-  VISUALISATION = "VISUALISATION"
+  DATA_SOURCE = "DATA_SOURCE"
 }
+/* eslint-enable perfectionist/sort-enums */
 
 /**
  * Defines the structure of an add-on.

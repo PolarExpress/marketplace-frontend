@@ -36,7 +36,6 @@ describe("AddonPage", () => {
   });
 
   it("displays the returned error", async () => {
-    // Setup specific msw handlers for returning errors
     server.use(
       http.post(`${baseUrl}/addons/get-by-id`, () => {
         return HttpResponse.error();
@@ -47,14 +46,12 @@ describe("AddonPage", () => {
     );
     const { findByTestId } = setupPageWithId(shortAddonList[0]._id);
 
-    // Checks if fetching of readme is skipped when addon doesn't load
     await expect(findByTestId("readme-loading")).rejects.toThrow();
 
     expect(await findByTestId("fetch-error")).toBeDefined();
   });
 
   it("does not attempt to render the addon when it has no data", async () => {
-    // Setup specific msw handlers for returning errors
     server.use(
       http.post(`${baseUrl}/addons/get-by-id`, () => {
         return HttpResponse.json({ addons: undefined });

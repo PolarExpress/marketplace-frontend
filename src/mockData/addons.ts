@@ -12,13 +12,15 @@ import { AddonCategory } from "@polarexpress/types/addon";
 
 import { authorList } from "./authors";
 
+const categories = Object.values(AddonCategory);
+
 export const generateAddon = (index: number): Addon => ({
   _id: index.toString(),
   author: authorList[(index - 1) % authorList.length],
   authorId: authorList[(index - 1) % authorList.length].userId,
-  category: AddonCategory.VISUALISATION,
+  category: categories[(index - 1) % categories.length],
   icon: "icon.png",
-  name: `Vis${index}`,
+  name: `Addon${index}`,
   summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Addon ${index}.`
 });
 
@@ -26,6 +28,6 @@ export const shortAddonList: Addon[] = Array.from({ length: 3 }, (_, index) =>
   generateAddon(index + 1)
 );
 
-export const longAddonList: Addon[] = Array.from({ length: 60 }, (_, index) =>
+export const longAddonList: Addon[] = Array.from({ length: 120 }, (_, index) =>
   generateAddon(index + 1)
 );

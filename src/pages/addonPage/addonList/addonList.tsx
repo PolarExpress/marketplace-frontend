@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { LoadingSpinner, RTKError } from "@polarexpress/components";
+import { AddonTabs, LoadingSpinner, RTKError } from "@polarexpress/components";
 import ReactPaginate from "react-paginate";
 import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
@@ -24,12 +24,16 @@ const AddonList = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
 
+  const [selectedCategory, setSelectedCategory] = useState(
+    AddonCategory.VISUALISATION
+  );
+
   const {
     data: allAddOns,
     error: allError,
     isLoading: allLoading
   } = useGetAddonsQuery({
-    category: AddonCategory.VISUALISATION,
+    category: selectedCategory,
     page: currentPage
   });
 
@@ -47,9 +51,19 @@ const AddonList = () => {
     setCurrentPage(data.selected);
   };
 
+  /**
+   * Handles the category change event in the AddonTabs component.
+   *
+   * @param category The newly selected add-on category.
+   */
+  const handleCategoryChange = (category: AddonCategory) => {
+    setSelectedCategory(category);
+    setCurrentPage(0);
+  };
+
   useEffect(() => {
-    trigger({ page: currentPage, searchTerm });
-  }, [searchTerm, trigger, currentPage]);
+    trigger({ category: selectedCategory, page: currentPage, searchTerm });
+  }, [searchTerm, trigger, currentPage, selectedCategory]);
 
   if (allLoading || filterLoading)
     return (
@@ -66,14 +80,24 @@ const AddonList = () => {
   if (addOnsToRender) {
     if (addOnsToRender.addons.length === 0) {
       return (
-        <p className="flex w-full justify-center">
-          No Add-ons found with the given search term
-        </p>
+        <div className="flex w-full flex-col items-center">
+          <AddonTabs
+            onCategoryChange={handleCategoryChange}
+            selectedCategory={selectedCategory}
+          />
+          <p className="flex w-full justify-center">
+            No Add-ons found with the given search term
+          </p>
+        </div>
       );
     }
 
     return (
       <div className="flex w-full flex-col items-center">
+        <AddonTabs
+          onCategoryChange={handleCategoryChange}
+          selectedCategory={selectedCategory}
+        />
         <div className="flex flex-wrap justify-center gap-4">
           {addOnsToRender.addons.map((addOn: Addon) => (
             <AddonCard addOn={addOn} key={addOn._id} />
@@ -87,6 +111,7 @@ const AddonList = () => {
           pageCount={addOnsToRender.totalPages}
           pageRangeDisplayed={3}
           onPageChange={handlePageClick}
+          forcePage={currentPage}
           breakClassName="items-center px-5 py-2 text-sm font-semibold text-black ring-1 ring-inset ring-gray-300 hover:bg-white inline-flex"
           containerClassName="flex mt-5"
           pageLinkClassName="items-center px-5 py-2 text-sm font-semibold text-black ring-1 ring-inset ring-gray-300 h-full hover:bg-white inline-flex"
