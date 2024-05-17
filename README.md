@@ -34,7 +34,8 @@ To manage the application, use `pnpm <script>`, where `<script>` is one of the f
 - `test` - Launch the test runner.
 - `build-tailwind` - Rebuild the Tailwind CSS stylesheet.
 - `format` - Run Prettier to format the code.
-- `lint` - Run ESLint to lint the code. Append `:fix` to automatically fix issues.
+- `lint` - Run ESLint to lint the code.
+- `lint:fix` - Automatically fix ESLint issues.
 
 ## Inspiration
 
