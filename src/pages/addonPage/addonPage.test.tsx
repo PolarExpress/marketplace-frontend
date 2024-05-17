@@ -9,10 +9,11 @@
 import { addonList } from "@polarexpress/mockData/addons";
 import { server } from "@polarexpress/test/setup";
 import { setupPageWithId } from "@polarexpress/test/utils";
+import { panic } from "@polarexpress/utils";
 import { HttpResponse, http } from "msw";
 import { describe, expect, it } from "vitest";
 
-const baseUrl = import.meta.env.VITE_API_BASE ?? undefined;
+const baseUrl = import.meta.env.VITE_API_BASE ?? panic("Environment variable missing: VITE_API_BASE.");
 if (!baseUrl) console.log("No vite base url found.");
 
 describe("AddonPage", () => {

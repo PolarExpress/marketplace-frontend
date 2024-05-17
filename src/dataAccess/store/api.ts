@@ -6,6 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
+import { panic } from "@polarexpress/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 /**
@@ -17,7 +18,7 @@ export const emptySplitApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
       import.meta.env.VITE_API_BASE ??
-      console.log("no VITE_API_BASE environment variable found.")
+      panic("Environment variable missing: VITE_API_BASE")
   }),
   endpoints: () => ({})
 });

@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+import { panic } from "@polarexpress/utils";
 import { useAppDispatch } from "../store";
 import { authorized, changeRoom } from "./authSlice";
 
@@ -11,8 +12,7 @@ export type AuthenticationHeader = {
   username: string;
 };
 
-const UMS_URL = import.meta.env.VITE_UMS_URL ?? null;
-if (!UMS_URL) console.log("No Vite ums url found.");
+const UMS_URL = import.meta.env.VITE_UMS_URL ?? panic("Environment variable missing: VITE_UMS_URL.");
 
 export const fetchSettings: RequestInit = {
   credentials: "include",

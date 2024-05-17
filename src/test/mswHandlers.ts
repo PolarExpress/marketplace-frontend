@@ -8,9 +8,10 @@
 
 import { addonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
+import { panic } from "@polarexpress/utils";
 import { HttpResponse, http, passthrough } from "msw";
 
-const baseUrl = import.meta.env.VITE_API_BASE;
+const baseUrl = import.meta.env.VITE_API_BASE ?? panic("testing environment variable missing: VITE_API_BASE");
 
 /**
  * Define mocking routes. Roughly corresponds to backend handlers.

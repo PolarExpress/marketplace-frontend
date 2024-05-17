@@ -17,6 +17,7 @@ import { describe, expect, it } from "vitest";
 
 import AddonPage from "../addonPage";
 import AddonList from "./addonList";
+import { panic } from "@polarexpress/utils";
 
 describe("AddonList component", () => {
   it("renders AddonCard components for all add-ons", async () => {
@@ -77,7 +78,7 @@ describe("AddonList component", () => {
   });
 
   it("displays the returned error", async () => {
-    const baseUrl = import.meta.env.VITE_API_BASE;
+    const baseUrl = import.meta.env.VITE_API_BASE ?? panic("testing environment variable missing: VITE_API_BASE");
 
     // Setup specific msw handlers for returning errors
     server.use(
@@ -111,7 +112,7 @@ describe("AddonList component", () => {
   });
 
   it("displays the filterError when an error occurs during filtering", async () => {
-    const baseUrl = import.meta.env.VITE_API_BASE;
+    const baseUrl = import.meta.env.VITE_API_BASE ?? panic("Testing environment variable missing: VITE_API_BASE");
 
     // Setup specific msw handlers for returning errors during filtering
     server.use(

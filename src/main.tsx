@@ -14,6 +14,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { store } from "./dataAccess/store/store";
 import App from "./app";
 import "./style.css";
+import { panic } from "./utils";
 
 /**
  * Register service worker and msw.
@@ -21,8 +22,7 @@ import "./style.css";
 async function enableMocking() {
   // Don't enable mocking when in prod or when explicitly disabled
   if (!(import.meta.env.DEV && import.meta.env.VITE_MOCKING)) {
-    console.log("No mocking environment variables found.");
-    return;
+    panic("Missing environment variables: DEV or MOCKING.")
   }
 
   const { setupWorker } = await import("msw/browser");
