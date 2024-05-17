@@ -12,7 +12,9 @@ export type AuthenticationHeader = {
   username: string;
 };
 
-const UMS_URL = import.meta.env.VITE_UMS_URL ?? panic("Environment variable missing: VITE_UMS_URL.");
+const UMS_URL =
+  import.meta.env.VITE_UMS_URL ??
+  panic("Environment variable missing: VITE_UMS_URL.");
 
 export const fetchSettings: RequestInit = {
   credentials: "include",

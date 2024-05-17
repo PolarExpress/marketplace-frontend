@@ -19,7 +19,9 @@ import {
  * A broker that handles incoming messages from the backend.
  */
 export class Broker {
-  private static BACKEND_WSS_URL = import.meta.env.VITE_BACKEND_WSS_URL ?? panic("No environment variable found: VITE_BACKEND_WSS_URL.");
+  private static BACKEND_WSS_URL =
+    import.meta.env.VITE_BACKEND_WSS_URL ??
+    panic("No environment variable found: VITE_BACKEND_WSS_URL.");
 
   private authHeader: UseIsAuthorizedState | undefined;
   private callbackListeners: Record<string, Function> = {};

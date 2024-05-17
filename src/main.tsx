@@ -22,7 +22,7 @@ import { panic } from "./utils";
 async function enableMocking() {
   // Don't enable mocking when in prod or when explicitly disabled
   if (!(import.meta.env.DEV && import.meta.env.VITE_MOCKING)) {
-    panic("Missing environment variables: DEV or MOCKING.")
+    panic("Missing environment variables: DEV or MOCKING.");
   }
 
   const { setupWorker } = await import("msw/browser");
