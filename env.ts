@@ -15,4 +15,3 @@ export default defineConfig({
   VITE_BACKEND_WSS_URL: Schema.string(),
   VITE_UMS_URL: Schema.string()
 });
-
