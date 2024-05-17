@@ -157,7 +157,7 @@ describe("AddonList component", () => {
 
     await user.click(getByText("MACHINE LEARNING"));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       const updatedAddOnCards = getAllByTestId(addonCardTestId);
 
       const addOns = updatedAddOnCards.map(card => {
