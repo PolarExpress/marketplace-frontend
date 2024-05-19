@@ -14,6 +14,13 @@ import { authorList } from "./authors";
 
 const categories = Object.values(AddonCategory);
 
+/**
+ * Generates a mock addon object.
+ *
+ * @param   index The index of the addon to generate.
+ *
+ * @returns       The generated addon object.
+ */
 export const generateAddon = (index: number): Addon => ({
   _id: index.toString(),
   author: authorList[(index - 1) % authorList.length],
@@ -24,10 +31,16 @@ export const generateAddon = (index: number): Addon => ({
   summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Addon ${index}.`
 });
 
+/**
+ * A short list of 3 generated mock addon objects.
+ */
 export const shortAddonList: Addon[] = Array.from({ length: 3 }, (_, index) =>
   generateAddon(index + 1)
 );
 
+/**
+ * A long list of 120 generated mock addon objects.
+ */
 export const longAddonList: Addon[] = Array.from({ length: 120 }, (_, index) =>
   generateAddon(index + 1)
 );

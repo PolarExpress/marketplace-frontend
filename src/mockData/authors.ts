@@ -20,4 +20,7 @@ const authorTwo: Author = {
   userId: userList[2].userId
 };
 
+/**
+ * List of 2 mock author objects.
+ */
 export const authorList: Author[] = [authorOne, authorTwo];

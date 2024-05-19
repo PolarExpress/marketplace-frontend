@@ -11,7 +11,7 @@ import { setupServer } from "msw/node";
 
 import { handlers } from "./mswHandlers";
 
-// Set up http handlers during testing (npm test)
+// Set up http handlers during testing
 export const server = setupServer(...handlers);
 beforeAll(() => server.listen());
 afterAll(() => server.close());

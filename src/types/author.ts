@@ -8,7 +8,7 @@
 
 export interface Author {
   /**
-   * Unique identifier for the author.
+   * MongoDB object id.
    */
   _id: string;
   /**

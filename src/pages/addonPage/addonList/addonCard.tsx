@@ -6,7 +6,6 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Component for rendering a single add-on's information
 import type { Addon } from "@polarexpress/types/addon";
 
 import { Link } from "react-router-dom";
@@ -21,7 +20,7 @@ interface AddonCardProperties {
 }
 
 /**
- * Displays the name and summary of a single add-on. Links to addon page when
+ * Renders the name and summary of a single add-on. Links to addon page when
  * clicked.
  */
 const AddonCard = ({ addOn }: AddonCardProperties) => {

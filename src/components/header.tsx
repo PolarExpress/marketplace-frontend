@@ -9,8 +9,7 @@
 import SearchBar from "./searchBar";
 
 /**
- * The Header component renders the main header area of the application,
- * including a search bar.
+ * Renders the main header area of the application, including a search bar.
  */
 const Header = () => {
   return (

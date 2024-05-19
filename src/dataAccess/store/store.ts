@@ -6,7 +6,6 @@
  * (Department of Information and Computing Sciences)
  */
 
-// Configures Redux store, including middleware and combining reducers
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
@@ -36,15 +35,15 @@ export type RootState = ReturnType<typeof rootReducer>;
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     middleware: getDefaultMiddleware => {
-      //API middleware adds logic for managing caching, invalidation, subscriptions, polling, and more.
+      // API middleware adds logic for managing caching, invalidation, subscriptions, polling, and more.
       return getDefaultMiddleware().prepend(emptySplitApi.middleware);
     },
     preloadedState,
     reducer: rootReducer
   });
 
-  // configure listeners using the provided defaults
-  // optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
+  // Configure listeners using the provided defaults
+  // Optional, but required for `refetchOnFocus`/`refetchOnReconnect` behaviors
   setupListeners(store.dispatch);
 
   return store;
