@@ -15,33 +15,33 @@ import { createSlice } from "@reduxjs/toolkit";
  */
 interface AddonListState {
   /**
-   * The search term used to filter the addon list.
-   */
-  searchTerm: string;
-  /**
    * The current page used to filter the addon list.
    */
   currentPage: number;
+  /**
+   * The search term used to filter the addon list.
+   */
+  searchTerm: string;
 }
 
 const initialState: AddonListState = {
-  searchTerm: "",
-  currentPage: 0
+  currentPage: 0,
+  searchTerm: ""
 };
 
 const AddOnSlice = createSlice({
   initialState,
   name: "addOnList",
   reducers: {
-    updateSearchTerm(state, action: PayloadAction<string>) {
-      state.searchTerm = action.payload;
-    },
     updateCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+    },
+    updateSearchTerm(state, action: PayloadAction<string>) {
+      state.searchTerm = action.payload;
     }
   }
 });
 
 export { type AddonListState, initialState };
-export const { updateSearchTerm, updateCurrentPage } = AddOnSlice.actions;
+export const { updateCurrentPage, updateSearchTerm } = AddOnSlice.actions;
 export default AddOnSlice.reducer;

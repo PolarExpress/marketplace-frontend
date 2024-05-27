@@ -10,9 +10,9 @@ import { AddonTabs, LoadingSpinner, RTKError } from "@polarexpress/components";
 import ReactPaginate from "react-paginate";
 import {
   type RootState,
-  useAppSelector,
+  updateCurrentPage,
   useAppDispatch,
-  updateCurrentPage
+  useAppSelector
 } from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
@@ -26,7 +26,7 @@ import { useEffect, useState } from "react";
  */
 const AddonList = () => {
   const dispatch = useAppDispatch();
-  const { searchTerm, currentPage } = useAppSelector(
+  const { currentPage, searchTerm } = useAppSelector(
     (state: RootState) => state.addons
   );
 
