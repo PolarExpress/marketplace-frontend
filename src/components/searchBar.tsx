@@ -6,7 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { updateSearchTerm } from "@polarexpress/dataAccess/store/addonSlice";
+import {
+  updateCurrentPage,
+  updateSearchTerm
+} from "@polarexpress/dataAccess/store/addonSlice";
 import { useAppDispatch } from "@polarexpress/dataAccess/store/hooks";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -30,6 +33,7 @@ const SearchBar = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(updateSearchTerm(searchTerm));
+    dispatch(updateCurrentPage(0));
 
     if (location.pathname !== "/") {
       navigate("/");

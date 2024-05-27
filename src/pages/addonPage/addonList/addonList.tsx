@@ -8,7 +8,12 @@
 
 import { AddonTabs, LoadingSpinner, RTKError } from "@polarexpress/components";
 import ReactPaginate from "react-paginate";
-import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
+import {
+  type RootState,
+  useAppSelector,
+  useAppDispatch,
+  updateCurrentPage
+} from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
 import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
@@ -20,9 +25,10 @@ import { useEffect, useState } from "react";
  * @returns The rendered AddonList component.
  */
 const AddonList = () => {
-  const { searchTerm } = useAppSelector((state: RootState) => state.addons);
-
-  const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useAppDispatch();
+  const { searchTerm, currentPage } = useAppSelector(
+    (state: RootState) => state.addons
+  );
 
   const [selectedCategory, setSelectedCategory] = useState(
     AddonCategory.VISUALISATION
@@ -48,7 +54,7 @@ const AddonList = () => {
    * @param data The object containing the selected page index.
    */
   const handlePageClick = (data: { selected: number }) => {
-    setCurrentPage(data.selected);
+    dispatch(updateCurrentPage(data.selected));
   };
 
   /**
@@ -58,7 +64,7 @@ const AddonList = () => {
    */
   const handleCategoryChange = (category: AddonCategory) => {
     setSelectedCategory(category);
-    setCurrentPage(0);
+    dispatch(updateCurrentPage(0));
   };
 
   useEffect(() => {

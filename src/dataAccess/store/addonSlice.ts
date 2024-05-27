@@ -18,10 +18,15 @@ interface AddonListState {
    * The search term used to filter the addon list.
    */
   searchTerm: string;
+  /**
+   * The current page used to filter the addon list.
+   */
+  currentPage: number;
 }
 
 const initialState: AddonListState = {
-  searchTerm: ""
+  searchTerm: "",
+  currentPage: 0
 };
 
 const AddOnSlice = createSlice({
@@ -30,10 +35,13 @@ const AddOnSlice = createSlice({
   reducers: {
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
+    },
+    updateCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
     }
   }
 });
 
 export { type AddonListState, initialState };
-export const { updateSearchTerm } = AddOnSlice.actions;
+export const { updateSearchTerm, updateCurrentPage } = AddOnSlice.actions;
 export default AddOnSlice.reducer;
