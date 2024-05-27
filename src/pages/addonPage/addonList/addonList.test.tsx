@@ -76,7 +76,7 @@ describe("AddonList component", () => {
 
   it("displays message when no addons are found with search term", async () => {
     const { findByText } = renderWithProviders(<AddonList />, {
-      preloadedState: { addons: { searchTerm: "qwerty" } }
+      preloadedState: { addons: { currentPage: 0, searchTerm: "qwerty" } }
     });
 
     const message = await findByText(
