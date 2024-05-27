@@ -6,6 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
+import { AddonCategory } from "@polarexpress/types/addon";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { createSlice } from "@reduxjs/toolkit";
@@ -22,11 +23,16 @@ interface AddonListState {
    * The search term used to filter the addon list.
    */
   searchTerm: string;
+  /**
+   * The selected category used to filter the addon list.
+   */
+  selectedCategory: AddonCategory;
 }
 
 const initialState: AddonListState = {
   currentPage: 0,
-  searchTerm: ""
+  searchTerm: "",
+  selectedCategory: AddonCategory.VISUALISATION
 };
 
 const AddOnSlice = createSlice({
@@ -38,10 +44,14 @@ const AddOnSlice = createSlice({
     },
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
+    },
+    updateSelectedCategory(state, action: PayloadAction<AddonCategory>) {
+      state.selectedCategory = action.payload;
     }
   }
 });
 
 export { type AddonListState, initialState };
-export const { updateCurrentPage, updateSearchTerm } = AddOnSlice.actions;
+export const { updateCurrentPage, updateSearchTerm, updateSelectedCategory } =
+  AddOnSlice.actions;
 export default AddOnSlice.reducer;
