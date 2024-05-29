@@ -12,7 +12,7 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 import AuthSlice from "../authentication";
-import AddOnSlice from "./addonSlice";
+import AddOnSlice from "./searchSlice";
 import { emptySplitApi } from "./api";
 
 const rootReducer = combineSlices({

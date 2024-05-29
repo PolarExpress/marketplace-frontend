@@ -8,11 +8,17 @@
 
 import { AddonTabs, LoadingSpinner, RTKError } from "@polarexpress/components";
 import ReactPaginate from "react-paginate";
-import { type RootState, useAppSelector } from "@polarexpress/dataAccess/store";
+import {
+  type RootState,
+  updateCurrentPage,
+  updateSelectedCategory,
+  useAppDispatch,
+  useAppSelector
+} from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
 import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 /**
  * Component that renders a grid of add-on cards with pagination.
@@ -20,12 +26,9 @@ import { useEffect, useState } from "react";
  * @returns The rendered AddonList component.
  */
 const AddonList = () => {
-  const { searchTerm } = useAppSelector((state: RootState) => state.addons);
-
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const [selectedCategory, setSelectedCategory] = useState(
-    AddonCategory.VISUALISATION
+  const dispatch = useAppDispatch();
+  const { currentPage, searchTerm, selectedCategory } = useAppSelector(
+    (state: RootState) => state.addons
   );
 
   const {
@@ -48,7 +51,7 @@ const AddonList = () => {
    * @param data The object containing the selected page index.
    */
   const handlePageClick = (data: { selected: number }) => {
-    setCurrentPage(data.selected);
+    dispatch(updateCurrentPage(data.selected));
   };
 
   /**
@@ -57,8 +60,8 @@ const AddonList = () => {
    * @param category The newly selected add-on category.
    */
   const handleCategoryChange = (category: AddonCategory) => {
-    setSelectedCategory(category);
-    setCurrentPage(0);
+    dispatch(updateSelectedCategory(category));
+    dispatch(updateCurrentPage(0));
   };
 
   useEffect(() => {

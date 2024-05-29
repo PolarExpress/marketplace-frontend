@@ -6,9 +6,9 @@
  * (Department of Information and Computing Sciences)
  */
 
-export * from "./addonSlice";
-export { default } from "./addonSlice";
 export * from "./api";
 export * from "./hooks";
+export * from "./searchSlice";
+export { default } from "./searchSlice";
 
 export * from "./store";
