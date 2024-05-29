@@ -9,7 +9,7 @@
 import {
   updateCurrentPage,
   updateSearchTerm
-} from "@polarexpress/dataAccess/store/addonSlice";
+} from "@polarexpress/dataAccess/store/searchSlice";
 import { useAppDispatch } from "@polarexpress/dataAccess/store/hooks";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

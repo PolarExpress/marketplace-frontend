@@ -14,7 +14,7 @@ import { createSlice } from "@reduxjs/toolkit";
 /**
  * Interface representing the state of the addon list.
  */
-interface AddonListState {
+interface searchState {
   /**
    * The current page used to filter the addon list.
    */
@@ -29,13 +29,13 @@ interface AddonListState {
   selectedCategory: AddonCategory;
 }
 
-const initialState: AddonListState = {
+const initialState: searchState = {
   currentPage: 0,
   searchTerm: "",
   selectedCategory: AddonCategory.VISUALISATION
 };
 
-const AddOnSlice = createSlice({
+const searchSlice = createSlice({
   initialState,
   name: "addOnList",
   reducers: {
@@ -51,7 +51,7 @@ const AddOnSlice = createSlice({
   }
 });
 
-export { type AddonListState, initialState };
+export { initialState, type searchState };
 export const { updateCurrentPage, updateSearchTerm, updateSelectedCategory } =
-  AddOnSlice.actions;
-export default AddOnSlice.reducer;
+  searchSlice.actions;
+export default searchSlice.reducer;
