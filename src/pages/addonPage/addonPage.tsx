@@ -11,6 +11,7 @@ import {
   LoadingSpinner,
   RTKError
 } from "@polarexpress/components";
+import InstallIcon from "../../../assets/install.svg";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
@@ -74,9 +75,11 @@ const AddonPage = () => {
   );
 
   const [installed, setInstalled] = useState(isCurrentAddonInstalled ?? false);
+  const [installCount, setInstallCount] = useState(addon?.installCount);
 
   useEffect(() => {
     setInstalled(isCurrentAddonInstalled ?? false);
+    setInstallCount(addon?.installCount);
   }, [isCurrentAddonInstalled]);
 
   /**
@@ -88,9 +91,11 @@ const AddonPage = () => {
       if (installed) {
         uninstallAddon(thisId ?? "");
         setInstalled(false);
+        setInstallCount(previous => previous! - 1);
       } else {
         installAddon(thisId ?? "");
         setInstalled(true);
+        setInstallCount(previous => previous! + 1);
       }
     } else {
       // TODO: Should redirect to the login page when it exists
@@ -114,13 +119,19 @@ const AddonPage = () => {
       </div>
     );
 
-  if (addon !== undefined) {
+  if (addon) {
     return (
       <div className="m-8 font-sans leading-10" data-testid="addon-page">
         <div className="mb-2 border-b-2 pb-2 text-center">
           <h1 className="text-4xl font-bold">{addon.name}</h1>
           <p className="text-sm font-light">{addon.authorId}</p>
           <p>{addon.summary}</p>
+          <div className="mt-2 flex items-center justify-center">
+            <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
+            <div className="text-lg font-semibold text-gray-800">
+              {installCount} installs
+            </div>
+          </div>
           <div className="my-4 flex justify-center">
             <InstallButton
               authorized={auth.authorized ?? false}
