@@ -68,11 +68,15 @@ describe("InstallButton", () => {
 
     await user.click(button);
 
-    expect(getInstalled()).toContainEqual(testAddon);
+    expect(getInstalled().map(addon => addon._id)).toStrictEqual([
+      testAddon._id
+    ]);
 
     await user.click(button);
 
-    expect(getInstalled()).not.toContainEqual(testAddon);
+    expect(getInstalled().map(addon => addon._id)).not.toStrictEqual([
+      testAddon._id
+    ]);
   });
 
   it('shows "Installing..." when installation is in progress', async () => {
