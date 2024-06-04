@@ -9,7 +9,7 @@
 import { Broker } from "@polarexpress/dataAccess/broker";
 import { BrokerBase } from "@polarexpress/dataAccess/broker";
 import { MockBroker } from "@polarexpress/dataAccess/broker";
-import { longAddonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import { Addon } from "@polarexpress/types/addon";
 
 /**
@@ -88,11 +88,11 @@ export const updateInstallCount = (
   addonID: string,
   increment: number
 ): void => {
-  const addonIndex = longAddonList.findIndex(addon => addon._id === addonID);
+  const addonIndex = shortAddonList.findIndex(addon => addon._id === addonID);
 
   if (addonIndex === -1) {
     console.warn(`Addon with ID ${addonID} not found in the addon list.`);
   } else {
-    longAddonList[addonIndex].installCount += increment;
+    shortAddonList[addonIndex].installCount += increment;
   }
 };

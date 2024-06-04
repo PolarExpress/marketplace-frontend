@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { longAddonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
 import { HttpResponse, http, passthrough } from "msw";
 
@@ -25,11 +25,11 @@ export const handlers = [
     const { category, page = 0, searchTerm } = body;
 
     let filteredAddons = category
-      ? longAddonList.filter(addon => addon.category === category)
-      : longAddonList;
+      ? shortAddonList.filter(addon => addon.category === category)
+      : shortAddonList;
 
     filteredAddons = searchTerm
-      ? longAddonList.filter(addon =>
+      ? shortAddonList.filter(addon =>
           addon.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : filteredAddons;
@@ -50,7 +50,7 @@ export const handlers = [
     };
     const addonId = body.id;
 
-    const addon = longAddonList.find(addon => addon._id === addonId);
+    const addon = shortAddonList.find(addon => addon._id === addonId);
 
     return addon ? HttpResponse.json({ addon: addon }) : HttpResponse.json();
   }),
@@ -61,7 +61,7 @@ export const handlers = [
     };
     const addonId = body.id;
 
-    const addon = longAddonList.find(addon => addon._id === addonId);
+    const addon = shortAddonList.find(addon => addon._id === addonId);
 
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })
