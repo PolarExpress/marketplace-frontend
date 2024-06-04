@@ -27,6 +27,7 @@ export const generateAddon = (index: number): Addon => ({
   authorId: authorList[(index - 1) % authorList.length].userId,
   category: categories[(index - 1) % categories.length],
   icon: "icon.png",
+  installCount: 0,
   name: `Addon${index}`,
   summary: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Addon ${index}.`
 });

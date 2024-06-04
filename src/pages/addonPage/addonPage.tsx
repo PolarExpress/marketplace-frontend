@@ -40,7 +40,8 @@ const AddonPage = () => {
   const {
     data: addon,
     error: addonError,
-    isLoading: isAddonLoading
+    isLoading: isAddonLoading,
+    refetch
   } = useGetAddonByIdQuery(thisId ?? "");
 
   const {
@@ -75,28 +76,25 @@ const AddonPage = () => {
   );
 
   const [installed, setInstalled] = useState(isCurrentAddonInstalled ?? false);
-  const [installCount, setInstallCount] = useState(addon?.installCount);
 
   useEffect(() => {
     setInstalled(isCurrentAddonInstalled ?? false);
-    setInstallCount(addon?.installCount);
   }, [isCurrentAddonInstalled]);
 
   /**
    * Handles the installation or uninstallation of the add-on. Changes the
    * internal installed state as well.
    */
-  const handleInstall = () => {
+  const handleInstall = async () => {
     if (auth.authorized) {
       if (installed) {
-        uninstallAddon(thisId ?? "");
+        await uninstallAddon(thisId ?? "");
         setInstalled(false);
-        setInstallCount(previous => previous! - 1);
       } else {
-        installAddon(thisId ?? "");
+        await installAddon(thisId ?? "");
         setInstalled(true);
-        setInstallCount(previous => previous! + 1);
       }
+      refetch();
     } else {
       // TODO: Should redirect to the login page when it exists
       console.warn("User is not logged in. Redirecting to login page.");
@@ -129,7 +127,7 @@ const AddonPage = () => {
           <div className="mt-2 flex items-center justify-center">
             <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
             <div className="text-lg font-semibold text-gray-800">
-              {installCount} installs
+              {addon.installCount} installs
             </div>
           </div>
           <div className="my-4 flex justify-center">

@@ -9,6 +9,7 @@
 import { Broker } from "@polarexpress/dataAccess/broker";
 import { BrokerBase } from "@polarexpress/dataAccess/broker";
 import { MockBroker } from "@polarexpress/dataAccess/broker";
+import { longAddonList } from "@polarexpress/mockData/addons";
 import { Addon } from "@polarexpress/types/addon";
 
 /**
@@ -75,4 +76,23 @@ export const getInstalled = (): Addon[] => {
     sessionStorage.getItem("installed") || "[]"
   );
   return installedAddons;
+};
+
+/**
+ * Updates the install count of an addon in the mock data.
+ *
+ * @param addonID   Id of the addon to update the install count for.
+ * @param increment The value to increment or decrement the install count by.
+ */
+export const updateInstallCount = (
+  addonID: string,
+  increment: number
+): void => {
+  const addonIndex = longAddonList.findIndex(addon => addon._id === addonID);
+
+  if (addonIndex === -1) {
+    console.warn(`Addon with ID ${addonID} not found in the addon list.`);
+  } else {
+    longAddonList[addonIndex].installCount += increment;
+  }
 };
