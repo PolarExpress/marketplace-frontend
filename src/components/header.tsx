@@ -14,13 +14,26 @@ import GpLogo from "../../assets/gp-logo.svg";
  */
 const Header = () => (
   <nav
-    className="relative flex items-center justify-center border-b bg-gray-50 px-6 py-3 shadow-black hover:z-50 hover:shadow-md"
+    className="relative flex items-center justify-between border-b bg-gray-50 px-6 py-3 shadow-black hover:z-50 hover:shadow-md"
     data-testid="header">
-    <a className="absolute left-0 mx-3" href="/">
-      {/* It is probably better to just do a reload, instead of manyally resetting everything. */}
-      <img className="h-8" src={GpLogo} />
-    </a>
-    <SearchBar />
+    <div className="flex items-center">
+      <a href="/">
+        {/* It is probably better to just do a reload, instead of manyally resetting everything. */}
+        <img className="h-8" src={GpLogo} />
+      </a>
+    </div>
+    <div className="mx-6 grow">
+      <SearchBar />
+    </div>
+    <div className="flex items-center">
+      <a
+        className="rounded-md border-2 border-orange-400 px-4 py-2 font-medium text-black hover:bg-orange-400 hover:text-white"
+        href={import.meta.env.VITE_GP_URL}
+        rel="noopener noreferrer"
+        target="_blank">
+        Visit Main Site
+      </a>
+    </div>
   </nav>
 );
 
