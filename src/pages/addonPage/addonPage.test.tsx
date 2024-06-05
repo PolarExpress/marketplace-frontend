@@ -7,6 +7,7 @@
  */
 
 import { shortAddonList } from "@polarexpress/mockData/addons";
+import { addInstalled } from "@polarexpress/test/mockingUtils";
 import { server } from "@polarexpress/test/setup";
 import { setupPageWithId } from "@polarexpress/test/utils";
 import { HttpResponse, http } from "msw";
@@ -15,6 +16,24 @@ import { describe, expect, it } from "vitest";
 const baseUrl = import.meta.env.VITE_API_BASE;
 
 describe("AddonPage", () => {
+  it("displays an error if installing fails", async () => {
+    const testAddon = shortAddonList[0];
+
+    const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);
+
+    await findByTestId("addon-page"); // Wait for page to load.
+
+    addInstalled(testAddon); // Simulate an error response.
+
+    const button = getByTestId("install");
+    const alertSpy = vitest.spyOn(window, "alert").mockImplementation(() => {});
+
+    await user.click(button);
+
+    expect(alertSpy).toBeCalledTimes(1);
+    expect(button.textContent).toContain("Retry");
+  });
+
   it("renders the add-on information when found", async () => {
     const testAddon = shortAddonList[0];
 

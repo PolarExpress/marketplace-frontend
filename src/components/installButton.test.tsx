@@ -77,8 +77,7 @@ describe("InstallButton", () => {
 
   it('shows "Installing..." when installation is in progress', async () => {
     vi.spyOn(hooks, "useInstallAddon").mockReturnValue({
-      error: undefined,
-      installAddon: vi.fn(),
+      attempt: vi.fn(),
       isPending: true
     });
 
@@ -92,9 +91,8 @@ describe("InstallButton", () => {
     addInstalled(testAddon);
 
     vi.spyOn(hooks, "useUninstallAddon").mockReturnValue({
-      error: undefined,
-      isPending: true,
-      uninstallAddon: vi.fn()
+      attempt: vi.fn(),
+      isPending: true
     });
 
     const { button } = await setupButton();

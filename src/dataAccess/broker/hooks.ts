@@ -27,16 +27,15 @@ interface UseAddonParameters {
  * A hook to manage (install or uninstall) an addon by sending a message to the
  * backend.
  *
- * @returns An object containing the `isPending` state, the `error` state, and
- *   the `manageAddon` function.
+ * @returns An object containing the `isPending` state and the `manageAddon`
+ *   function.
  */
 const useAddon = () => {
-  const [isPending, setIsPending] = useState<boolean>(false);
-  const [error, setError] = useState<string | undefined>();
+  const [isPending, setPending] = useState<boolean>(false);
 
   const manageAddon = useCallback(
     async ({ action, addonId }: UseAddonParameters) => {
-      setIsPending(true);
+      setPending(true);
 
       const message: MpBackendMessage = {
         body: {
@@ -47,56 +46,54 @@ const useAddon = () => {
         subKey: "get"
       };
 
-      try {
-        // Unsure how backend error handling will be implemented
-        await Broker.sendMessageAsync(message);
-      } catch (error) {
-        setError(`Failed to ${action}. ${error}`);
-      }
+      const response = await Broker.sendMessageAsync(message);
+      setPending(false);
 
-      setIsPending(false);
+      return response;
     },
     []
   );
 
-  return { error, isPending, manageAddon };
+  return { isPending, manageAddon };
 };
 
 /**
  * A hook to install an addon using the generic addon management hook.
  *
- * @returns An object containing the `isPending` state, the `error` state, and
- *   the `installAddon` function.
+ * @returns An object containing the `isPending` state and a function to attempt
+ *   installation.
  */
-export const useInstallAddon = () => {
-  const { error, isPending, manageAddon } = useAddon();
+const useInstallAddon = () => {
+  const { isPending, manageAddon } = useAddon();
 
-  /* eslint-disable -- dependency cannot change */
-  const installAddon = useCallback((addonId: string) => {
-    manageAddon({ action: "install", addonId });
+  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  const installAddon = useCallback(async (addonId: string) => {
+    return manageAddon({ action: "install", addonId });
   }, []);
-  /* eslint-enable */
+  /* eslint-enable react-hooks/exhaustive-deps */
 
-  return { error, installAddon, isPending };
+  return { attempt: installAddon, isPending };
 };
 
 /**
  * A hook to uninstall an addon using the generic addon management hook.
  *
- * @returns An object containing the `isPending` state, the `error` state, and
- *   the `uninstallAddon` function.
+ * @returns An object containing the `isPending` state and the function to
+ *   attempt uninstallation.
  */
-export const useUninstallAddon = () => {
-  const { error, isPending, manageAddon } = useAddon();
+const useUninstallAddon = () => {
+  const { isPending, manageAddon } = useAddon();
 
-  /* eslint-disable -- dependency cannot change */
-  const uninstallAddon = useCallback((addonId: string) => {
-    manageAddon({ action: "uninstall", addonId });
+  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  const uninstallAddon = useCallback(async (addonId: string) => {
+    return manageAddon({ action: "uninstall", addonId });
   }, []);
-  /* eslint-enable */
+  /* eslint-enable react-hooks/exhaustive-deps */
 
-  return { error, isPending, uninstallAddon };
+  return { attempt: uninstallAddon, isPending };
 };
+
+export { useInstallAddon, useUninstallAddon };
 
 /**
  * Interface for parameters used in get GetAddonsByUserId hook.
