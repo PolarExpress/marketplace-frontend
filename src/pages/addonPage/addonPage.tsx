@@ -11,6 +11,7 @@ import {
   LoadingSpinner,
   RTKError
 } from "@polarexpress/components";
+import InstallIcon from "../../../assets/install.svg";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
@@ -38,7 +39,8 @@ const AddonPage = () => {
   const {
     data: addon,
     error: addonError,
-    isLoading: isAddonLoading
+    isLoading: isAddonLoading,
+    refetch
   } = useGetAddonByIdQuery(thisId ?? "");
   const {
     data: readMe,
@@ -120,6 +122,8 @@ const AddonPage = () => {
 
       setInstalled(true);
     }
+
+    refetch();
   };
 
   if (isAddonLoading)
@@ -135,17 +139,22 @@ const AddonPage = () => {
 
   return (
     <div className="m-8 font-sans leading-10" data-testid="addon-page">
-      {/* Name, author and summary. */}
       <div className="mb-2 border-b-2 pb-2 text-center">
+        {/* Name, author, summary. */}
         <h1 className="text-4xl font-bold">{addon.name}</h1>
         <p className="text-sm font-light">{addon.authorId}</p>
         <p>{addon.summary}</p>
-
-        {/* Install button. */}
+        <div className="mt-2 flex items-center justify-center">
+          <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
+          <div
+            className="text-lg font-semibold text-gray-800"
+            data-testid="install-count">
+            {addon.installCount} installs
+          </div>
+        </div>
         <div className="my-4 flex justify-center">
           <InstallButton
             authorized={auth.authorized ?? false}
-            data-testid="install"
             handleClick={handleInstall}
             installPending={install.isPending}
             installationError={installationError}

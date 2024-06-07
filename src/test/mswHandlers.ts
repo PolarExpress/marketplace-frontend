@@ -9,6 +9,7 @@
 import { shortAddonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
 import { HttpResponse, http, passthrough } from "msw";
+import { getInstallCounts } from "./mockingUtils";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 
@@ -28,31 +29,41 @@ export const handlers = [
       ? shortAddonList.filter(addon => addon.category === category)
       : shortAddonList;
 
-    filteredAddons = searchTerm
-      ? shortAddonList.filter(addon =>
-          addon.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      : filteredAddons;
+    if (searchTerm) {
+      filteredAddons = filteredAddons.filter(addon =>
+        addon.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    const installCounts = getInstallCounts();
+    const updatedAddons = filteredAddons.map(addon => ({
+      ...addon,
+      installCount: installCounts[addon._id] || 0
+    }));
 
     const pageSize = 20;
     const startIndex = page * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const paginatedAddons = filteredAddons.slice(startIndex, endIndex);
-    const totalPages = Math.ceil(filteredAddons.length / pageSize);
+    const paginatedAddons = updatedAddons.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(updatedAddons.length / pageSize);
 
     return HttpResponse.json({ addons: paginatedAddons, totalPages });
   }),
 
   http.post(`${baseUrl}/addons/get-by-id`, async ({ request }) => {
-    const body = (await request.json()) as {
-      id: string;
-    };
+    const body = (await request.json()) as { id: string };
     const addonId = body.id;
 
     const addon = shortAddonList.find(addon => addon._id === addonId);
+    const installCounts = getInstallCounts();
+    const addonWithInstallCount = addon
+      ? { ...addon, installCount: installCounts[addon._id] || 0 }
+      : undefined;
 
-    return addon ? HttpResponse.json({ addon: addon }) : HttpResponse.json();
+    return addonWithInstallCount
+      ? HttpResponse.json({ addon: addonWithInstallCount })
+      : HttpResponse.json();
   }),
 
   http.post(`${baseUrl}/addons/get-readme`, async ({ request }) => {

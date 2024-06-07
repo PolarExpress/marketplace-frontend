@@ -41,6 +41,10 @@ export interface Addon {
    */
   icon: string;
   /**
+   * Number of times this addon was installed.
+   */
+  installCount: number;
+  /**
    * Display name of the add-on.
    */
   name: string;
