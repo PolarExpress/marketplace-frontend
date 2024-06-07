@@ -98,6 +98,8 @@ const AddonPage = () => {
    * internal installed state as well.
    */
   const handleInstall = async () => {
+    setInstallationError(false);
+
     if (!auth.authorized) {
       // TODO: Should redirect to the login page when it exists.
       console.warn("User is not logged in. Redirecting to login page.");
