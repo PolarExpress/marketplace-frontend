@@ -18,4 +18,5 @@ afterAll(() => server.close());
 
 beforeEach(() => {
   vi.restoreAllMocks();
+  server.resetHandlers();
 });

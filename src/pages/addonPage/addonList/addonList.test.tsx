@@ -178,6 +178,31 @@ describe("AddonList component", () => {
     });
   });
 
+  it("shows only the addons that match the selected category and search term", async () => {
+    const { findByTestId, findAllByTestId, getByText, user } =
+      renderWithProviders(
+        <>
+          <Header />
+          <AddonList />
+        </>
+      );
+
+    await findAllByTestId(addonCardTestId);
+
+    await user.click(getByText("MACHINE LEARNING"));
+
+    const search = await findByTestId("search-input");
+    const submit = await findByTestId("search-submit");
+
+    await user.type(search, "Addon2");
+    await user.click(submit);
+
+    const addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(1);
+    expect(getByText("Addon2")).toBeDefined();
+  });
+
   it("displays the filterError when an error occurs during filtering", async () => {
     const baseUrl = import.meta.env.VITE_API_BASE;
 
