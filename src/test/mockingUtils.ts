@@ -34,10 +34,16 @@ export const initializeInstalled = () => {
  *
  * @param addonId Id of the addon to be uninstalled.
  */
-export const removeInstalled = (addonID: string): void => {
+export const removeInstalled = (addonID: string) => {
   const installedAddons: Addon[] = JSON.parse(
     sessionStorage.getItem("installed") || "[]"
   );
+
+  if (installedAddons.findIndex(addon => addon._id === addonID) === -1)
+    return {
+      error: "Addon isn't installed."
+    };
+
   const updatedAddons: Addon[] = installedAddons.filter(
     addon => addon._id !== addonID
   );
@@ -57,10 +63,16 @@ export const removeInstalled = (addonID: string): void => {
  *
  * @param addon Addon object to be installed.
  */
-export const addInstalled = (addon: Addon): void => {
+export const addInstalled = (addon: Addon) => {
   const installedAddons: Addon[] = JSON.parse(
     sessionStorage.getItem("installed") || "[]"
   );
+
+  if (installedAddons.findIndex(a => a._id === addon._id) !== -1)
+    return {
+      error: "Addon already installed."
+    };
+
   installedAddons.push(addon);
   sessionStorage.setItem("installed", JSON.stringify(installedAddons));
 

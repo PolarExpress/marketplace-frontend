@@ -32,8 +32,9 @@ export class MockBroker extends BrokerBase {
 
   // Interacts with the sessionStorage to mock install interactions.
   public sendMessage(message: MpBackendMessage, callback?: Function): void {
-    let data: Record<string, unknown> = {};
-    const action: MpBackendAction = message.body.action;
+    let data: Record<string, unknown> | undefined = undefined;
+    const body = message.body;
+    const action: MpBackendAction = body.action;
 
     switch (action) {
       case "addons/get-by-user": {
@@ -42,28 +43,29 @@ export class MockBroker extends BrokerBase {
       }
 
       case "install": {
-        if ("addonID" in message.body) {
-          const addonID = message.body.addonID as string;
-          const addon = generateAddon(Number(addonID));
-          addInstalled(addon);
-        } else {
-          console.warn(`Invalid message body: ${JSON.stringify(message.body)}`);
+        if (!("addonID" in body)) {
+          throw new Error(
+            `Message body ${JSON.stringify(body)} does not contain property "addonID".`
+          );
         }
+
+        data = addInstalled(generateAddon(Number(body.addonID)));
         break;
       }
 
       case "uninstall": {
-        if ("addonID" in message.body) {
-          const addonID = message.body.addonID as string;
-          removeInstalled(addonID);
-        } else {
-          console.warn(`Invalid message body: ${JSON.stringify(message.body)}`);
+        if (!("addonID" in body)) {
+          throw new Error(
+            `Message body ${JSON.stringify(body)} does not contain property "addonID".`
+          );
         }
+
+        data = removeInstalled(body.addonID as string);
         break;
       }
 
       default: {
-        console.warn(`Invalid action: ${action}`);
+        throw new Error("Invalid action.");
       }
     }
 

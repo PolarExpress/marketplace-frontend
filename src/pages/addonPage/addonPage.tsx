@@ -22,7 +22,6 @@ import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useParams } from "react-router-dom";
-
 import {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
@@ -34,16 +33,15 @@ import {
  */
 const AddonPage = () => {
   const { id: thisId } = useParams();
-
   const auth = useAuthorizationCache();
 
+  // Fetching data from backend.
   const {
     data: addon,
     error: addonError,
     isLoading: isAddonLoading,
     refetch
   } = useGetAddonByIdQuery(thisId ?? "");
-
   const {
     data: readMe,
     error: readmeError,
@@ -52,19 +50,6 @@ const AddonPage = () => {
     // Fetching of the readme is skipped if the addon is not yet retrieved
     skip: addon === undefined
   });
-
-  const {
-    error: installError,
-    installAddon,
-    isPending: installPending
-  } = useInstallAddon();
-
-  const {
-    error: uninstallError,
-    isPending: uninstallPending,
-    uninstallAddon
-  } = useUninstallAddon();
-
   const {
     data: userAddons,
     error: userAddonsError,
@@ -74,31 +59,71 @@ const AddonPage = () => {
   const isCurrentAddonInstalled = userAddons?.some(
     addon => addon._id === thisId
   );
-
-  const [installed, setInstalled] = useState(isCurrentAddonInstalled ?? false);
-
   useEffect(() => {
     setInstalled(isCurrentAddonInstalled ?? false);
   }, [isCurrentAddonInstalled]);
+
+  // Managing installation.
+  const install = useInstallAddon();
+  const unInstall = useUninstallAddon();
+  const [installed, setInstalled] = useState(isCurrentAddonInstalled ?? false);
+  const [installationError, setInstallationError] = useState(false);
+
+  /**
+   * Checks if there is an error field in the given response, and displays the
+   * error if there is one.
+   *
+   * @param   response    The reponse body to check for errors.
+   * @param   isUninstall If the action was an install or uninstall.
+   *
+   * @returns             `true` if an error was found; otherwise `false`.
+   */
+  const checkError = (
+    response: Record<string, unknown>,
+    isUninstall: boolean
+  ) => {
+    if (response && "error" in response) {
+      const word = (isUninstall ? "un" : "") + "installing";
+      setInstallationError(true);
+
+      // TODO: find something better than an alert.
+      alert(
+        `An error occurred while ${word} ${addon?.name}: ${response.error}`
+      );
+      return true;
+    }
+    return false;
+  };
 
   /**
    * Handles the installation or uninstallation of the add-on. Changes the
    * internal installed state as well.
    */
   const handleInstall = async () => {
-    if (auth.authorized) {
-      if (installed) {
-        await uninstallAddon(thisId ?? "");
-        setInstalled(false);
-      } else {
-        await installAddon(thisId ?? "");
-        setInstalled(true);
-      }
-      refetch();
-    } else {
-      // TODO: Should redirect to the login page when it exists
+    setInstallationError(false);
+
+    if (!auth.authorized) {
+      // TODO: Should redirect to the login page when it exists.
       console.warn("User is not logged in. Redirecting to login page.");
+
+      return;
     }
+
+    if (installed) {
+      const response = await unInstall.attempt(thisId ?? "");
+
+      if (checkError(response, true)) return;
+
+      setInstalled(false);
+    } else {
+      const response = await install.attempt(thisId ?? "");
+
+      if (checkError(response, false)) return;
+
+      setInstalled(true);
+    }
+
+    refetch();
   };
 
   if (isAddonLoading)
@@ -107,71 +132,64 @@ const AddonPage = () => {
         <LoadingSpinner>Loading...</LoadingSpinner>
       </div>
     );
-
   if (addonError) return <RTKError error={addonError} />;
+  if (userAddonsError)
+    return <div data-testid="button-loading">{userAddonsError}</div>;
+  if (!addon) return; //throw new Error("Unreachable code was reached.");
 
-  if (installError || uninstallError || userAddonsError)
-    return (
-      <div data-testid="button-loading">
-        {installError || uninstallError || userAddonsError}
+  return (
+    <div className="m-8 font-sans leading-10" data-testid="addon-page">
+      <div className="mb-2 border-b-2 pb-2 text-center">
+        {/* Name, author, summary. */}
+        <h1 className="text-4xl font-bold">{addon.name}</h1>
+        <p className="text-sm font-light">{addon.authorId}</p>
+        <p>{addon.summary}</p>
+        <div className="mt-2 flex items-center justify-center">
+          <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
+          <div
+            className="text-lg font-semibold text-gray-800"
+            data-testid="install-count">
+            {addon.installCount} installs
+          </div>
+        </div>
+        <div className="my-4 flex justify-center">
+          <InstallButton
+            authorized={auth.authorized ?? false}
+            handleClick={handleInstall}
+            installPending={install.isPending}
+            installationError={installationError}
+            isAddonInstalled={installed}
+            uninstallPending={unInstall.isPending}
+            userAddonsLoading={userAddonsLoading}
+          />
+        </div>
       </div>
-    );
 
-  if (addon) {
-    return (
-      <div className="m-8 font-sans leading-10" data-testid="addon-page">
-        <div className="mb-2 border-b-2 pb-2 text-center">
-          <h1 className="text-4xl font-bold">{addon.name}</h1>
-          <p className="text-sm font-light">{addon.authorId}</p>
-          <p>{addon.summary}</p>
-          <div className="mt-2 flex items-center justify-center">
-            <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
+      {/* Readme. */}
+      <div className="mt-8 flex justify-center">
+        <div className="w-full max-w-3xl rounded-2xl border-2 p-4">
+          {isReadmeLoading && (
             <div
-              className="text-lg font-semibold text-gray-800"
-              data-testid="install-count">
-              {addon.installCount} installs
+              className="flex w-full justify-center"
+              data-testid="readme-loading">
+              <LoadingSpinner>Loading...</LoadingSpinner>
             </div>
-          </div>
-          <div className="my-4 flex justify-center">
-            <InstallButton
-              authorized={auth.authorized ?? false}
-              handleClick={handleInstall}
-              installPending={installPending}
-              isAddonInstalled={installed}
-              uninstallPending={uninstallPending}
-              userAddonsLoading={userAddonsLoading}
-            />
-          </div>
-        </div>
-
-        <div className="mt-8 flex justify-center">
-          <div className="w-full max-w-3xl rounded-2xl border-2 p-4">
-            {isReadmeLoading && (
-              <div
-                className="flex w-full justify-center"
-                data-testid="readme-loading">
-                <LoadingSpinner>Loading...</LoadingSpinner>
-              </div>
-            )}
-            {/* Do not display error if the status is 400 (readme not found in backend). In that case, display a message.
-            TODO: Update if structured errors are implemented.
-            */}
-            {readmeError &&
-              ("status" in readmeError && readmeError.status === 400 ? (
-                <div>No readme found</div>
-              ) : (
-                <RTKError error={readmeError} />
-              ))}
-            {readMe !== undefined && (
-              <div className="markdown" data-testid="readme">
-                <Markdown remarkPlugins={[remarkGfm]}>{readMe}</Markdown>
-              </div>
-            )}
-          </div>
+          )}
+          {readmeError &&
+            ("status" in readmeError && readmeError.status === 400 ? (
+              <div>No readme found</div>
+            ) : (
+              <RTKError error={readmeError} />
+            ))}
+          {readMe !== undefined && (
+            <div className="markdown" data-testid="readme">
+              <Markdown remarkPlugins={[remarkGfm]}>{readMe}</Markdown>
+            </div>
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default AddonPage;

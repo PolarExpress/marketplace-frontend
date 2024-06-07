@@ -24,6 +24,10 @@ interface InstallButtonProperties {
    */
   installPending: boolean;
   /**
+   * Indicates if an error has occurred with installation.
+   */
+  installationError: boolean;
+  /**
    * Indicates if the addon is currently installed.
    */
   isAddonInstalled: boolean;
@@ -44,6 +48,7 @@ const InstallButton = ({
   authorized,
   handleClick,
   installPending,
+  installationError,
   isAddonInstalled,
   uninstallPending,
   userAddonsLoading
@@ -71,7 +76,7 @@ const InstallButton = ({
       data-testid="install"
       disabled={installPending || uninstallPending || userAddonsLoading}
       onClick={handleClick}>
-      {buttonText}
+      {(installationError ? "Retry " : "") + buttonText}
     </button>
   );
 };

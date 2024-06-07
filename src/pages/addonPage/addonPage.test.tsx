@@ -7,6 +7,7 @@
  */
 
 import { shortAddonList } from "@polarexpress/mockData/addons";
+import { addInstalled, removeInstalled } from "@polarexpress/test/mockingUtils";
 import { server } from "@polarexpress/test/setup";
 import { setupPageWithId } from "@polarexpress/test/utils";
 import { HttpResponse, http } from "msw";
@@ -60,5 +61,31 @@ describe("AddonPage", () => {
     const { findByTestId } = setupPageWithId(shortAddonList[0]._id);
 
     await expect(findByTestId("addon-page")).rejects.toThrow();
+  });
+
+  it("displays an error if installing fails", async () => {
+    const testAddon = shortAddonList[0];
+
+    const { findByTestId, getByTestId, user } = setupPageWithId(testAddon._id);
+
+    await findByTestId("addon-page"); // Wait for page to load.
+
+    addInstalled(testAddon); // Simulate an error response.
+
+    const button = getByTestId("install");
+    const alertSpy = vitest.spyOn(window, "alert").mockImplementation(() => {});
+
+    await user.click(button);
+
+    expect(alertSpy).toBeCalledTimes(1);
+    expect(button.textContent).toContain("Retry");
+
+    removeInstalled(testAddon._id);
+
+    await user.click(button);
+
+    // Now the installation should succeed.
+    expect(alertSpy).toBeCalledTimes(1);
+    expect(button.textContent).not.toContain("Retry");
   });
 });

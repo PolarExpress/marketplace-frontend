@@ -18,7 +18,8 @@ export default [
     "plugin:jest/recommended",
     "plugin:jest-formatting/strict",
     "plugin:react/recommended",
-    "plugin:react/jsx-runtime"
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended"
   ),
   {
     settings: {
