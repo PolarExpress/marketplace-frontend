@@ -16,9 +16,17 @@ export default [
   ...compat.extends(
     "plugin:tailwindcss/recommended",
     "plugin:jest/recommended",
-    "plugin:jest-formatting/strict"
+    "plugin:jest-formatting/strict",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended"
   ),
   {
+    settings: {
+      react: {
+        version: "detect"
+      }
+    },
     rules: {
       "perfectionist/sort-imports": "off",
       "@typescript-eslint/ban-types": [
