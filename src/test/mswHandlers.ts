@@ -29,11 +29,11 @@ export const handlers = [
       ? shortAddonList.filter(addon => addon.category === category)
       : shortAddonList;
 
-    filteredAddons = searchTerm
-      ? shortAddonList.filter(addon =>
-          addon.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      : filteredAddons;
+    if (searchTerm) {
+      filteredAddons = filteredAddons.filter(addon =>
+        addon.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
     const installCounts = getInstallCounts();
     const updatedAddons = filteredAddons.map(addon => ({

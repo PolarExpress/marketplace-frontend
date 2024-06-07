@@ -13,5 +13,6 @@ import { Schema, defineConfig } from "@julr/vite-plugin-validate-env";
 export default defineConfig({
   VITE_API_BASE: Schema.string(),
   VITE_BACKEND_WSS_URL: Schema.string(),
+  VITE_GP_URL: Schema.string(),
   VITE_UMS_URL: Schema.string()
 });
