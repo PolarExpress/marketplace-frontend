@@ -26,6 +26,56 @@ import { waitFor } from "@testing-library/react";
 const addonCardTestId = "addon-card";
 
 describe("AddonList component", () => {
+  it("shows the addons that match both the selected category and search term", async () => {
+    const { findAllByTestId, findByTestId, getByText, user } =
+      renderWithProviders(
+        <>
+          <Header />
+          <AddonList />
+        </>
+      );
+
+    await findAllByTestId(addonCardTestId);
+
+    await user.click(getByText("MACHINE LEARNING"));
+
+    const search = await findByTestId("search-input");
+    const submit = await findByTestId("search-submit");
+
+    await user.type(search, "Addon2");
+    await user.click(submit);
+
+    const addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(1);
+    expect(getByText("Addon2")).toBeDefined();
+  });
+
+  it("shows only the addons that match both the selected category and search term", async () => {
+    const { findAllByTestId, findByTestId, getByText, queryByText, user } =
+      renderWithProviders(
+        <>
+          <Header />
+          <AddonList />
+        </>
+      );
+
+    await findAllByTestId(addonCardTestId);
+
+    await user.click(getByText("MACHINE LEARNING"));
+
+    const search = await findByTestId("search-input");
+    const submit = await findByTestId("search-submit");
+
+    await user.type(search, "Addon1");
+    await user.click(submit);
+
+    const addOnCards = await findAllByTestId(addonCardTestId);
+
+    expect(addOnCards.length).toBe(1);
+    expect(queryByText("Addon1")).toBeNull();
+  });
+
   it("renders AddonCard components for all add-ons", async () => {
     const { findAllByTestId, getByText } = renderWithProviders(<AddonList />);
 
