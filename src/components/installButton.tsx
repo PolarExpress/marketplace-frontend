@@ -63,9 +63,10 @@ const InstallButton = ({
   return (
     <button
       className={
-        isAddonInstalled
-          ? "h-10 w-24 rounded-full border-2 border-orange-500 bg-white text-center text-orange-500 hover:shadow-md"
-          : "h-10 w-24 rounded-full border-none bg-orange-500 text-center text-white hover:shadow-md"
+        "h-10 w-fit px-4 rounded-full text-center hover:shadow-md " +
+        (isAddonInstalled
+          ? "border-2 border-orange-500 bg-white text-orange-500"
+          : "bg-orange-500 text-white")
       }
       data-testid="install"
       disabled={installPending || uninstallPending || userAddonsLoading}
