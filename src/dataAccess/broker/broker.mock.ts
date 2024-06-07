@@ -10,8 +10,7 @@ import { generateAddon } from "@polarexpress/mockData/addons";
 import {
   addInstalled,
   getInstalled,
-  removeInstalled,
-  updateInstallCount
+  removeInstalled
 } from "@polarexpress/test/mockingUtils";
 
 import { BrokerBase } from "./broker.interface";
@@ -44,8 +43,9 @@ export class MockBroker extends BrokerBase {
 
       case "install": {
         if ("addonID" in message.body) {
-          addInstalled(generateAddon(Number(message.body.addonID)));
-          updateInstallCount(message.body.addonID as string, 1);
+          const addonID = message.body.addonID as string;
+          const addon = generateAddon(Number(addonID));
+          addInstalled(addon);
         } else {
           console.warn(`Invalid message body: ${JSON.stringify(message.body)}`);
         }
@@ -54,8 +54,8 @@ export class MockBroker extends BrokerBase {
 
       case "uninstall": {
         if ("addonID" in message.body) {
-          updateInstallCount(message.body.addonID as string, -1);
-          removeInstalled(message.body.addonID as string);
+          const addonID = message.body.addonID as string;
+          removeInstalled(addonID);
         } else {
           console.warn(`Invalid message body: ${JSON.stringify(message.body)}`);
         }

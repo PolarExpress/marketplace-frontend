@@ -9,7 +9,6 @@
 import { Broker } from "@polarexpress/dataAccess/broker";
 import { BrokerBase } from "@polarexpress/dataAccess/broker";
 import { MockBroker } from "@polarexpress/dataAccess/broker";
-import { shortAddonList } from "@polarexpress/mockData/addons";
 import { Addon } from "@polarexpress/types/addon";
 
 /**
@@ -27,6 +26,7 @@ export function createBroker(): BrokerBase {
  */
 export const initializeInstalled = () => {
   sessionStorage.setItem("installed", JSON.stringify([]));
+  sessionStorage.setItem("installCounts", JSON.stringify({}));
 };
 
 /**
@@ -42,6 +42,14 @@ export const removeInstalled = (addonID: string): void => {
     addon => addon._id !== addonID
   );
   sessionStorage.setItem("installed", JSON.stringify(updatedAddons));
+
+  const installCounts = JSON.parse(
+    sessionStorage.getItem("installCounts") || "{}"
+  );
+  if (installCounts[addonID]) {
+    installCounts[addonID]--;
+  }
+  sessionStorage.setItem("installCounts", JSON.stringify(installCounts));
 };
 
 /**
@@ -55,13 +63,16 @@ export const addInstalled = (addon: Addon): void => {
   );
   installedAddons.push(addon);
   sessionStorage.setItem("installed", JSON.stringify(installedAddons));
-};
 
-/**
- * Deletes the list of installed addons from sessionStorage.
- */
-export const deleteInstalledList = () => {
-  sessionStorage.removeItem("installed");
+  const installCounts = JSON.parse(
+    sessionStorage.getItem("installCounts") || "{}"
+  );
+  if (installCounts[addon._id]) {
+    installCounts[addon._id]++;
+  } else {
+    installCounts[addon._id] = 1;
+  }
+  sessionStorage.setItem("installCounts", JSON.stringify(installCounts));
 };
 
 /**
@@ -79,20 +90,13 @@ export const getInstalled = (): Addon[] => {
 };
 
 /**
- * Updates the install count of an addon in the mock data.
+ * Retrieves the install counts from sessionStorage.
  *
- * @param addonID   Id of the addon to update the install count for.
- * @param increment The value to increment or decrement the install count by.
+ * @returns A record of addon IDs and their install counts.
  */
-export const updateInstallCount = (
-  addonID: string,
-  increment: number
-): void => {
-  const addonIndex = shortAddonList.findIndex(addon => addon._id === addonID);
-
-  if (addonIndex === -1) {
-    console.warn(`Addon with ID ${addonID} not found in the addon list.`);
-  } else {
-    shortAddonList[addonIndex].installCount += increment;
-  }
+export const getInstallCounts = (): Record<string, number> => {
+  const installCounts = JSON.parse(
+    sessionStorage.getItem("installCounts") || "{}"
+  );
+  return installCounts;
 };

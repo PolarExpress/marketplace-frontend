@@ -126,7 +126,9 @@ const AddonPage = () => {
           <p>{addon.summary}</p>
           <div className="mt-2 flex items-center justify-center">
             <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
-            <div className="text-lg font-semibold text-gray-800">
+            <div
+              className="text-lg font-semibold text-gray-800"
+              data-testid="install-count">
               {addon.installCount} installs
             </div>
           </div>
