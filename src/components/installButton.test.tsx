@@ -40,7 +40,7 @@ describe("InstallButton", () => {
     await expect(findByTestId("button-loading")).rejects.toThrow();
 
     const button = getByTestId("install") as HTMLButtonElement;
-    return { button, findByTestId, getByTestId, user };
+    return { button, getByTestId, user };
   };
 
   it('shows "Install" when addon is NOT installed', async () => {
