@@ -10,21 +10,17 @@ import * as hooks from "@polarexpress/dataAccess/broker/hooks";
 import { shortAddonList } from "@polarexpress/mockData/addons";
 import {
   addInstalled,
-  deleteInstalledList,
   getInstalled,
   initializeInstalled
 } from "@polarexpress/test/mockingUtils";
 import { setupPageWithId } from "@polarexpress/test/utils";
+import { waitFor } from "@testing-library/react";
 
 describe("InstallButton", () => {
   const testAddon = shortAddonList[0];
 
   beforeEach(() => {
     initializeInstalled();
-  });
-
-  afterEach(() => {
-    deleteInstalledList();
   });
 
   /**
@@ -44,7 +40,7 @@ describe("InstallButton", () => {
     await expect(findByTestId("button-loading")).rejects.toThrow();
 
     const button = getByTestId("install") as HTMLButtonElement;
-    return { button, user };
+    return { button, getByTestId, user };
   };
 
   it('shows "Install" when addon is NOT installed', async () => {
@@ -68,11 +64,15 @@ describe("InstallButton", () => {
 
     await user.click(button);
 
-    expect(getInstalled()).toContainEqual(testAddon);
+    expect(getInstalled().map(addon => addon._id)).toStrictEqual([
+      testAddon._id
+    ]);
 
     await user.click(button);
 
-    expect(getInstalled()).not.toContainEqual(testAddon);
+    expect(getInstalled().map(addon => addon._id)).not.toStrictEqual([
+      testAddon._id
+    ]);
   });
 
   it('shows "Installing..." when installation is in progress', async () => {
@@ -101,6 +101,22 @@ describe("InstallButton", () => {
 
     expect(button.textContent).toBe("Uninstalling...");
     expect(button.disabled).toBe(true);
+  });
+
+  it("properly increments and decrements install count", async () => {
+    const { button, getByTestId, user } = await setupButton();
+
+    await user.click(button);
+
+    waitFor(() => {
+      expect(getByTestId("install-count")).toHaveTextContent("1 installs");
+    });
+
+    await user.click(button);
+
+    waitFor(() => {
+      expect(getByTestId("install-count")).toHaveTextContent("0 installs");
+    });
   });
 
   it('shows "Login to install" when user is not authorized', async () => {

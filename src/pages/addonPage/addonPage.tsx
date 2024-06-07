@@ -11,6 +11,7 @@ import {
   LoadingSpinner,
   RTKError
 } from "@polarexpress/components";
+import InstallIcon from "../../../assets/install.svg";
 import {
   useGetAddonsByUserId,
   useInstallAddon,
@@ -39,7 +40,8 @@ const AddonPage = () => {
   const {
     data: addon,
     error: addonError,
-    isLoading: isAddonLoading
+    isLoading: isAddonLoading,
+    refetch
   } = useGetAddonByIdQuery(thisId ?? "");
 
   const {
@@ -83,15 +85,16 @@ const AddonPage = () => {
    * Handles the installation or uninstallation of the add-on. Changes the
    * internal installed state as well.
    */
-  const handleInstall = () => {
+  const handleInstall = async () => {
     if (auth.authorized) {
       if (installed) {
-        uninstallAddon(thisId ?? "");
+        await uninstallAddon(thisId ?? "");
         setInstalled(false);
       } else {
-        installAddon(thisId ?? "");
+        await installAddon(thisId ?? "");
         setInstalled(true);
       }
+      refetch();
     } else {
       // TODO: Should redirect to the login page when it exists
       console.warn("User is not logged in. Redirecting to login page.");
@@ -114,13 +117,21 @@ const AddonPage = () => {
       </div>
     );
 
-  if (addon !== undefined) {
+  if (addon) {
     return (
       <div className="m-8 font-sans leading-10" data-testid="addon-page">
         <div className="mb-2 border-b-2 pb-2 text-center">
           <h1 className="text-4xl font-bold">{addon.name}</h1>
           <p className="text-sm font-light">{addon.authorId}</p>
           <p>{addon.summary}</p>
+          <div className="mt-2 flex items-center justify-center">
+            <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
+            <div
+              className="text-lg font-semibold text-gray-800"
+              data-testid="install-count">
+              {addon.installCount} installs
+            </div>
+          </div>
           <div className="my-4 flex justify-center">
             <InstallButton
               authorized={auth.authorized ?? false}

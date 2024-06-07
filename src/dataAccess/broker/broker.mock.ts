@@ -42,20 +42,23 @@ export class MockBroker extends BrokerBase {
       }
 
       case "install": {
-        "addonID" in message.body
-          ? addInstalled(generateAddon(Number(message.body.addonID)))
-          : console.warn(
-              `Invalid message body: ${JSON.stringify(message.body)}`
-            );
+        if ("addonID" in message.body) {
+          const addonID = message.body.addonID as string;
+          const addon = generateAddon(Number(addonID));
+          addInstalled(addon);
+        } else {
+          console.warn(`Invalid message body: ${JSON.stringify(message.body)}`);
+        }
         break;
       }
 
       case "uninstall": {
-        "addonID" in message.body
-          ? removeInstalled(message.body.addonID as string)
-          : console.warn(
-              `Invalid message body: ${JSON.stringify(message.body)}`
-            );
+        if ("addonID" in message.body) {
+          const addonID = message.body.addonID as string;
+          removeInstalled(addonID);
+        } else {
+          console.warn(`Invalid message body: ${JSON.stringify(message.body)}`);
+        }
         break;
       }
 

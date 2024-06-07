@@ -26,6 +26,7 @@ export function createBroker(): BrokerBase {
  */
 export const initializeInstalled = () => {
   sessionStorage.setItem("installed", JSON.stringify([]));
+  sessionStorage.setItem("installCounts", JSON.stringify({}));
 };
 
 /**
@@ -41,6 +42,14 @@ export const removeInstalled = (addonID: string): void => {
     addon => addon._id !== addonID
   );
   sessionStorage.setItem("installed", JSON.stringify(updatedAddons));
+
+  const installCounts = JSON.parse(
+    sessionStorage.getItem("installCounts") || "{}"
+  );
+  if (installCounts[addonID]) {
+    installCounts[addonID]--;
+  }
+  sessionStorage.setItem("installCounts", JSON.stringify(installCounts));
 };
 
 /**
@@ -54,13 +63,16 @@ export const addInstalled = (addon: Addon): void => {
   );
   installedAddons.push(addon);
   sessionStorage.setItem("installed", JSON.stringify(installedAddons));
-};
 
-/**
- * Deletes the list of installed addons from sessionStorage.
- */
-export const deleteInstalledList = () => {
-  sessionStorage.removeItem("installed");
+  const installCounts = JSON.parse(
+    sessionStorage.getItem("installCounts") || "{}"
+  );
+  if (installCounts[addon._id]) {
+    installCounts[addon._id]++;
+  } else {
+    installCounts[addon._id] = 1;
+  }
+  sessionStorage.setItem("installCounts", JSON.stringify(installCounts));
 };
 
 /**
@@ -75,4 +87,16 @@ export const getInstalled = (): Addon[] => {
     sessionStorage.getItem("installed") || "[]"
   );
   return installedAddons;
+};
+
+/**
+ * Retrieves the install counts from sessionStorage.
+ *
+ * @returns A record of addon IDs and their install counts.
+ */
+export const getInstallCounts = (): Record<string, number> => {
+  const installCounts = JSON.parse(
+    sessionStorage.getItem("installCounts") || "{}"
+  );
+  return installCounts;
 };

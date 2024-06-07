@@ -10,6 +10,7 @@ import "@testing-library/jest-dom/vitest";
 import { setupServer } from "msw/node";
 
 import { handlers } from "./mswHandlers";
+import { initializeInstalled } from "./mockingUtils";
 
 // Set up http handlers during testing
 export const server = setupServer(...handlers);
@@ -19,4 +20,5 @@ afterAll(() => server.close());
 beforeEach(() => {
   vi.restoreAllMocks();
   server.resetHandlers();
+  initializeInstalled();
 });

@@ -72,8 +72,8 @@ export const useInstallAddon = () => {
   const { error, isPending, manageAddon } = useAddon();
 
   /* eslint-disable -- dependency cannot change */
-  const installAddon = useCallback((addonId: string) => {
-    manageAddon({ action: "install", addonId });
+  const installAddon = useCallback(async (addonId: string) => {
+    await manageAddon({ action: "install", addonId });
   }, []);
   /* eslint-enable */
 
@@ -90,8 +90,8 @@ export const useUninstallAddon = () => {
   const { error, isPending, manageAddon } = useAddon();
 
   /* eslint-disable -- dependency cannot change */
-  const uninstallAddon = useCallback((addonId: string) => {
-    manageAddon({ action: "uninstall", addonId });
+  const uninstallAddon = useCallback(async (addonId: string) => {
+    await manageAddon({ action: "uninstall", addonId });
   }, []);
   /* eslint-enable */
 
