@@ -179,7 +179,7 @@ describe("AddonList component", () => {
   });
 
   it("shows only the addons that match the selected category and search term", async () => {
-    const { findByTestId, findAllByTestId, getByText, user } =
+    const { findAllByTestId, findByTestId, getByText, user } =
       renderWithProviders(
         <>
           <Header />
