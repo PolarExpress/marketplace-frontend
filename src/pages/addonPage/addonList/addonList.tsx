@@ -12,6 +12,7 @@ import {
   type RootState,
   updateCurrentPage,
   updateSelectedCategory,
+  updateSelectedSort,
   useAppDispatch,
   useAppSelector
 } from "@polarexpress/dataAccess/store";
@@ -19,6 +20,9 @@ import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
 import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
 import { useEffect } from "react";
+import { SortOptions } from "@polarexpress/types/sorting";
+
+import DownArrowIcon from "../../../../assets/down-arrow.svg";
 
 /**
  * Component that renders a grid of add-on cards with pagination.
@@ -27,9 +31,8 @@ import { useEffect } from "react";
  */
 const AddonList = () => {
   const dispatch = useAppDispatch();
-  const { currentPage, searchTerm, selectedCategory } = useAppSelector(
-    (state: RootState) => state.addons
-  );
+  const { currentPage, searchTerm, selectedCategory, selectedSort } =
+    useAppSelector((state: RootState) => state.addons);
 
   const {
     data: allAddOns,
@@ -37,7 +40,8 @@ const AddonList = () => {
     isLoading: allLoading
   } = useGetAddonsQuery({
     category: selectedCategory,
-    page: currentPage
+    page: currentPage,
+    sort: selectedSort
   });
 
   const [
@@ -64,9 +68,18 @@ const AddonList = () => {
     dispatch(updateCurrentPage(0));
   };
 
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(updateSelectedSort(event.target.value as SortOptions));
+  };
+
   useEffect(() => {
-    trigger({ category: selectedCategory, page: currentPage, searchTerm });
-  }, [searchTerm, trigger, currentPage, selectedCategory]);
+    trigger({
+      category: selectedCategory,
+      page: currentPage,
+      searchTerm,
+      sort: selectedSort
+    });
+  }, [searchTerm, trigger, currentPage, selectedCategory, selectedSort]);
 
   if (allLoading || filterLoading)
     return (
@@ -101,6 +114,26 @@ const AddonList = () => {
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}
         />
+        <div className="my-5 flex items-center space-x-2">
+          <label className="font-medium text-gray-700" htmlFor="sort-select">
+            Sort By:
+          </label>
+          <div className="relative inline-block">
+            <select
+              className="appearance-none rounded border border-gray-300 bg-white py-2 pl-3 pr-8 leading-tight text-gray-700 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              id="sort-select"
+              onChange={handleSortChange}
+              value={selectedSort}>
+              <option value={SortOptions.NONE}>None</option>
+              <option value={SortOptions.ALPHABETICAL}>Alphabetical</option>
+              <option value={SortOptions.INSTALL_COUNT}>Install Count</option>
+              <option value={SortOptions.RELEVANCE}>Relevance</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center px-2 text-gray-700">
+              <img className="size-3" src={DownArrowIcon} />
+            </div>
+          </div>
+        </div>
         <div className="flex flex-wrap justify-center gap-4">
           {addOnsToRender.addons.map((addOn: Addon) => (
             <AddonCard addOn={addOn} key={addOn._id} />

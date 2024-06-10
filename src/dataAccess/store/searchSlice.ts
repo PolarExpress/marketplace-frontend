@@ -7,6 +7,7 @@
  */
 
 import { AddonCategory } from "@polarexpress/types/addon";
+import { SortOptions } from "@polarexpress/types/sorting";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { createSlice } from "@reduxjs/toolkit";
@@ -27,12 +28,17 @@ interface searchState {
    * The selected category used to filter the addon list.
    */
   selectedCategory: AddonCategory;
+  /**
+   * The selected sorting option to sort the returned addons.
+   */
+  selectedSort: SortOptions;
 }
 
 const initialState: searchState = {
   currentPage: 0,
   searchTerm: "",
-  selectedCategory: AddonCategory.VISUALISATION
+  selectedCategory: AddonCategory.VISUALISATION,
+  selectedSort: SortOptions.NONE
 };
 
 const searchSlice = createSlice({
@@ -47,11 +53,18 @@ const searchSlice = createSlice({
     },
     updateSelectedCategory(state, action: PayloadAction<AddonCategory>) {
       state.selectedCategory = action.payload;
+    },
+    updateSelectedSort(state, action: PayloadAction<SortOptions>) {
+      state.selectedSort = action.payload;
     }
   }
 });
 
 export { initialState, type searchState };
-export const { updateCurrentPage, updateSearchTerm, updateSelectedCategory } =
-  searchSlice.actions;
+export const {
+  updateCurrentPage,
+  updateSearchTerm,
+  updateSelectedCategory,
+  updateSelectedSort
+} = searchSlice.actions;
 export default searchSlice.reducer;
