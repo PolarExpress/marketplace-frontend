@@ -119,7 +119,7 @@ const AddonList = () => {
               <option value={SortOptions.NONE}>None</option>
               <option value={SortOptions.ALPHABETICAL}>Alphabetical</option>
               <option value={SortOptions.INSTALL_COUNT}>Install Count</option>
-              <option value={SortOptions.RELEVANCE} disabled={!searchTerm}>
+              <option disabled={!searchTerm} value={SortOptions.RELEVANCE}>
                 Relevance
               </option>
             </select>
