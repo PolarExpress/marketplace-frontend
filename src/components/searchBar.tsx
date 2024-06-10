@@ -37,8 +37,11 @@ const SearchBar = () => {
     dispatch(updateSearchTerm(searchTerm));
     dispatch(updateCurrentPage(0));
 
-    if (searchTerm.length > 0)
-      dispatch(updateSelectedSort(SortOptions.RELEVANCE));
+    dispatch(
+      updateSelectedSort(
+        searchTerm.length > 0 ? SortOptions.RELEVANCE : SortOptions.NONE
+      )
+    );
 
     if (location.pathname !== "/") navigate("/");
   };
