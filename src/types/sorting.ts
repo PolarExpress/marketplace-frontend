@@ -9,9 +9,11 @@
 /**
  * Defines the sorting options that can be used to retrieve addons.
  */
+/* eslint-disable perfectionist/sort-enums -- Order affects the way they are rendered */
 export enum SortOptions {
+  NONE = "None",
   ALPHABETICAL = "Alphabetical",
   INSTALL_COUNT = "Install Count",
-  NONE = "None",
   RELEVANCE = "Relevance"
 }
+/* eslint-enable perfectionist/sort-enums */
