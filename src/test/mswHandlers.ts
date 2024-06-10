@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { longAddonList } from "@polarexpress/mockData/addons";
+import { shortAddonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
 import { HttpResponse, http, passthrough } from "msw";
 import { getInstallCounts } from "./mockingUtils";
@@ -29,7 +29,7 @@ export const handlers = [
 
     const installCounts = getInstallCounts();
 
-    let filteredAddons = longAddonList;
+    let filteredAddons = shortAddonList;
 
     if (searchTerm) {
       filteredAddons = filteredAddons.filter(addon =>
@@ -45,7 +45,7 @@ export const handlers = [
 
     switch (sort) {
       case SortOptions.ALPHABETICAL: {
-        filteredAddons.sort((a, b) => a.name.localeCompare(b.name));
+        filteredAddons.sort();
         break;
       }
       case SortOptions.INSTALL_COUNT: {
@@ -82,7 +82,7 @@ export const handlers = [
     const body = (await request.json()) as { id: string };
     const addonId = body.id;
 
-    const addon = longAddonList.find(addon => addon._id === addonId);
+    const addon = shortAddonList.find(addon => addon._id === addonId);
     const installCounts = getInstallCounts();
     const addonWithInstallCount = addon
       ? { ...addon, installCount: installCounts[addon._id] || 0 }
@@ -99,7 +99,7 @@ export const handlers = [
     };
     const addonId = body.id;
 
-    const addon = longAddonList.find(addon => addon._id === addonId);
+    const addon = shortAddonList.find(addon => addon._id === addonId);
 
     return addon
       ? HttpResponse.json({ readme: `# README for ${addon.name}` })

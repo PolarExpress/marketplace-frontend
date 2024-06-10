@@ -10,8 +10,8 @@
  * Defines the sorting options that can be used to retrieve addons.
  */
 export enum SortOptions {
-  ALPHABETICAL = "alphabetical",
-  INSTALL_COUNT = "installCount",
-  NONE = "none",
-  RELEVANCE = "relevance"
+  ALPHABETICAL = "Alphabetical",
+  INSTALL_COUNT = "Install Count",
+  NONE = "None",
+  RELEVANCE = "Relevance"
 }

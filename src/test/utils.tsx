@@ -20,6 +20,7 @@ import { HttpResponse, http } from "msw";
 import { longAddonList } from "@polarexpress/mockData/addons";
 import { server } from "@polarexpress/test/setup";
 import { AddonCategory } from "@polarexpress/types/addon";
+import { getInstallCounts } from "./mockingUtils";
 
 /**
  * This type extends the default options for React Testing Library's render
@@ -109,6 +110,40 @@ export const setupPageWithId = (id: string, authorized: boolean = true) => {
 };
 
 /**
+ * Compares the order of add-on cards based on a custom comparison function.
+ *
+ * @param addOnCards      An array of HTML elements representing the add-on
+ *   cards.
+ * @param compareFunction A comparison function that determines the order of
+ *   add-on cards. It should return true if its first parameter should come
+ *   before its second parameter in the sorted order.
+ */
+export const compareAddonOrder = (
+  addOnCards: HTMLElement[],
+  compareFunction: (nameI: string, nameJ: string) => boolean
+) => {
+  for (const [i, card] of addOnCards.entries()) {
+    const nameI = card.querySelector("h1")?.textContent;
+    if (nameI === null || nameI === undefined) {
+      continue;
+    }
+
+    for (const otherCard of addOnCards.slice(i + 1)) {
+      const nameJ = otherCard.querySelector("h1")?.textContent;
+      if (nameJ === null || nameJ === undefined) {
+        continue;
+      }
+
+      if (compareFunction(nameI, nameJ)) {
+        expect(card.compareDocumentPosition(otherCard)).toBe(
+          Node.DOCUMENT_POSITION_FOLLOWING
+        );
+      }
+    }
+  }
+};
+
+/**
  * Sets up an MSW handler for mocking the `/addons/get` endpoint with
  * `longAddonList` instead of `shortAddonList`.
  */
@@ -126,12 +161,19 @@ export const setupLongAddonListHandler = () => {
           ? longAddonList.filter(addon => addon.category === category)
           : longAddonList;
 
+        const installCounts = getInstallCounts();
+
+        const updatedAddons = filteredAddons.map(addon => ({
+          ...addon,
+          installCount: installCounts[addon._id] || 0
+        }));
+
         const pageSize = 20;
         const startIndex = page * pageSize;
         const endIndex = startIndex + pageSize;
 
-        const paginatedAddons = filteredAddons.slice(startIndex, endIndex);
-        const totalPages = Math.ceil(filteredAddons.length / pageSize);
+        const paginatedAddons = updatedAddons.slice(startIndex, endIndex);
+        const totalPages = Math.ceil(updatedAddons.length / pageSize);
 
         return HttpResponse.json({ addons: paginatedAddons, totalPages });
       }

@@ -113,15 +113,18 @@ const AddonList = () => {
           <div className="relative inline-block">
             <select
               className="appearance-none rounded border border-gray-300 bg-white py-2 pl-3 pr-8 leading-tight text-gray-700 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              data-testid="sort-select"
               id="sort-select"
               onChange={handleSortChange}
               value={selectedSort}>
-              <option value={SortOptions.NONE}>None</option>
-              <option value={SortOptions.ALPHABETICAL}>Alphabetical</option>
-              <option value={SortOptions.INSTALL_COUNT}>Install Count</option>
-              <option disabled={!searchTerm} value={SortOptions.RELEVANCE}>
-                Relevance
-              </option>
+              {Object.values(SortOptions).map(option => (
+                <option
+                  disabled={option === SortOptions.RELEVANCE && !searchTerm}
+                  key={option}
+                  value={option}>
+                  {option}
+                </option>
+              ))}
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center px-2 text-gray-700">
               <img className="size-3" src={DownArrowIcon} />
