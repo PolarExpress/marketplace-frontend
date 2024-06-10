@@ -8,11 +8,13 @@
 
 import {
   updateCurrentPage,
-  updateSearchTerm
+  updateSearchTerm,
+  updateSelectedSort
 } from "@polarexpress/dataAccess/store/searchSlice";
 import { useAppDispatch } from "@polarexpress/dataAccess/store/hooks";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { SortOptions } from "@polarexpress/types/sorting";
 
 /**
  * Renders an input for searching add-ons.
@@ -35,9 +37,10 @@ const SearchBar = () => {
     dispatch(updateSearchTerm(searchTerm));
     dispatch(updateCurrentPage(0));
 
-    if (location.pathname !== "/") {
-      navigate("/");
-    }
+    if (searchTerm.length > 0)
+      dispatch(updateSelectedSort(SortOptions.RELEVANCE));
+
+    if (location.pathname !== "/") navigate("/");
   };
 
   return (

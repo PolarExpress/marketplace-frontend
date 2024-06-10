@@ -18,7 +18,7 @@ import {
 } from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
-import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
+import { useLazyGetAddonsQuery } from "./addonApi";
 import { useEffect } from "react";
 import { SortOptions } from "@polarexpress/types/sorting";
 
@@ -34,23 +34,12 @@ const AddonList = () => {
   const { currentPage, searchTerm, selectedCategory, selectedSort } =
     useAppSelector((state: RootState) => state.addons);
 
-  const {
-    data: allAddOns,
-    error: allError,
-    isLoading: allLoading
-  } = useGetAddonsQuery({
-    category: selectedCategory,
-    page: currentPage,
-    sort: selectedSort
-  });
-
-  const [
-    trigger,
-    { data: filteredAddOns, error: filterError, isLoading: filterLoading }
-  ] = useLazyGetAddonsQuery();
+  const [trigger, { data: addOnsToRender, error, isLoading }] =
+    useLazyGetAddonsQuery();
 
   /**
-   * Handles the page click event in the pagination component.
+   * Updates the current page in the redux state according to the selected page
+   * number.
    *
    * @param data The object containing the selected page index.
    */
@@ -59,7 +48,8 @@ const AddonList = () => {
   };
 
   /**
-   * Handles the category change event in the AddonTabs component.
+   * Updates the selected category in the redux state and resets the current
+   * page to 0.
    *
    * @param category The newly selected add-on category.
    */
@@ -68,6 +58,11 @@ const AddonList = () => {
     dispatch(updateCurrentPage(0));
   };
 
+  /**
+   * Updates the selected sorting option in the redux state.
+   *
+   * @param event Event containing the selected sorting option.
+   */
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(updateSelectedSort(event.target.value as SortOptions));
   };
@@ -81,17 +76,14 @@ const AddonList = () => {
     });
   }, [searchTerm, trigger, currentPage, selectedCategory, selectedSort]);
 
-  if (allLoading || filterLoading)
+  if (isLoading)
     return (
       <div className="flex w-full justify-center" data-testid="list-loading">
         <LoadingSpinner>Loading...</LoadingSpinner>
       </div>
     );
 
-  if (allError || filterError)
-    return <RTKError error={allError || filterError!} />;
-
-  const addOnsToRender = searchTerm ? filteredAddOns : allAddOns;
+  if (error) return <RTKError error={error} />;
 
   if (addOnsToRender) {
     if (addOnsToRender.addons.length === 0) {
@@ -127,7 +119,9 @@ const AddonList = () => {
               <option value={SortOptions.NONE}>None</option>
               <option value={SortOptions.ALPHABETICAL}>Alphabetical</option>
               <option value={SortOptions.INSTALL_COUNT}>Install Count</option>
-              <option value={SortOptions.RELEVANCE}>Relevance</option>
+              <option value={SortOptions.RELEVANCE} disabled={!searchTerm}>
+                Relevance
+              </option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center px-2 text-gray-700">
               <img className="size-3" src={DownArrowIcon} />
