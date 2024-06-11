@@ -183,7 +183,11 @@ const AddonPage = () => {
             ))}
           {readMe !== undefined && (
             <div className="markdown" data-testid="readme">
-              <Markdown remarkPlugins={[remarkGfm]}>{readMe}</Markdown>
+              <Markdown
+                className="markdown [&_a]:underline"
+                remarkPlugins={[remarkGfm]}>
+                {readMe}
+              </Markdown>
             </div>
           )}
         </div>
