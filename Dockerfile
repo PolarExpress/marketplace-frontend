@@ -1,13 +1,15 @@
 # syntax=docker/dockerfile:1
 
 FROM node:21-bullseye as base
+COPY package.json ./
+RUN  corepack enable
 
 # --------------------------------------
 
 FROM    base AS deps
 WORKDIR /deps/dev
-COPY    package.json ./
-RUN     npm install
+COPY    package.json pnpm-lock.yaml ./
+RUN     pnpm install --frozen-lockfile
 
 # --------------------------------------
 
@@ -18,18 +20,13 @@ COPY    . .
 COPY    .env.production .
 
 ENV     NODE_ENV production
-RUN     npm run build
+RUN     pnpm run build
 
 # --------------------------------------
 
-FROM    base AS prepare
+FROM    base AS deploy
 WORKDIR /app
-RUN     npm install -g serve
+COPY    --from=build /app/dist /app/dist
+ENV     NODE_ENV production
 
-# --------------------------------------
-
-FROM prepare AS deploy
-COPY --from=build /app/dist /app/dist
-ENV  NODE_ENV production
-
-CMD ["serve", "-s", "dist", "-l", "4201"]
+CMD ["pnpm", "dlx", "serve", "-s", "dist", "-l", "4201"]
