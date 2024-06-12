@@ -10,6 +10,7 @@ import { shortAddonList } from "@polarexpress/mockData/addons";
 import { AddonCategory } from "@polarexpress/types/addon";
 import { HttpResponse, http, passthrough } from "msw";
 import { getInstallCounts } from "./mockingUtils";
+import { SortOptions } from "@polarexpress/types/sorting";
 
 const baseUrl = import.meta.env.VITE_API_BASE;
 
@@ -22,12 +23,13 @@ export const handlers = [
       category?: AddonCategory;
       page?: number;
       searchTerm?: string;
+      sort?: SortOptions;
     };
-    const { category, page = 0, searchTerm } = body;
+    const { category, page = 0, searchTerm, sort = SortOptions.NONE } = body;
 
-    let filteredAddons = category
-      ? shortAddonList.filter(addon => addon.category === category)
-      : shortAddonList;
+    const installCounts = getInstallCounts();
+
+    let filteredAddons = shortAddonList;
 
     if (searchTerm) {
       filteredAddons = filteredAddons.filter(addon =>
@@ -35,7 +37,32 @@ export const handlers = [
       );
     }
 
-    const installCounts = getInstallCounts();
+    if (category) {
+      filteredAddons = filteredAddons.filter(
+        addon => addon.category === category
+      );
+    }
+
+    switch (sort) {
+      case SortOptions.ALPHABETICAL: {
+        filteredAddons.sort();
+        break;
+      }
+      case SortOptions.INSTALL_COUNT: {
+        filteredAddons.sort(
+          (a, b) => installCounts[b._id] || 0 - installCounts[a._id] || 0
+        );
+        break;
+      }
+      case SortOptions.RELEVANCE: {
+        // Difficult to mock backend relevance algorithm
+        break;
+      }
+      case SortOptions.NONE: {
+        break;
+      }
+    }
+
     const updatedAddons = filteredAddons.map(addon => ({
       ...addon,
       installCount: installCounts[addon._id] || 0

@@ -33,7 +33,7 @@ const AddonTabs = ({
   selectedCategory
 }: AddonTabsProperties) => {
   return (
-    <div className="mb-4 flex justify-center">
+    <div className="flex justify-center">
       {Object.values(AddonCategory).map(category => (
         <button
           className={`mx-2 rounded-md px-4 py-2 font-semibold ${

@@ -7,6 +7,7 @@
  */
 
 import {
+  compareAddonOrder,
   renderWithProviders,
   setupLongAddonListHandler
 } from "@polarexpress/test/utils";
@@ -22,6 +23,11 @@ import AddonPage from "../addonPage";
 import AddonList from "./addonList";
 import { AddonCategory } from "@polarexpress/types/addon";
 import { waitFor } from "@testing-library/react";
+import { SortOptions } from "@polarexpress/types/sorting";
+import {
+  addInstalled,
+  getInstallCounts
+} from "@polarexpress/test/mockingUtils";
 
 const addonCardTestId = "addon-card";
 
@@ -105,7 +111,8 @@ describe("AddonList component", () => {
         addons: {
           currentPage: 0,
           searchTerm: "qwerty",
-          selectedCategory: AddonCategory.VISUALISATION
+          selectedCategory: AddonCategory.VISUALISATION,
+          selectedSort: SortOptions.NONE
         }
       }
     });
@@ -257,5 +264,67 @@ describe("AddonList component", () => {
     await user.click(submit);
 
     expect(await findByTestId("fetch-error")).toBeDefined();
+  });
+});
+
+describe("AddonList component sorting", () => {
+  beforeEach(() => {
+    setupLongAddonListHandler();
+  });
+
+  it("sorts add-ons alphabetically when 'Alphabetical' sorting option is selected", async () => {
+    const { findAllByTestId, findByTestId, user } = renderWithProviders(
+      <>
+        <Header />
+        <AddonList />
+      </>
+    );
+
+    const sortSelect = await findByTestId("sort-select");
+    await user.selectOptions(sortSelect, "Alphabetical");
+
+    const addOnCards = await findAllByTestId(addonCardTestId);
+
+    compareAddonOrder(
+      addOnCards,
+      (nameI, nameJ) => nameI.localeCompare(nameJ) < 0
+    );
+  });
+
+  it("sorts add-ons by install count when 'Install Count' sorting option is selected", async () => {
+    const testAddon = longAddonList.filter(
+      addon => addon.category === AddonCategory.VISUALISATION
+    )[15];
+
+    addInstalled(testAddon);
+
+    const { findAllByTestId, findByTestId, user } = renderWithProviders(
+      <>
+        <Header />
+        <AddonList />
+      </>
+    );
+
+    const sortSelect = await findByTestId("sort-select");
+    await user.selectOptions(sortSelect, "Install Count");
+
+    const addOnCards = await findAllByTestId(addonCardTestId);
+
+    const installCounts = getInstallCounts();
+
+    compareAddonOrder(addOnCards, (nameI, nameJ) => {
+      const addonI = longAddonList.find(addon => addon.name === nameI);
+      const addonJ = longAddonList.find(addon => addon.name === nameJ);
+
+      if (!addonI || !addonJ) throw new Error("Addon not found in the list");
+
+      const idI = addonI._id;
+      const idJ = addonJ._id;
+
+      const installsI = installCounts[idI] || 0;
+      const installsJ = installCounts[idJ] || 0;
+
+      return installsI > installsJ;
+    });
   });
 });

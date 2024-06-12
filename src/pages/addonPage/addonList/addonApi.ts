@@ -8,6 +8,7 @@
 
 import { emptySplitApi } from "@polarexpress/dataAccess/store/api";
 import type { Addon, AddonCategory } from "@polarexpress/types/addon";
+import { SortOptions } from "@polarexpress/types/sorting";
 
 /**
  * Automatically creates react hooks for interacting with add-on related
@@ -40,7 +41,12 @@ const addonApi = emptySplitApi.injectEndpoints({
     // Fetches a list of addons from the server, optionally filtered by page and category.
     getAddons: build.query<
       { addons: Addon[]; totalPages: number },
-      { category?: AddonCategory; page?: number; searchTerm?: string }
+      {
+        category?: AddonCategory;
+        page?: number;
+        searchTerm?: string;
+        sort?: SortOptions;
+      }
     >({
       query: body => ({
         body: body,

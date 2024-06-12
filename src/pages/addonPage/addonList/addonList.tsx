@@ -17,7 +17,7 @@ import {
 } from "@polarexpress/dataAccess/store";
 import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
-import { useGetAddonsQuery, useLazyGetAddonsQuery } from "./addonApi";
+import { useLazyGetAddonsQuery } from "./addonApi";
 import { useEffect } from "react";
 
 /**
@@ -27,26 +27,15 @@ import { useEffect } from "react";
  */
 const AddonList = () => {
   const dispatch = useAppDispatch();
-  const { currentPage, searchTerm, selectedCategory } = useAppSelector(
-    (state: RootState) => state.addons
-  );
+  const { currentPage, searchTerm, selectedCategory, selectedSort } =
+    useAppSelector((state: RootState) => state.addons);
 
-  const {
-    data: allAddOns,
-    error: allError,
-    isLoading: allLoading
-  } = useGetAddonsQuery({
-    category: selectedCategory,
-    page: currentPage
-  });
-
-  const [
-    trigger,
-    { data: filteredAddOns, error: filterError, isLoading: filterLoading }
-  ] = useLazyGetAddonsQuery();
+  const [trigger, { data: addOnsToRender, error, isLoading }] =
+    useLazyGetAddonsQuery();
 
   /**
-   * Handles the page click event in the pagination component.
+   * Updates the current page in the redux state according to the selected page
+   * number.
    *
    * @param data The object containing the selected page index.
    */
@@ -55,7 +44,8 @@ const AddonList = () => {
   };
 
   /**
-   * Handles the category change event in the AddonTabs component.
+   * Updates the selected category in the redux state and resets the current
+   * page to 0.
    *
    * @param category The newly selected add-on category.
    */
@@ -65,20 +55,22 @@ const AddonList = () => {
   };
 
   useEffect(() => {
-    trigger({ category: selectedCategory, page: currentPage, searchTerm });
-  }, [searchTerm, trigger, currentPage, selectedCategory]);
+    trigger({
+      category: selectedCategory,
+      page: currentPage,
+      searchTerm,
+      sort: selectedSort
+    });
+  }, [searchTerm, trigger, currentPage, selectedCategory, selectedSort]);
 
-  if (allLoading || filterLoading)
+  if (isLoading)
     return (
       <div className="flex w-full justify-center" data-testid="list-loading">
         <LoadingSpinner>Loading...</LoadingSpinner>
       </div>
     );
 
-  if (allError || filterError)
-    return <RTKError error={allError || filterError!} />;
-
-  const addOnsToRender = searchTerm ? filteredAddOns : allAddOns;
+  if (error) return <RTKError error={error} />;
 
   if (addOnsToRender) {
     if (addOnsToRender.addons.length === 0) {
@@ -96,12 +88,12 @@ const AddonList = () => {
     }
 
     return (
-      <div className="flex w-full flex-col items-center">
+      <div className="my-5 flex w-full flex-col items-center">
         <AddonTabs
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}
         />
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="my-5 flex flex-wrap justify-center gap-4">
           {addOnsToRender.addons.map((addOn: Addon) => (
             <AddonCard addOn={addOn} key={addOn._id} />
           ))}
