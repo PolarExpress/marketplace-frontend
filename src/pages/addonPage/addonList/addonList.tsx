@@ -12,7 +12,6 @@ import {
   type RootState,
   updateCurrentPage,
   updateSelectedCategory,
-  updateSelectedSort,
   useAppDispatch,
   useAppSelector
 } from "@polarexpress/dataAccess/store";
@@ -20,9 +19,6 @@ import { type Addon, AddonCategory } from "@polarexpress/types/addon";
 import AddonCard from "./addonCard";
 import { useLazyGetAddonsQuery } from "./addonApi";
 import { useEffect } from "react";
-import { SortOptions } from "@polarexpress/types/sorting";
-
-import DownArrowIcon from "../../../../assets/down-arrow.svg";
 
 /**
  * Component that renders a grid of add-on cards with pagination.
@@ -56,15 +52,6 @@ const AddonList = () => {
   const handleCategoryChange = (category: AddonCategory) => {
     dispatch(updateSelectedCategory(category));
     dispatch(updateCurrentPage(0));
-  };
-
-  /**
-   * Updates the selected sorting option in the redux state.
-   *
-   * @param event Event containing the selected sorting option.
-   */
-  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(updateSelectedSort(event.target.value as SortOptions));
   };
 
   useEffect(() => {
@@ -101,37 +88,12 @@ const AddonList = () => {
     }
 
     return (
-      <div className="flex w-full flex-col items-center">
+      <div className="my-5 flex w-full flex-col items-center">
         <AddonTabs
           onCategoryChange={handleCategoryChange}
           selectedCategory={selectedCategory}
         />
-        <div className="my-5 flex items-center space-x-2">
-          <label className="font-medium text-gray-700" htmlFor="sort-select">
-            Sort By:
-          </label>
-          <div className="relative inline-block">
-            <select
-              className="appearance-none rounded border border-gray-300 bg-white py-2 pl-3 pr-8 leading-tight text-gray-700 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
-              data-testid="sort-select"
-              id="sort-select"
-              onChange={handleSortChange}
-              value={selectedSort}>
-              {Object.values(SortOptions).map(option => (
-                <option
-                  disabled={option === SortOptions.RELEVANCE && !searchTerm}
-                  key={option}
-                  value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center px-2 text-gray-700">
-              <img className="size-3" src={DownArrowIcon} />
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="my-5 flex flex-wrap justify-center gap-4">
           {addOnsToRender.addons.map((addOn: Addon) => (
             <AddonCard addOn={addOn} key={addOn._id} />
           ))}

@@ -274,7 +274,10 @@ describe("AddonList component sorting", () => {
 
   it("sorts add-ons alphabetically when 'Alphabetical' sorting option is selected", async () => {
     const { findAllByTestId, findByTestId, user } = renderWithProviders(
-      <AddonList />
+      <>
+        <Header />
+        <AddonList />
+      </>
     );
 
     const sortSelect = await findByTestId("sort-select");
@@ -296,7 +299,10 @@ describe("AddonList component sorting", () => {
     addInstalled(testAddon);
 
     const { findAllByTestId, findByTestId, user } = renderWithProviders(
-      <AddonList />
+      <>
+        <Header />
+        <AddonList />
+      </>
     );
 
     const sortSelect = await findByTestId("sort-select");
