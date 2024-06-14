@@ -140,10 +140,9 @@ const AddonPage = () => {
 
   return (
     <div className="m-8 font-sans leading-10" data-testid="addon-page">
-      <div className="mb-2 flex items-center justify-center gap-4 border-b-2 pb-2 text-center">
+      <div className="flex items-center justify-center space-x-20">
         <AddonIcon addon={addon} className="aspect-square w-1/6" />
-        {/* Name, author, summary. */}
-        <div className="w-1/2">
+        <div className="flex flex-col items-center">
           <h1 className="text-4xl font-bold">{addon.name}</h1>
           <p className="text-sm font-light">{addon.authorId}</p>
           <p className="leading-snug">{addon.summary}</p>
@@ -155,7 +154,7 @@ const AddonPage = () => {
               {addon.installCount} installs
             </div>
           </div>
-          <div className="my-4 flex justify-center">
+          <div className="my-4">
             <InstallButton
               authorized={auth.authorized ?? false}
               handleClick={handleInstall}
