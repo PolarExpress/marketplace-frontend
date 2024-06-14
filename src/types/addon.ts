@@ -39,7 +39,7 @@ export interface Addon {
   /**
    * Link to the icon of the addon.
    */
-  icon: string;
+  icon?: string;
   /**
    * Number of times this addon was installed.
    */

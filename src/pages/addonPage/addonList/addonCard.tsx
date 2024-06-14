@@ -10,6 +10,7 @@ import type { Addon } from "@polarexpress/types/addon";
 
 import { Link } from "react-router-dom";
 import InstallIcon from "../../../../assets/install.svg";
+import AddonIcon from "@polarexpress/components/addonIcon";
 
 /**
  * Defines the properties for the AddonCard component.
@@ -26,20 +27,26 @@ interface AddonCardProperties {
  */
 const AddonCard = ({ addOn }: AddonCardProperties) => {
   return (
-    <div className="size-64 flex-none gap-4 text-center font-sans font-bold leading-7">
+    <div className="size-64 flex-none gap-4 font-sans font-bold leading-7">
       <Link
         className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md"
         data-testid="addon-card"
         to={`/addons/${addOn._id}`}>
-        <div className="grow">
-          <h1 className="mt-2 truncate text-2xl font-semibold">{addOn.name}</h1>
+        <div className="flex flex-col">
+          <AddonIcon
+            addon={addOn}
+            className="mb-2 aspect-square w-1/4 self-center"
+          />
+          <h1 className="truncate border-t-2 pt-2 text-2xl font-semibold">
+            {addOn.name}
+          </h1>
 
           {/* TODO: Fetch author name instead of id */}
-          <p className="mt-2 truncate text-xs font-thin text-gray-400">
+          <p className="truncate text-xs font-thin text-gray-400">
             Author: {addOn.authorId}
           </p>
 
-          <p className="mt-2 line-clamp-3 text-lg font-normal text-gray-700">
+          <p className="line-clamp-3 text-ellipsis text-sm font-normal leading-snug text-gray-700">
             {addOn.summary}
           </p>
         </div>
