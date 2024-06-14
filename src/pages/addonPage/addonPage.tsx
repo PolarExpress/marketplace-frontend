@@ -26,6 +26,7 @@ import {
   useGetAddonByIdQuery,
   useGetAddonReadmeByIdQuery
 } from "./addonList/addonApi";
+import AddonIcon from "@polarexpress/components/addonIcon";
 
 /**
  * Renders the individual page of an add-on. It retrieves information about the
@@ -139,29 +140,31 @@ const AddonPage = () => {
 
   return (
     <div className="m-8 font-sans leading-10" data-testid="addon-page">
-      <div className="mb-2 border-b-2 pb-2 text-center">
-        {/* Name, author, summary. */}
-        <h1 className="text-4xl font-bold">{addon.name}</h1>
-        <p className="text-sm font-light">{addon.authorId}</p>
-        <p>{addon.summary}</p>
-        <div className="mt-2 flex items-center justify-center">
-          <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
-          <div
-            className="text-lg font-semibold text-gray-800"
-            data-testid="install-count">
-            {addon.installCount} installs
+      <div className="flex items-center justify-center space-x-20">
+        <AddonIcon addon={addon} className="aspect-square w-1/6" />
+        <div className="flex flex-col items-center">
+          <h1 className="text-4xl font-bold">{addon.name}</h1>
+          <p className="text-sm font-light">{addon.authorId}</p>
+          <p className="leading-snug">{addon.summary}</p>
+          <div className="mt-2 flex items-center justify-center">
+            <img className="mr-2 h-6 text-gray-600" src={InstallIcon}></img>
+            <div
+              className="text-lg font-semibold text-gray-800"
+              data-testid="install-count">
+              {addon.installCount} installs
+            </div>
           </div>
-        </div>
-        <div className="my-4 flex justify-center">
-          <InstallButton
-            authorized={auth.authorized ?? false}
-            handleClick={handleInstall}
-            installPending={install.isPending}
-            installationError={installationError}
-            isAddonInstalled={installed}
-            uninstallPending={unInstall.isPending}
-            userAddonsLoading={userAddonsLoading}
-          />
+          <div className="my-4">
+            <InstallButton
+              authorized={auth.authorized ?? false}
+              handleClick={handleInstall}
+              installPending={install.isPending}
+              installationError={installationError}
+              isAddonInstalled={installed}
+              uninstallPending={unInstall.isPending}
+              userAddonsLoading={userAddonsLoading}
+            />
+          </div>
         </div>
       </div>
 
@@ -183,11 +186,7 @@ const AddonPage = () => {
             ))}
           {readMe !== undefined && (
             <div className="markdown" data-testid="readme">
-              <Markdown
-                className="markdown [&_a]:underline"
-                remarkPlugins={[remarkGfm]}>
-                {readMe}
-              </Markdown>
+              <Markdown remarkPlugins={[remarkGfm]}>{readMe}</Markdown>
             </div>
           )}
         </div>
