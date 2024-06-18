@@ -80,7 +80,7 @@ const Header = () => {
           href={import.meta.env.VITE_GP_URL}
           rel="noopener noreferrer"
           target="_blank">
-          Visit Main Site
+          Visit Explorer
         </a>
       </div>
     </nav>
